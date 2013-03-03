@@ -19,6 +19,9 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
 import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
 
@@ -33,7 +36,8 @@ import pandox.china.boot.util.NameGenerator;
 @ComponentScan(nameGenerator = NameGenerator.class, basePackages = "pandox", excludeFilters = @Filter(Configuration.class))
 @EnableTransactionManagement
 @EnableJpaRepositories("pandox.china.repo")
-public class AppConfig {
+@EnableWebMvc
+public class AppConfig extends WebMvcConfigurerAdapter {
 
 	private static Logger log = Logger.getLogger(AppConfig.class);
 
@@ -78,7 +82,7 @@ public class AppConfig {
 		entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistence.class);
 
 		Properties hibernateProperties = new Properties();
-		hibernateProperties.put("hibernate.hbm2ddl.auto", "create");
+		hibernateProperties.put("hibernate.hbm2ddl.auto", "update");
 		hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		hibernateProperties.put("format_sql", "false");
 		hibernateProperties.put("hibernate.show_sql", "true");
@@ -143,7 +147,7 @@ public class AppConfig {
 	// ======================================================================
 	@Bean
 	public static final VelocityConfigurer velocityConfig() {
-		String path = "/WEB-INF/pages";
+		String path = "/pages";
 		log.info("Configurando Velocity...");
 		log.info("Diretorio dos templates:" + path);
 
@@ -166,6 +170,11 @@ public class AppConfig {
 		viewResolver.setSuffix(".vm");
 		viewResolver.setAttributesMap(velocityProperties);
 		return viewResolver;
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 
 }

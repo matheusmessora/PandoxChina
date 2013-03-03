@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+<link type="text/css" rel="stylesheet" href="/resources/bootstrap.min.css" media="all">
+<link type="text/css" rel="stylesheet" href="/resources/bootstrap-responsive.min.css" media="all">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+  body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+</style>
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="brand" href="#">Pandox Divulga!</a>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+	<div class="row">
+		<div class="span12">
+			<table class="table table-hover">
+				<thead>
+					<th>#</th>
+					<th>Nome</th>
+				</thead>
+			#foreach($user in $users)
+				<tr>
+					<td>$user.id</td>
+					<td>$user.name</td>
+				</tr>
+			#end
+			</table>
+			<form action="" autocomplete="on" method="post">
+				<label for="name">Nome</label> <input type="text" id="name" name="name" value="$!user.name"> <br>
+				<label for="email">E-mail</label> <input type="email" id="email" name="email" value="$!user.email"> <br>
+				<label for="password">Senha</label> <input type="password" id="password" name="password" autocomplete="off"> <br>
+				<label for="ddd">Telefone</label> <input type="text" id="ddd" name="ddd" size="3" maxlength="2" class="span1"> <input type="text" name="phone"><br>
+				<button class="btn btn-primary" type="submit">Cadastrar</button>
+			</form>
+		
+			$!user
+		</div>
+	</div>
+	
+
+	
+</div> <!-- /container -->
+</body>
+</html>

@@ -26,7 +26,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "")
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("user/index");
-		mv.addObject(service.findAll()); 
+		mv.addObject("users", service.findAll()); 
 		return mv;
 	}
 
