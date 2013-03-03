@@ -8,9 +8,12 @@
 	Hello World!
 
 	<form action="" autocomplete="on" method="post">
-		Nome:<input type="text" id="name" name="name" value="$!user.name"><br>
-		E-mail: <input type="email" name="email" value="$!user.email"><br>
-		Password: <input type="password" name="password" autocomplete="off"><br>
+	
+		<label for="name">Nome</label> <input type="text" id="name" name="name" value="$!user.name"> <br>
+		<label for="name">E-mail</label> <input type="email" id="email" name="email" value="$!user.email"> <br>
+		<label for="name">Senha</label> <input type="password" id="password" name="password" autocomplete="off"> <br>
+		<label for="name">Telefone</label> <input type="text" id="ddd" name="ddd" size="3" maxlength="2"> <input type="text" name="phone"><br>
+			
 		<input type="submit">
 	</form>
 

@@ -81,7 +81,7 @@ public class AppConfig {
 		hibernateProperties.put("hibernate.hbm2ddl.auto", "create");
 		hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		hibernateProperties.put("format_sql", "false");
-		hibernateProperties.put("show_sql", "true");
+		hibernateProperties.put("hibernate.show_sql", "true");
 
 		entityManagerFactoryBean.setJpaProperties(hibernateProperties);
 

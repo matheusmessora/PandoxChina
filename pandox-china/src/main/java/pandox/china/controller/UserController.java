@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import pandox.china.model.Phone;
 import pandox.china.model.User;
 import pandox.china.service.UserService;
 
@@ -24,15 +25,13 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "")
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView("");
-		mv.setViewName("user/index");
+		ModelAndView mv = new ModelAndView("user/index");
+		mv.addObject(service.findAll()); 
 		return mv;
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ModelAndView post(User user) {
-		log.info("Received User: " + user);
-		
+	public ModelAndView post(User user, Phone phone) {
 		user = service.save(user);
 
 		ModelAndView mv = new ModelAndView("");
