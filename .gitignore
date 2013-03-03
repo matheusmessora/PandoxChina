@@ -7,12 +7,10 @@
 *.ear
 
 # Eclipse files
-*.project
-*.settings
-*.classpath
+.project
+.settings/
+.classpath
 
 # Temp folders
-pandox-china/target/
-pandox-china/target
-pandox-china/target/*
 
+target/
