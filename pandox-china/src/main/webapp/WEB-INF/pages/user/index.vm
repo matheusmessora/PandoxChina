@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	Hello World!
+
+	<form action="" autocomplete="on" method="post">
+		Nome:<input type="text" id="name" name="name" value="$!user.name"><br>
+		E-mail: <input type="email" name="email" value="$!user.email"><br>
+		Password: <input type="password" name="password" autocomplete="off"><br>
+		<input type="submit">
+	</form>
+
+	$!user
+</body>
+</html>
