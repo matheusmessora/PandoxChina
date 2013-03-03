@@ -1,0 +1,13 @@
+#parse("header.vm")
+
+<div class="row">
+	<div class="span12">
+	
+		#parse("/user/form.vm")
+		
+	</div>
+</div>
+	
+
+	
+#parse("footer.vm")
