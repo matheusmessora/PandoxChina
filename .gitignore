@@ -13,4 +13,6 @@
 
 # Temp folders
 pandox-china/target/
+pandox-china/target
+pandox-china/target/*
 
