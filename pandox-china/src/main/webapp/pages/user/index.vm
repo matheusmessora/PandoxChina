@@ -1,12 +1,15 @@
 #parse("header.vm")
 
 <div class="row">
+	<h1>Usuários</h1>
 	<div class="span12">
-		
 		#if($message.hasMessage())
 			<div class="alert $message.cssClass">
 			  <button type="button" class="close" data-dismiss="alert">&times;</button>
-			  <strong>Oooops!</strong> $message.message
+			  <strong>Oooops!</strong> <br />
+			  #foreach ($msg in $message.messages)
+			  	$msg <br />
+			  #end
 			</div>
 			
 		#end
@@ -14,18 +17,20 @@
 			<thead>
 				<th>#</th>
 				<th>Nome</th>
+				<th>E-mail</th>
 				<th> </th>
 			</thead>
-		#foreach($user in $users)
-			<tr>
-				<td>$user.id</td>
-				<td>$user.name</td>
-				<td><a href="/usuario/$user.id" class="btn btn-small btn-danger ">Editar</a></td>
-			</tr>
-		#end
+			#foreach($user in $users)
+				<tr>
+					<td>$user.id</td>
+					<td>$user.name</td>
+					<td>$user.email</td>
+					<td><a href="/usuario/$user.id" class="btn btn-small btn-danger ">Editar</a></td>
+				</tr>
+			#end
 		</table>
 		
-		#parse("/user/form.vm")
+		#parse("/user/_form.vm")
 	
 	</div>
 </div>

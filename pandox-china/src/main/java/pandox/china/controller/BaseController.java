@@ -58,11 +58,4 @@ public abstract class BaseController {
         return ip;
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    public String handleClientErrors(Exception ex) {
-        return ex.getMessage();
-    }
-
 }

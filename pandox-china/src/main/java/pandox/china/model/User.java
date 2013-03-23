@@ -8,6 +8,9 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table
@@ -16,9 +19,12 @@ public class User extends GenericEntity {
 	private static final long serialVersionUID = 6052205339123414888L;
 
 	@Column(nullable = false)
+	@Size(min=3, max=50, message="Nome muito éééé...")
 	private String name;
 
 	@Column(nullable = false, unique = true)
+	@Size(min=3, max=50, message="E-mail é obrigatório.")
+	@Email(message="E-mail em formato inválido.")
 	private String email;
 
 	@Column(nullable = false)

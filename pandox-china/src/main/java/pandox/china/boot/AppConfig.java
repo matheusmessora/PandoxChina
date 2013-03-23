@@ -84,8 +84,8 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		Properties hibernateProperties = new Properties();
 		hibernateProperties.put("hibernate.hbm2ddl.auto", "update");
 		hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-		hibernateProperties.put("format_sql", "false");
-		hibernateProperties.put("hibernate.show_sql", "true");
+		hibernateProperties.put("hibernate.format_sql", "false");
+		hibernateProperties.put("hibernate.show_sql", "false");
 
 		entityManagerFactoryBean.setJpaProperties(hibernateProperties);
 
@@ -169,6 +169,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setCache(true);
 		viewResolver.setSuffix(".vm");
 		viewResolver.setAttributesMap(velocityProperties);
+		viewResolver.setExposeSpringMacroHelpers(true);
 		return viewResolver;
 	}
 

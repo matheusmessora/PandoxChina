@@ -1,42 +1,62 @@
 package pandox.china.util;
 
-import org.springframework.util.StringUtils;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 public abstract class Message {
-	
-	public String message;
-	
+
+	private static Logger log = Logger.getLogger(Message.class);
+
+	public List<String> messages;
+
 	public boolean hasMessage;
-	
+
 	// CSS class to be rendered in <div> element
 	private String cssClass;
 
-	public Message(String msg, String cssClass) {
+	public Message(List<String> messages, String cssClass) {
 		super();
-		this.message = msg;
+		if (messages == null || messages.isEmpty()) {
+			String msg = "Mensagem vazia.";
+			log.error(msg);
+			throw new IllegalArgumentException(msg);
+		}
+
+		this.messages = messages;
 		this.cssClass = cssClass;
 		this.hasMessage = true;
 	}
 	
-	public void clear(){
+	public Message(String message, String cssClass) {
+		super();
+		if (StringUtils.isBlank(message)) {
+			String msg = "Mensagem vazia.";
+			log.error(msg);
+			throw new IllegalArgumentException(msg);
+		}
+		
+		this.messages = new ArrayList<String>();
+		this.messages.add(message);
+		this.cssClass = cssClass;
+		this.hasMessage = true;
+	}
+
+	public void clear() {
 		this.hasMessage = false;
-		this.message = null;
+		this.messages.clear();
+	}
+
+	public void addMessage(String msg) {
+		messages.add(msg);
+		this.hasMessage = true;
 	}
 
 	@Override
 	public String toString() {
-		return "Message: " + message + "";
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-		if(StringUtils.hasText(message)){
-			hasMessage = true;
-		}
+		return "Message: " + messages + "";
 	}
 
 	public boolean hasMessage() {
@@ -49,5 +69,9 @@ public abstract class Message {
 
 	public String getCssClass() {
 		return cssClass;
+	}
+
+	public List<String> getMessages() {
+		return messages;
 	}
 }
