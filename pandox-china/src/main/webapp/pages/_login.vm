@@ -1,0 +1,5 @@
+<form id="loginForm" action="/usuario/login" autocomplete="on" method="post" class="navbar-form pull-right">
+	<input id="emailLogin" name="email" class="span2" type="text" placeholder="E-mail">
+	<input id="passwordLogin" name="password" class="span2" type="password" placeholder="Senha">
+	<button type="submit" class="btn">Login</button>
+</form>

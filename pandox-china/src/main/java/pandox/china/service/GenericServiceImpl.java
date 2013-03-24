@@ -24,7 +24,7 @@ import pandox.china.util.ValidadorException;
 public abstract class GenericServiceImpl<T, PK extends Serializable, DAO extends CrudRepository> implements GenericService<T, PK> {
 	
 	@Autowired
-	private DAO dao;
+	protected DAO dao;
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)

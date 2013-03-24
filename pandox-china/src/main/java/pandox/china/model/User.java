@@ -1,6 +1,7 @@
 package pandox.china.model;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,9 +9,12 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Table
@@ -19,7 +23,7 @@ public class User extends GenericEntity {
 	private static final long serialVersionUID = 6052205339123414888L;
 
 	@Column(nullable = false)
-	@Size(min=3, max=50, message="Nome muito éééé...")
+	@Size(min=3, max=50, message="Nome obrigatório.")
 	private String name;
 
 	@Column(nullable = false, unique = true)
@@ -28,6 +32,7 @@ public class User extends GenericEntity {
 	private String email;
 
 	@Column(nullable = false)
+	@NotNull(message="Senha obrigatória.")
 	private String password;
 
 	@OneToMany
@@ -35,12 +40,17 @@ public class User extends GenericEntity {
 
 	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private Set<Phone> phones;
+	
+	@Transient
+	private Set<GrantedAuthority> roles = new TreeSet<GrantedAuthority>();
 
 	public User() {
+		roles = new TreeSet<GrantedAuthority>();
 	}
 
 	public User(Long id) {
 		super.setId(id);
+		roles = new TreeSet<GrantedAuthority>();
 	}
 
 	public String getName() {
@@ -86,6 +96,14 @@ public class User extends GenericEntity {
 	@Override
 	public String toString() {
 		return "User [getId()=" + getId() + ", name=" + name + ", email=" + email + "]";
+	}
+
+	public Set<GrantedAuthority> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<GrantedAuthority> roles) {
+		this.roles = roles;
 	}
 
 }

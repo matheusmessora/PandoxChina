@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.ejb.HibernatePersistence;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -33,6 +34,7 @@ import pandox.china.boot.util.NameGenerator;
  */
 @Configuration
 @PropertySource("classpath:config.properties")
+@ImportResource("classpath:spring-security.xml")
 @ComponentScan(nameGenerator = NameGenerator.class, basePackages = "pandox", excludeFilters = @Filter(Configuration.class))
 @EnableTransactionManagement
 @EnableJpaRepositories("pandox.china.repo")

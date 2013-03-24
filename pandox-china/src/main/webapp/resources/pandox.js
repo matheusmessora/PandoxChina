@@ -1,12 +1,12 @@
 $(document).ready(function() {
-//	onlyNumbers("#ddd");
-//	onlyNumbers("#p");
+	onlyNumbers("#ddd");
+	onlyNumbers("#p");
 	$("#btnUser").click(validateUserForm);
-//	
-//	clearStatusField("name");
-//	clearStatusField("email");
-//	clearStatusField("password");
-//	clearStatusField("phone");
+	
+	clearStatusField("name");
+	clearStatusField("email");
+	clearStatusField("password");
+	clearStatusField("phone");
 });
 
 function clearStatusField(field){
@@ -55,7 +55,6 @@ function validateUserForm(){
 		isValid = false;
 	}
 	
-	isValid = true;
 	if(isValid){
 		$("#userForm").submit();
 	}
