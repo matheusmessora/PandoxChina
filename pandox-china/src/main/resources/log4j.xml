@@ -39,14 +39,14 @@
 <!-- 		<level value="INFO" /> -->
 <!-- 		<appender-ref ref="HibernateAppender" /> -->
 <!-- 	</logger> -->
-	<logger name="org.hibernate.hql">
-		<level value="DEBUG" />
-		<appender-ref ref="HibernateAppender" />
-	</logger>
-	<logger name="org.hibernate.sql">
-		<level value="DEBUG" />
-		<appender-ref ref="HibernateAppender" />
-	</logger>
+<!-- 	<logger name="org.hibernate.hql"> -->
+<!-- 		<level value="DEBUG" /> -->
+<!-- 		<appender-ref ref="HibernateAppender" /> -->
+<!-- 	</logger> -->
+<!-- 	<logger name="org.hibernate.sql"> -->
+<!-- 		<level value="DEBUG" /> -->
+<!-- 		<appender-ref ref="HibernateAppender" /> -->
+<!-- 	</logger> -->
 <!-- 	<logger name="org.hibernate.type" additivity="false"> -->
 <!-- 		<level value="TRACE" /> -->
 <!-- 		<appender-ref ref="HibernateAppender" /> -->
@@ -58,7 +58,8 @@
 		<level value="INFO" />
 	</logger>
 	<logger name="org.springframework" additivity="false">
-		<level value="DEBUG" />
+		<level value="INFO" />
+		<appender-ref ref="MyConsoleAppender" />
 	</logger>
 	<logger name="com">
 		<level value="INFO" />

@@ -11,7 +11,6 @@
 	<security:global-method-security secured-annotations="enabled"  />
 	
 	<security:http auto-config="false" use-expressions="true" access-denied-page="/denied"	entry-point-ref="authenticationEntryPoint"  disable-url-rewriting="true">
-		
 		<security:logout logout-url="/logout" logout-success-url="/login" />
 		<security:custom-filter ref="authenticationFilter" position="FORM_LOGIN_FILTER"/>
 	</security:http>

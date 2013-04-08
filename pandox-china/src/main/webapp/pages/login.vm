@@ -1,20 +1,19 @@
 #parse("header.vm")
 
 <div class="row">
-	<h1>Usuários</h1>
+	<h1>Login</h1>
 	<div class="span12">
-		#if($message.hasMessage())
-		<div class="alert $message.cssClass">
+		#if($request.getParameter("error"))
+		<div class="alert alert-error">
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<strong>Oooops!</strong> <br /> #foreach ($msg in $message.messages) $msg <br /> #end
+			<strong>Oooops!</strong> <br /> Usuário e senha inválidos.
 		</div>
-
 		#end
 
 		<form id="loginForm" action="/j_spring_security_check" autocomplete="on" method="post" class="">
 			<input id="j_username" name="j_username" class="span2" type="text" placeholder="E-mail">
 			<input id="j_password" name="j_password" class="span2" type="password" placeholder="Senha">
-			<button type="submit" class="btn">Login</button>
+			<button type="submit" class="btn">Entrar</button>
 		</form>
 	</div>
 </div>

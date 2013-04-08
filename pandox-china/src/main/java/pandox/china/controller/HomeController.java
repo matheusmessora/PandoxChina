@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,24 +26,38 @@ public class HomeController extends BaseController {
 
 	@Autowired
 	private UserService service;
-	
+
 	private User user;
 
-	
 	@RequestMapping(value = "")
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView("user/index");
-		mv.addObject("users", service.findAll());
-		return mv;
-	}
-	
-	@RequestMapping(value = "login")
-	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView("login");
+		// If User is Logged in
+		SecurityContext context = SecurityContextHolder.getContext();
+		if (context != null) {
+			Authentication authentication = context.getAuthentication();
+			if (authentication != null) {
+				Object securityUser = authentication.getPrincipal();
+				if (securityUser != null && securityUser instanceof User) {
+					User user = (User) securityUser;
+					return new ModelAndView("redirect:/usuario/" + user.getId());
+				}
+			}
+		}
+		
+		// Show HomePage
+		ModelAndView mv = new ModelAndView("home");
+
+		
 		return mv;
 	}
 
-	@ExceptionHandler(ValidadorException.class)
+//	@RequestMapping(value = "login")
+//	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
+//		ModelAndView mv = new ModelAndView("login");
+//		return mv;
+//	}
+
+	@ExceptionHandler(Exception.class)
 	public ModelAndView exceptionWebHandler(ValidadorException ex, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("user/index");
 		mv.addObject("message", new ErrorMessage(ex.getErros()));
@@ -48,5 +65,4 @@ public class HomeController extends BaseController {
 		mv.addObject("user", user);
 		return mv;
 	}
-
 }

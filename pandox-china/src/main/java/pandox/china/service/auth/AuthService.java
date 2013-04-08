@@ -38,30 +38,4 @@ public class AuthService {
 		}
 		return null;
 	}
-
-	// public Authentication createUserAndTokenAuthentication(String email) {
-	// User user = new User();
-	// user.setEmail(email);
-	// user.getRoles().add(new SimpleGrantedAuthority(permission));
-	// logger.info("[usuario/" + user + "] autenticacao realizada. Permissoes: "
-	// + user.getRolesToString());
-	// AdministratorVO administratorVO = null;
-	// try {
-	// administratorVO = findUserBD(login);
-	// if (!administratorVO.getAdministrator().getActive()) {
-	// throw new BadCredentialsException("Usuario nao ativo");
-	// }
-	// } catch (ResourceAccessException ex) {
-	// throw new
-	// BadCredentialsException("Usuario nao encontrado na base de dados");
-	// }
-	// user.setAdministrator(administratorVO);
-	// return new UsernamePasswordAuthenticationToken(user, null,
-	// user.getRoles());
-	// }
-
-	// private AdministratorVO findUserBD(String login) {
-	// return administratorFacadeService.find(login);
-	// }
-
 }

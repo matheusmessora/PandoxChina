@@ -16,14 +16,13 @@ import org.springframework.stereotype.Service;
 import pandox.china.model.User;
 import pandox.china.service.UserService;
 
-
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class AuthenticationProvider implements AuthenticationManager {
 
 	private Logger logger = Logger.getLogger(AuthenticationProvider.class);
-	
-	private final String permission = "ADMIN";
+
+	private final String permission = "ROLE_ADMIN";
 
 	private String email;
 	private String password;
@@ -34,19 +33,23 @@ public class AuthenticationProvider implements AuthenticationManager {
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-		if (authentication instanceof UsernamePasswordAuthenticationToken) {
+		try {
+			if (authentication instanceof UsernamePasswordAuthenticationToken) {
 
-			this.email = authentication.getName();
-			this.password = (String) authentication.getCredentials();
+				this.email = authentication.getName();
+				this.password = (String) authentication.getCredentials();
 
-			logger.info("usuario=" + email + ", msg=Tentativa de Login");
+				logger.info("usuario=" + email + ", msg=Tentativa de Login");
 
-			User user = userService.findByEmailAndPassword(email, password);
-			if (user != null) {
-				logger.info("usuario=" + email + ", msg=Usuario autenticado com sucesso.");
-				return this.createUserAndTokenAuthentication(user);
+				User user = userService.findByEmailAndPassword(email, password);
+				if (user != null) {
+					logger.info("usuario=" + email + ", msg=Usuario autenticado com sucesso");
+					return this.createUserAndTokenAuthentication(user);
+				}
+				throw new BadCredentialsException("Usuario invalido");
 			}
-			throw new BadCredentialsException("Usuario invalido.");
+		} catch (IllegalArgumentException e) {
+			throw new BadCredentialsException(e.getLocalizedMessage());
 		}
 		throw new BadCredentialsException("Erro no Authentication Provider");
 	}

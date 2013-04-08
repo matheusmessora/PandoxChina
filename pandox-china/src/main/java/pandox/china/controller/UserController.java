@@ -28,32 +28,18 @@ public class UserController extends BaseController {
 
 	@Autowired
 	private UserService service;
-	
+
 	private User user;
 
-	
-	@Secured({ "ADMIN" })
+	@Secured({ "ROLE_ADMIN" })
 	@RequestMapping(value = "")
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("user/index");
 		mv.addObject("users", service.findAll());
 		return mv;
 	}
-	
-	@Secured({ "ADMIN" })
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView login(User user) {
-		this.user = user;
-		user = service.findByEmailAndPassword(user.getEmail(), user.getPassword());
-		
-		ModelAndView mv = new ModelAndView("user/index");
-		mv.addObject("users", service.findAll());
-		if(user != null)
-			mv.addObject("message", new SuccessMessage("Usuário ENCONTRADO!"));
-		return mv;
-	}
 
-	@Secured({ "ADMIN" })
+	@Secured({"ROLE_ADMIN"})
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public ModelAndView show(@PathVariable("id") Long id) {
 		User user = service.findOne(id);
@@ -66,6 +52,18 @@ public class UserController extends BaseController {
 
 		ModelAndView mv = new ModelAndView("user/show");
 		mv.addObject(user);
+		return mv;
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ModelAndView login(User user) {
+		this.user = user;
+		user = service.findByEmailAndPassword(user.getEmail(), user.getPassword());
+
+		ModelAndView mv = new ModelAndView("user/index");
+		mv.addObject("users", service.findAll());
+		if (user != null)
+			mv.addObject("message", new SuccessMessage("Usuário ENCONTRADO!"));
 		return mv;
 	}
 
@@ -90,7 +88,7 @@ public class UserController extends BaseController {
 	public ModelAndView create(User user, Phone phone) {
 		this.user = user;
 		user = service.save(user);
-		
+
 		ModelAndView mv = new ModelAndView("user/index");
 		mv.addObject("users", service.findAll());
 		mv.addObject("message", new SuccessMessage("Usuário cadastrado com sucesso!"));
