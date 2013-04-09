@@ -3,6 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pandox-china</groupId>
 	<artifactId>pandox-china</artifactId>
+	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>pandox-china</name>
 	<description>Elastic Beanstalk default application</description>
