@@ -1,0 +1,31 @@
+<form id="pageForm" action="/page" autocomplete="on" method="post" class="form-horizontal">
+	<h2>Crie sua página</h2>
+	#foreach($error in $status.errorMessages) <b>$error</b> <br> #end
+
+	<input type="hidden" id="id" name="id" value="$!user.id">
+	
+	<div id="nameDiv" class="control-group">
+		<label for="name" class="control-label">divulga.pandox.com.br/</label> 
+		<div class="controls">
+			<input type="text" id="name" name="name" placeholder="nome da página" value="$!user.name" >
+			<span id="nameHelp" class="help-inline"></span>
+		</div>
+	</div>
+	
+	<div id="descDiv" class="control-group">
+		<label for="desc" class="control-label">Descrição</label> 
+		<div class="controls">
+			<textarea type="text" id="desc" name="desc" value="$!user.name" ></textarea>
+			<span id="descHelp" class="help-inline"></span>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<div class="controls">
+			<button id="btnUser" class="btn btn-large btn-primary" type="button">Cadastrar</button>
+		</div>
+	</div>
+</form>
+</div>
+</div>
+</div>
