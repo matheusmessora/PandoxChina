@@ -1,5 +1,8 @@
-<form id="userForm" action="" autocomplete="on" method="post" class="form-horizontal">
-	<h2>Criar novo usuário</h2>
+<div class="row">
+<div class="span7 center">
+<div class="well">
+<form id="userForm" action="/usuario" autocomplete="on" method="post" class="form-horizontal">
+	<h2>Crie sua conta</h2>
 	#foreach($error in $status.errorMessages) <b>$error</b> <br> #end
 
 	<input type="hidden" id="id" name="id" value="$!user.id">
@@ -36,5 +39,12 @@
 		</div>
 	</div>
 	
-	<button id="btnUser" class="btn btn-primary" type="button">Cadastrar</button>
+	<div class="control-group">
+		<div class="controls">
+			<button id="btnUser" class="btn btn-large btn-primary" type="button">Cadastrar</button>
+		</div>
+	</div>
 </form>
+</div>
+</div>
+</div>

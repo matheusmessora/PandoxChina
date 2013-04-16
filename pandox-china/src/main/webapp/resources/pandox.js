@@ -47,12 +47,14 @@ function validateUserForm(){
 		isValid = false;
 	}
 	
-	var ddd = $("#ddd").val();
-	var phone = $("#phone").val();
-	if(!ddd || !phone){
-		$("#phoneDiv").addClass("error");
-		$("#phoneHelp").html("Telefone inválido.");
-		isValid = false;
+	if(false){
+		var ddd = $("#ddd").val();
+		var phone = $("#phone").val();
+		if(!ddd || !phone){
+			$("#phoneDiv").addClass("error");
+			$("#phoneHelp").html("Telefone inválido.");
+			isValid = false;
+		}
 	}
 	
 	if(isValid){

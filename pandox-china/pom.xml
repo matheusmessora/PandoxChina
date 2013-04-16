@@ -196,38 +196,38 @@
 
 
 	<build>
-		<resources>
-			<resource>
-				<directory>${basedir}/src/main/java</directory>
-				<includes>
-					<include>**/*</include>
-				</includes>
-				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>${basedir}/src/main/resources</directory>
-				<includes>
-					<include>**/*</include>
-				</includes>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>${basedir}/src/test/java</directory>
-				<includes>
-					<include>**/*</include>
-				</includes>
-				<filtering>true</filtering>
-			</testResource>
-			<testResource>
-				<directory>${basedir}/src/test/resources</directory>
-				<includes>
-					<include>**/*</include>
-				</includes>
-				<filtering>true</filtering>
-			</testResource>
-		</testResources>
+<!-- 		<resources> -->
+<!-- 			<resource> -->
+<!-- 				<directory>${basedir}/src/main/java</directory> -->
+<!-- 				<includes> -->
+<!-- 					<include>**/*</include> -->
+<!-- 				</includes> -->
+<!-- 				<filtering>true</filtering> -->
+<!-- 			</resource> -->
+<!-- 			<resource> -->
+<!-- 				<directory>${basedir}/src/main/resources</directory> -->
+<!-- 				<includes> -->
+<!-- 					<include>**/*</include> -->
+<!-- 				</includes> -->
+<!-- 				<filtering>true</filtering> -->
+<!-- 			</resource> -->
+<!-- 		</resources> -->
+<!-- 		<testResources> -->
+<!-- 			<testResource> -->
+<!-- 				<directory>${basedir}/src/test/java</directory> -->
+<!-- 				<includes> -->
+<!-- 					<include>**/*</include> -->
+<!-- 				</includes> -->
+<!-- 				<filtering>true</filtering> -->
+<!-- 			</testResource> -->
+<!-- 			<testResource> -->
+<!-- 				<directory>${basedir}/src/test/resources</directory> -->
+<!-- 				<includes> -->
+<!-- 					<include>**/*</include> -->
+<!-- 				</includes> -->
+<!-- 				<filtering>true</filtering> -->
+<!-- 			</testResource> -->
+<!-- 		</testResources> -->
 
 		<plugins>
 
@@ -249,14 +249,14 @@
 							<responseBufferSize>65536</responseBufferSize>
 							<headerBufferSize>32768</headerBufferSize>
 						</connector>
-						<connector implementation="org.mortbay.jetty.security.SslSocketConnector">
-							<host>pandox.base.intranet</host>
-							<port>15443</port>
-							<maxIdleTime>60000</maxIdleTime>
-							<keystore>${project.build.directory}/jetty-ssl.keystore</keystore>
-							<password>jetty6</password>
-							<keyPassword>jetty6</keyPassword>
-						</connector>
+<!-- 						<connector implementation="org.mortbay.jetty.security.SslSocketConnector"> -->
+<!-- 							<host>pandox.base.intranet</host> -->
+<!-- 							<port>15443</port> -->
+<!-- 							<maxIdleTime>60000</maxIdleTime> -->
+<!-- 							<keystore>${project.build.directory}/jetty-ssl.keystore</keystore> -->
+<!-- 							<password>jetty6</password> -->
+<!-- 							<keyPassword>jetty6</keyPassword> -->
+<!-- 						</connector> -->
 					</connectors>
 					<webAppConfig>
 						<maxFormContentSize>1048576</maxFormContentSize>
@@ -275,73 +275,71 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>keytool-maven-plugin</artifactId>
-				<version>1.2</version>
-				<executions>
-					<execution>
-						<phase>generate-resources</phase>
-						<id>clean</id>
-						<goals>
-							<goal>clean</goal>
-						</goals>
-					</execution>
-					<execution>
-						<phase>generate-resources</phase>
-						<id>genkey</id>
-						<goals>
-							<goal>genkey</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<keystore>${project.build.directory}/jetty-ssl.keystore</keystore>
-					<dname>cn=pandox.base.intranet</dname>
-					<keypass>jetty6</keypass>
-					<storepass>jetty6</storepass>
-					<alias>jetty6</alias>
-					<keyalg>RSA</keyalg>
-				</configuration>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.codehaus.mojo</groupId> -->
+<!-- 				<artifactId>keytool-maven-plugin</artifactId> -->
+<!-- 				<version>1.2</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<phase>generate-resources</phase> -->
+<!-- 						<id>clean</id> -->
+<!-- 						<goals> -->
+<!-- 							<goal>clean</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 					<execution> -->
+<!-- 						<phase>generate-resources</phase> -->
+<!-- 						<id>genkey</id> -->
+<!-- 						<goals> -->
+<!-- 							<goal>genkey</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 				<configuration> -->
+<!-- 					<keystore>${project.build.directory}/jetty-ssl.keystore</keystore> -->
+<!-- 					<dname>cn=pandox.base.intranet</dname> -->
+<!-- 					<keypass>jetty6</keypass> -->
+<!-- 					<storepass>jetty6</storepass> -->
+<!-- 					<alias>jetty6</alias> -->
+<!-- 					<keyalg>RSA</keyalg> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
 		</plugins>
 
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.codehaus.mojo
-										</groupId>
-										<artifactId>
-											keytool-maven-plugin
-										</artifactId>
-										<versionRange>
-											[1.2,)
-										</versionRange>
-										<goals>
-											<goal>genkey</goal>
-											<goal>clean</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+<!-- 		<pluginManagement> -->
+<!-- 			<plugins> -->
+<!-- 				<plugin> -->
+<!-- 					<groupId>org.eclipse.m2e</groupId> -->
+<!-- 					<artifactId>lifecycle-mapping</artifactId> -->
+<!-- 					<version>1.0.0</version> -->
+<!-- 					<configuration> -->
+<!-- 						<lifecycleMappingMetadata> -->
+<!-- 							<pluginExecutions> -->
+<!-- 								<pluginExecution> -->
+<!-- 									<pluginExecutionFilter> -->
+<!-- 										<groupId> -->
+<!-- 											org.codehaus.mojo -->
+<!-- 										</groupId> -->
+<!-- 										<artifactId> -->
+<!-- 											keytool-maven-plugin -->
+<!-- 										</artifactId> -->
+<!-- 										<versionRange> -->
+<!-- 											[1.2,) -->
+<!-- 										</versionRange> -->
+<!-- 										<goals> -->
+<!-- 											<goal>genkey</goal> -->
+<!-- 											<goal>clean</goal> -->
+<!-- 										</goals> -->
+<!-- 									</pluginExecutionFilter> -->
+<!-- 									<action> -->
+<!-- 										<ignore /> -->
+<!-- 									</action> -->
+<!-- 								</pluginExecution> -->
+<!-- 							</pluginExecutions> -->
+<!-- 						</lifecycleMappingMetadata> -->
+<!-- 					</configuration> -->
+<!-- 				</plugin> -->
+<!-- 			</plugins> -->
+<!-- 		</pluginManagement> -->
 	</build>
 </project>

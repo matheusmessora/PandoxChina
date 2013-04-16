@@ -50,12 +50,18 @@ public class HomeController extends BaseController {
 		
 		return mv;
 	}
+	
+	@RequestMapping(value = "cadastrar")
+	public ModelAndView cadastrar(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView("signup");
+		return mv;
+	}
 
-//	@RequestMapping(value = "login")
-//	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
-//		ModelAndView mv = new ModelAndView("login");
-//		return mv;
-//	}
+	@RequestMapping(value = "login")
+	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView("login");
+		return mv;
+	}
 
 	@ExceptionHandler(Exception.class)
 	public ModelAndView exceptionWebHandler(ValidadorException ex, HttpServletRequest request, HttpServletResponse response) {

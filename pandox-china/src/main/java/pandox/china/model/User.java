@@ -23,7 +23,7 @@ public class User extends GenericEntity {
 	private static final long serialVersionUID = 6052205339123414888L;
 
 	@Column(nullable = false)
-	@Size(min=3, max=50, message="Nome obrigatório.")
+	@Size(min=3, max=50, message="Nome obrigatório e maior que 3 letras.")
 	private String name;
 
 	@Column(nullable = false, unique = true)

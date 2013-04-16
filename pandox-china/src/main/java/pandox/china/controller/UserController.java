@@ -6,6 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import pandox.china.model.Phone;
 import pandox.china.model.User;
 import pandox.china.service.UserService;
+import pandox.china.service.auth.AuthenticationProvider;
 import pandox.china.util.ErrorMessage;
 import pandox.china.util.SuccessMessage;
 import pandox.china.util.ValidadorException;
@@ -32,14 +37,14 @@ public class UserController extends BaseController {
 	private User user;
 
 	@Secured({ "ROLE_ADMIN" })
-	@RequestMapping(value = "")
-	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "{id}/admin")
+	public ModelAndView index(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView("user/index");
 		mv.addObject("users", service.findAll());
 		return mv;
 	}
 
-	@Secured({"ROLE_ADMIN"})
+	@Secured({ "ROLE_ADMIN" })
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public ModelAndView show(@PathVariable("id") Long id) {
 		User user = service.findOne(id);
@@ -83,16 +88,22 @@ public class UserController extends BaseController {
 		return mv;
 	}
 
-	@Secured({ "ADMIN" })
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ModelAndView create(User user, Phone phone) {
 		this.user = user;
 		user = service.save(user);
 
-		ModelAndView mv = new ModelAndView("user/index");
-		mv.addObject("users", service.findAll());
+		doAutoLogin(user);
+		ModelAndView mv = new ModelAndView("redirect:/usuario/" + user.getId() + "/admin");
+//		mv.addObject("users", service.findAll());
 		mv.addObject("message", new SuccessMessage("Usuário cadastrado com sucesso!"));
 		return mv;
+	}
+
+	private void doAutoLogin(User user) {
+		AuthenticationProvider authenticationProvider = new AuthenticationProvider();
+		Authentication authenticationToken = authenticationProvider.createUserAndTokenAuthentication(user);
+		SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 	}
 
 	@ExceptionHandler(ValidadorException.class)

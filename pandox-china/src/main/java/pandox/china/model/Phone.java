@@ -24,9 +24,6 @@ public class Phone extends GenericEntity {
 	private Integer phone;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
-	private Set<Page> pages;
-	
-	@ManyToMany(fetch=FetchType.LAZY)
 	private Set<User> users;
 	
 	public Phone() {
@@ -60,14 +57,6 @@ public class Phone extends GenericEntity {
 
 	public void setPhone(Integer phone) {
 		this.phone = phone;
-	}
-
-	public Set<Page> getPages() {
-		return pages;
-	}
-
-	public void setPages(Set<Page> pages) {
-		this.pages = pages;
 	}
 
 	public Set<User> getUsers() {

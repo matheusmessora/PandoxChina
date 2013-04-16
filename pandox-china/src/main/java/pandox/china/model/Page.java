@@ -8,6 +8,9 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table
@@ -15,10 +18,11 @@ public class Page extends GenericEntity {
 
 	private static final long serialVersionUID = 6052205339123414888L;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
+	@Size(min=3, max=50, message="Nome é obrigatório.")
 	private String url;
 	
-	@Column(nullable = false)
+	@Column
 	private String name;
 	
 	@Column
@@ -26,9 +30,6 @@ public class Page extends GenericEntity {
 	
 	@ManyToOne
 	private User user;
-	
-	@ManyToMany(mappedBy = "pages", fetch=FetchType.EAGER)
-	private Set<Phone> phones;
 	
 	public Page() {
 	}
@@ -59,14 +60,6 @@ public class Page extends GenericEntity {
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	public Set<Phone> getPhones() {
-		return phones;
-	}
-
-	public void setPhones(Set<Phone> phones) {
-		this.phones = phones;
 	}
 
 	public User getUser() {
