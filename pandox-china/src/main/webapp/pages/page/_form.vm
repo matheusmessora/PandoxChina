@@ -4,28 +4,25 @@
 
 	<input type="hidden" id="id" name="id" value="$!user.id">
 	
-	<div id="nameDiv" class="control-group">
-		<label for="name" class="control-label">divulga.pandox.com.br/</label> 
+	<div id="urlDiv" class="control-group">
+		<label for="url" class="control-label">divulga.pandox.com.br/</label> 
 		<div class="controls">
-			<input type="text" id="name" name="name" placeholder="nome da página" value="$!user.name" >
-			<span id="nameHelp" class="help-inline"></span>
+			<input type="text" id="url" name="url" placeholder="nome da página" value="$!page.url" >
+			<span id="urlHelp" class="help-inline"></span>
 		</div>
 	</div>
 	
-	<div id="descDiv" class="control-group">
-		<label for="desc" class="control-label">Descrição</label> 
+	<div id="mainColorDiv" class="control-group">
+		<label for="mainColor" class="control-label">Estilo</label> 
 		<div class="controls">
-			<textarea type="text" id="desc" name="desc" value="$!user.name" ></textarea>
-			<span id="descHelp" class="help-inline"></span>
+			<input type="text" id="mainColor" name="mainColor" placeholder="Red" value="$!page.mainColor" >
+			<span id="mainColorHelp" class="help-inline"></span>
 		</div>
 	</div>
 	
 	<div class="control-group">
 		<div class="controls">
-			<button id="btnUser" class="btn btn-large btn-primary" type="button">Cadastrar</button>
+			<button id="btnPage" class="btn btn-large btn-primary" type="button">Cadastrar</button>
 		</div>
 	</div>
 </form>
-</div>
-</div>
-</div>

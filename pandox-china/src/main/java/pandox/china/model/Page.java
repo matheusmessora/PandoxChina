@@ -1,16 +1,11 @@
 package pandox.china.model;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table
@@ -19,18 +14,20 @@ public class Page extends GenericEntity {
 	private static final long serialVersionUID = 6052205339123414888L;
 
 	@Column(nullable = false, unique = true)
-	@Size(min=3, max=50, message="Nome é obrigatório.")
+	@Size(min = 3, max = 50, message = "Nome é obrigatório.")
 	private String url;
-	
-	@Column
-	private String name;
-	
+
 	@Column
 	private String description;
-	
+
+	@Column(nullable = false)
+	@Size(min = 3, max = 10, message = "Cor é obrigatório.")
+	private String mainColor;
+
 	@ManyToOne
+	@JoinColumn(name = "user_id")
 	private User user;
-	
+
 	public Page() {
 	}
 
@@ -44,14 +41,6 @@ public class Page extends GenericEntity {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getUrl() {
@@ -68,6 +57,14 @@ public class Page extends GenericEntity {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getMainColor() {
+		return mainColor;
+	}
+
+	public void setMainColor(String mainColor) {
+		this.mainColor = mainColor;
 	}
 
 }

@@ -30,23 +30,23 @@
 	</logger>
 
 	<logger name="org.springframework.web.client" additivity="false">
-		<level value="DEBUG" />
+		<level value="INFO" />
 		<appender-ref ref="MyConsoleAppender" />
 	</logger>
 	
 	<!-- Hibernate -->
-<!-- 	<logger name="org.hibernate"> -->
-<!-- 		<level value="INFO" /> -->
-<!-- 		<appender-ref ref="HibernateAppender" /> -->
-<!-- 	</logger> -->
+	<logger name="org.hibernate">
+		<level value="TRACE" />
+		<appender-ref ref="HibernateAppender" />
+	</logger>
 <!-- 	<logger name="org.hibernate.hql"> -->
 <!-- 		<level value="DEBUG" /> -->
 <!-- 		<appender-ref ref="HibernateAppender" /> -->
 <!-- 	</logger> -->
-<!-- 	<logger name="org.hibernate.sql"> -->
-<!-- 		<level value="DEBUG" /> -->
-<!-- 		<appender-ref ref="HibernateAppender" /> -->
-<!-- 	</logger> -->
+	<logger name="org.hibernate.sql">
+		<level value="TRACE" />
+		<appender-ref ref="HibernateAppender" />
+	</logger>
 <!-- 	<logger name="org.hibernate.type" additivity="false"> -->
 <!-- 		<level value="TRACE" /> -->
 <!-- 		<appender-ref ref="HibernateAppender" /> -->

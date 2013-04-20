@@ -84,7 +84,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistence.class);
 
 		Properties hibernateProperties = new Properties();
-		hibernateProperties.put("hibernate.hbm2ddl.auto", "update");
+		hibernateProperties.put("hibernate.hbm2ddl.auto", "create");
 		hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		hibernateProperties.put("hibernate.format_sql", "false");
 		hibernateProperties.put("hibernate.show_sql", "false");

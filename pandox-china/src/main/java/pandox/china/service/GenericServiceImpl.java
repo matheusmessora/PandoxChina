@@ -10,21 +10,22 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import pandox.china.util.ValidadorException;
 
-@Service
+//@Service
 @SuppressWarnings({ "unchecked", "rawtypes" })
-@Transactional(readOnly = true)
-public abstract class GenericServiceImpl<T, PK extends Serializable, DAO extends CrudRepository> implements GenericService<T, PK> {
+//@Transactional(readOnly = true)
+public class GenericServiceImpl<T, PK extends Serializable> implements GenericService<T, PK> {
 	
-	@Autowired
-	protected DAO dao;
+	protected CrudRepository<T, Serializable> dao;
+	
+	public GenericServiceImpl(CrudRepository dao){
+		this.dao = dao;
+	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
@@ -46,8 +47,8 @@ public abstract class GenericServiceImpl<T, PK extends Serializable, DAO extends
 	}
 
 	@Override
-	public T findAll() {
-		return (T) dao.findAll();
+	public ArrayList<T> findAll() {
+		return (ArrayList<T>) dao.findAll();
 	}
 
 	@Override

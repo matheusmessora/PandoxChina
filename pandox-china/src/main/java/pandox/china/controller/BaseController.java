@@ -4,12 +4,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import pandox.china.model.User;
 
 public abstract class BaseController {
 
@@ -19,9 +20,23 @@ public abstract class BaseController {
     @Autowired
     private ReloadableResourceBundleMessageSource config;
 
+    protected User getLoggedUser(){
+   	 SecurityContext context = SecurityContextHolder.getContext();
+ 		if (context != null) {
+ 			Authentication authentication = context.getAuthentication();
+ 			if (authentication != null) {
+ 				Object securityUser = authentication.getPrincipal();
+ 				if (securityUser != null && securityUser instanceof User) {
+ 					return (User) securityUser;
+ 				}
+ 			}
+ 		}
+ 		
+ 		return null;
+    }
+    
     protected String getMessage(String keyMessage) {
         return resourceBundleMessageSource.getMessage(keyMessage, null, null);
-
     }
 
     protected String getMessage(String keyMessage, Object... object) {

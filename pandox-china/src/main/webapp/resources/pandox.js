@@ -2,6 +2,7 @@ $(document).ready(function() {
 	onlyNumbers("#ddd");
 	onlyNumbers("#p");
 	$("#btnUser").click(validateUserForm);
+	$("#btnPage").click(validatePageForm);
 	
 	clearStatusField("name");
 	clearStatusField("email");
@@ -26,22 +27,22 @@ function onlyNumbers(id){
 // Validador de Form Usuario
 function validateUserForm(){
 	var isValid = true;
-	var name = $("#name").val();
-	if(!name){
+	var value = $("#name").val();
+	if(!value){
 		$("#nameDiv").addClass("error");
 		$("#nameHelp").html("Nome inválido.");
 		isValid = false;
 	}
 	
-	name = $("#email").val();
-	if(!name){
+	value = $("#email").val();
+	if(!value){
 		$("#emailDiv").addClass("error");
 		$("#emailHelp").html("E-mail inválido.");
 		isValid = false;
 	}
 	
-	name = $("#password").val();
-	if(!name){
+	value = $("#password").val();
+	if(!value){
 		$("#passwordDiv").addClass("error");
 		$("#passwordHelp").html("Password inválido.");
 		isValid = false;
@@ -59,5 +60,27 @@ function validateUserForm(){
 	
 	if(isValid){
 		$("#userForm").submit();
+	}
+}
+
+// Validador de Form Page
+function validatePageForm(){
+	var isValid = true;
+	var value = $("#url").val();
+	if(!value){
+		$("#urlDiv").addClass("error");
+		$("#urlHelp").html("Informe o nome da sua página.");
+		isValid = false;
+	}
+	
+	value = $("#mainColor").val();
+	if(!value){
+		$("#mainColorDiv").addClass("error");
+		$("#mainColorHelp").html("Informe a cor.");
+		isValid = false;
+	}
+	
+	if(isValid){
+		$("#pageForm").submit();
 	}
 }

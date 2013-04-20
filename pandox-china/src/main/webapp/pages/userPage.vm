@@ -1,0 +1,10 @@
+#parse("header.vm")
+
+<div class="row" style="background-image: url('http://azmind.com/wrapbootstrap/genta-coming-soon/assets/img/backgrounds/1.jpg'); ">
+	<div class="span12">
+		Oi
+	</div>
+</div>
+
+
+#parse("footer.vm")

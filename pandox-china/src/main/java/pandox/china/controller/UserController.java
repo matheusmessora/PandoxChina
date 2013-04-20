@@ -6,10 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +38,9 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "{id}/admin")
 	public ModelAndView index(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView("user/index");
-		mv.addObject("users", service.findAll());
+		User user = service.findOne(super.getLoggedUser().getId());
+		mv.addObject("user", user);
+		mv.addObject("pages", user.getPages());
 		return mv;
 	}
 

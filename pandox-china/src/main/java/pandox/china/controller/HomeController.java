@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,7 +20,6 @@ import pandox.china.util.ErrorMessage;
 import pandox.china.util.ValidadorException;
 
 @Controller
-@RequestMapping(value = "/")
 public class HomeController extends BaseController {
 
 	private static Logger log = Logger.getLogger(HomeController.class);
@@ -39,7 +39,7 @@ public class HomeController extends BaseController {
 				Object securityUser = authentication.getPrincipal();
 				if (securityUser != null && securityUser instanceof User) {
 					User user = (User) securityUser;
-					return new ModelAndView("redirect:/usuario/" + user.getId());
+					return new ModelAndView("redirect:/usuario/" + user.getId() + "/admin");
 				}
 			}
 		}
