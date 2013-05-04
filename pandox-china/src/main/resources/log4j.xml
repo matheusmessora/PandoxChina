@@ -25,18 +25,18 @@
 
 	<!-- Project loggers -->
 	<logger name="pandox" additivity="false">
-		<level value="INFO" />
+		<level value="DEBUG" />
 		<appender-ref ref="FileAppender" />
 	</logger>
 
 	<logger name="org.springframework.web.client" additivity="false">
 		<level value="INFO" />
-		<appender-ref ref="MyConsoleAppender" />
+		<appender-ref ref="FileAppender" />
 	</logger>
 	
 	<!-- Hibernate -->
 	<logger name="org.hibernate">
-		<level value="INFO" />
+		<level value="TRACE" />
 		<appender-ref ref="HibernateAppender" />
 	</logger>
 <!-- 	<logger name="org.hibernate.hql"> -->
@@ -55,7 +55,7 @@
 
 	<!-- Dependencies loggers -->
 	<logger name="org.mortbay">
-		<level value="INFO" />
+		<level value="TRACE" />
 	</logger>
 	<logger name="org.springframework" additivity="false">
 		<level value="INFO" />

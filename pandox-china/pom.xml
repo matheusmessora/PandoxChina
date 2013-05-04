@@ -265,25 +265,19 @@
 					</webAppConfig>
 				</configuration>
 			</plugin>
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.zeroturnaround</groupId> -->
-<!-- 				<artifactId>jrebel-maven-plugin</artifactId> -->
-<!-- 				<version>1.1.1</version> -->
-<!-- 				<configuration> -->
-<!-- 					<alwaysGenerate>true</alwaysGenerate> -->
-<!-- 					<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml> -->
-<!-- 					<showGenerated>true</showGenerated> -->
-<!-- 				</configuration> -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 						<id>generate-rebel-xml</id> -->
-<!-- 						<phase>process-resources</phase> -->
-<!-- 						<goals> -->
-<!-- 							<goal>generate</goal> -->
-<!-- 						</goals> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
-<!-- 			</plugin> -->
+            <plugin>
+                <groupId>org.zeroturnaround</groupId>
+                <artifactId>jrebel-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-rebel-xml</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
