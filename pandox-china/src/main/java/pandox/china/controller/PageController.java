@@ -49,7 +49,9 @@ public class PageController extends BaseController {
 			phones.add(phone);
 		}
 		page.setPhones(phones);
-		page = service.save(page);
+		service.save(page);
+
+
 
 		ModelAndView mv = new ModelAndView("user/index");
 		mv.addObject("user", user);
