@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table
@@ -17,24 +19,22 @@ public class Phone extends GenericEntity {
 	@Column(nullable = false, length = 5)
 	private Integer ddi;
 	
-	@Column(nullable = false)
-	private Integer ddd;
+	@Column
+//	@Min(value=2, message="Informe o DDD.")
+//	@Max(value=2, message="Informe o DDD.")
+	private Long ddd;
 	
-	@Column(nullable = false)
-	private Integer phone;
+	@Column
+//	@Min(value=8, message="Informe o telefone.")
+//	@Max(value=9, message="Informe o telefone.")
+	private Long phone;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	private Set<User> users;
 	
-	public Phone() {
-		ddi = 55;
-	}
-
-	public Phone(Long id) {
-		super.setId(id);
-		ddi = 55;
-	}
-
+	@ManyToMany(fetch=FetchType.LAZY)
+	private Set<Page> pages;
+	
 	public Integer getDdi() {
 		return ddi;
 	}
@@ -43,28 +43,36 @@ public class Phone extends GenericEntity {
 		this.ddi = ddi;
 	}
 
-	public Integer getDdd() {
-		return ddd;
-	}
-
-	public void setDdd(Integer ddd) {
-		this.ddd = ddd;
-	}
-
-	public Integer getPhone() {
-		return phone;
-	}
-
-	public void setPhone(Integer phone) {
-		this.phone = phone;
-	}
-
 	public Set<User> getUsers() {
 		return users;
 	}
 
 	public void setUsers(Set<User> users) {
 		this.users = users;
+	}
+
+	public Set<Page> getPages() {
+		return pages;
+	}
+
+	public void setPages(Set<Page> pages) {
+		this.pages = pages;
+	}
+
+	public Long getPhone() {
+		return phone;
+	}
+
+	public void setPhone(Long phone) {
+		this.phone = phone;
+	}
+
+	public Long getDdd() {
+		return ddd;
+	}
+
+	public void setDdd(Long ddd) {
+		this.ddd = ddd;
 	}
 
 }

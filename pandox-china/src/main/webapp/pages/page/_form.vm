@@ -20,6 +20,15 @@
 		</div>
 	</div>
 	
+	<div id="phoneDiv" class="control-group">
+		<label for="ddd" class="control-label">Telefone</label>
+		<div class="controls">
+			<input type="hidden" name="phonesForm[0].ddi" value="55">
+			<input type="text" id="ddd" name="phonesForm[0].ddd" size="3" maxlength="2" class="span1" placeholder="ddd"> <input type="tel" name="phonesForm[0].phone" id="phone">
+			<span id="phoneHelp" class="help-inline"></span>
+		</div>
+	</div>
+	
 	<div class="control-group">
 		<div class="controls">
 			<button id="btnPage" class="btn btn-large btn-primary" type="button">Cadastrar</button>

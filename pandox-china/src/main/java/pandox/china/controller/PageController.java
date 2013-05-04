@@ -1,5 +1,8 @@
 package pandox.china.controller;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import pandox.china.model.Page;
+import pandox.china.model.Phone;
 import pandox.china.model.User;
 import pandox.china.service.PageService;
 import pandox.china.service.UserService;
@@ -39,8 +43,12 @@ public class PageController extends BaseController {
 	public ModelAndView edit(Page page) {
 
 		user = userService.findOne(super.getLoggedUser().getId());
-		user.getPages().add(page);
 		page.setUser(user);
+		Set<Phone> phones = new HashSet<Phone>();
+		for (Phone phone : page.getPhonesForm()) {
+			phones.add(phone);
+		}
+		page.setPhones(phones);
 		page = service.save(page);
 
 		ModelAndView mv = new ModelAndView("user/index");
