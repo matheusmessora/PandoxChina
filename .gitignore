@@ -12,5 +12,8 @@
 .classpath
 
 # Temp folders
-
 target/
+
+# IntelliJ
+.idea/
+*.iml
