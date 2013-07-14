@@ -9,13 +9,16 @@
 	<description>Elastic Beanstalk default application</description>
 
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java-version>1.6</java-version>
-		<!-- <org.springframework-version>3.2.0.RELEASE</org.springframework-version> -->
-		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
-		<org.slf4j-version>1.6.2</org.slf4j-version>
-	</properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java-version>1.6</java-version>
+        <!--<org.springframework-version>3.2.2.RELEASE</org.springframework-version>-->
+        <org.springframework-version>3.1.1.RELEASE</org.springframework-version>
+
+        <org.springframework-security-version>3.1.4.RELEASE</org.springframework-security-version>
+
+        <org.slf4j-version>1.6.2</org.slf4j-version>
+    </properties>
 
 	<dependencies>
 		<!-- ORM -->
@@ -78,17 +81,17 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			<version>${org.springframework-version}</version>
+			<version>${org.springframework-security-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>${org.springframework-version}</version>
+			<version>${org.springframework-security-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>${org.springframework-version}</version>
+			<version>${org.springframework-security-version}</version>
 		</dependency>
 
 		<!-- Velocity -->
@@ -240,7 +243,6 @@
 				<configuration>
 					<contextPath>/</contextPath>
 					<scanIntervalSeconds>0</scanIntervalSeconds>
-					<port>8077</port>
 					<stopPort>8078</stopPort>
 					<stopKey>stopJetty</stopKey>
 					<connectors>

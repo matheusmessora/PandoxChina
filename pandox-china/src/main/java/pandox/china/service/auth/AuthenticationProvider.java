@@ -9,6 +9,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import pandox.china.model.User;
 import pandox.china.service.UserService;
 
 @Component
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class AuthenticationProvider implements AuthenticationManager {
 
 	private Logger logger = Logger.getLogger(AuthenticationProvider.class);
@@ -55,8 +56,9 @@ public class AuthenticationProvider implements AuthenticationManager {
 	}
 
 	public Authentication createUserAndTokenAuthentication(User user) {
-		user.getRoles().add(new SimpleGrantedAuthority(permission));
-		logger.info("usuario=" + user + ", role=" + user.getRoles() + ", msg=Autenticacao realizada.");
-		return new UsernamePasswordAuthenticationToken(user, null, user.getRoles());
-	}
+        GrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(permission);
+        user.addRole(simpleGrantedAuthority);
+        logger.info("Autenticacao realizada. usuario=" + user);
+        return new UsernamePasswordAuthenticationToken(user, null, user.getRoles());
+    }
 }

@@ -6,6 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -35,15 +37,16 @@ public class User extends GenericEntity {
     private Set<Phone> phones;
 
     @Transient
-    private Set<GrantedAuthority> roles = new TreeSet<GrantedAuthority>();
+    private Set<GrantedAuthority> roles;
+
 
     public User() {
-        roles = new TreeSet<GrantedAuthority>();
+        roles = new HashSet<GrantedAuthority>();
     }
 
     public User(Long id) {
         super.setId(id);
-        roles = new TreeSet<GrantedAuthority>();
+        roles = new HashSet<GrantedAuthority>();
     }
 
     public String getName() {
@@ -88,7 +91,15 @@ public class User extends GenericEntity {
 
     @Override
     public String toString() {
-        return "User [getId()=" + getId() + ", name=" + name + ", email=" + email + "]";
+        final StringBuilder sb = new StringBuilder("User{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", pages=").append(pages);
+        sb.append(", phones=").append(phones);
+        sb.append(", roles=").append(roles);
+        sb.append('}');
+        return sb.toString();
     }
 
     public Set<GrantedAuthority> getRoles() {
@@ -97,6 +108,10 @@ public class User extends GenericEntity {
 
     public void setRoles(Set<GrantedAuthority> roles) {
         this.roles = roles;
+    }
+
+    public void addRole(GrantedAuthority grantedAuthority) {
+        this.roles.add(grantedAuthority);
     }
 
 }

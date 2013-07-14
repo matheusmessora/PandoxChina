@@ -24,7 +24,7 @@ import pandox.china.util.SuccessMessage;
 import pandox.china.util.ValidadorException;
 
 @Controller
-@RequestMapping(value = "/usuario")
+@RequestMapping("/usuario")
 public class UserController extends BaseController {
 
 	private static Logger log = Logger.getLogger(UserController.class);
@@ -34,8 +34,8 @@ public class UserController extends BaseController {
 
 	private User user;
 
-	@Secured({ "ROLE_ADMIN" })
-	@RequestMapping(value = "{id}/admin")
+	@Secured("ROLE_ADMIN")
+    @RequestMapping("{id}/admin")
 	public ModelAndView index(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView("user/index");
 		User user = service.findOne(super.getLoggedUser().getId());
@@ -44,7 +44,7 @@ public class UserController extends BaseController {
 		return mv;
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public ModelAndView show(@PathVariable("id") Long id) {
 		User user = service.findOne(id);
@@ -72,7 +72,7 @@ public class UserController extends BaseController {
 		return mv;
 	}
 
-	@Secured({ "ADMIN" })
+	@Secured("ADMIN")
 	@RequestMapping(value = "{id}", method = RequestMethod.POST)
 	public ModelAndView edit(@PathVariable("id") Long id, User user) {
 		ModelAndView mv = new ModelAndView("user/index");

@@ -36,7 +36,7 @@
 	
 	<!-- Hibernate -->
 	<logger name="org.hibernate">
-		<level value="TRACE" />
+		<level value="INFO" />
 		<appender-ref ref="HibernateAppender" />
 	</logger>
 <!-- 	<logger name="org.hibernate.hql"> -->
@@ -58,7 +58,7 @@
 		<level value="TRACE" />
 	</logger>
 	<logger name="org.springframework" additivity="false">
-		<level value="INFO" />
+		<level value="WARN" />
 		<appender-ref ref="MyConsoleAppender" />
 	</logger>
 	<logger name="com">
