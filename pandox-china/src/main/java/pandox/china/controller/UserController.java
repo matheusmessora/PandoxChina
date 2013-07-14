@@ -38,7 +38,7 @@ public class UserController extends BaseController {
     @RequestMapping("{id}/admin")
 	public ModelAndView index(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView("user/index");
-		User user = service.findOne(super.getLoggedUser().getId());
+		User user = service.findOne(id);
 		mv.addObject("user", user);
 		mv.addObject("pages", user.getPages());
 		return mv;
@@ -114,5 +114,4 @@ public class UserController extends BaseController {
 		mv.addObject("user", user);
 		return mv;
 	}
-
 }

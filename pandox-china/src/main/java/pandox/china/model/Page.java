@@ -44,7 +44,20 @@ public class Page extends GenericEntity {
 	@Transient
 	private List<Phone> phonesForm;
 
-	public Page() {
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Page{");
+        sb.append(super.toString());
+        sb.append("user=").append(user);
+        sb.append(", url='").append(url).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append(", mainColor='").append(mainColor).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
+
+    public Page() {
 		phonesForm = new AutoPopulatingList<Phone>(Phone.class);
 	}
 

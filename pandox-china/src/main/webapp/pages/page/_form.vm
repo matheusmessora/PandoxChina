@@ -2,7 +2,7 @@
 	<h2>Crie sua página</h2>
 	#foreach($error in $status.errorMessages) <b>$error</b> <br> #end
 
-	<input type="hidden" id="id" name="id" value="$!user.id">
+	<input type="hidden" id="id" name="id" value="$!page.id">
 	
 	<div id="urlDiv" class="control-group">
 		<label for="url" class="control-label">divulga.pandox.com.br/</label> 

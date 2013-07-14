@@ -80,7 +80,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 
 		entityManagerFactoryBean.setDataSource(dataSource());
-		entityManagerFactoryBean.setPackagesToScan(new String[] { "pandox.china" });
+		entityManagerFactoryBean.setPackagesToScan("pandox.china");
 		entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistence.class);
 
 		Properties hibernateProperties = new Properties();

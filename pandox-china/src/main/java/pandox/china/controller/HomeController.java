@@ -41,8 +41,6 @@ public class HomeController extends BaseController {
         }
         // Show HomePage
         ModelAndView mv = new ModelAndView("home");
-        log.debug("OLA MUNDO JRebel!");
-
         return mv;
     }
 

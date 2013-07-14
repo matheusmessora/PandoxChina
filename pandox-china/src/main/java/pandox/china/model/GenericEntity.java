@@ -40,6 +40,8 @@ public abstract class GenericEntity implements Serializable {
 		this.id = id;
 	}
 
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -78,5 +80,12 @@ public abstract class GenericEntity implements Serializable {
 			return true;
 		}
 	}
-	
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("id=").append(id);
+        sb.append(", ");
+        return sb.toString();
+    }
 }

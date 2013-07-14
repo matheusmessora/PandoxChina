@@ -24,7 +24,7 @@
 	</appender>
 
 	<!-- Project loggers -->
-	<logger name="pandox" additivity="false">
+	<logger name="pandox" additivity="true">
 		<level value="DEBUG" />
 		<appender-ref ref="FileAppender" />
 	</logger>
@@ -34,9 +34,9 @@
 		<appender-ref ref="FileAppender" />
 	</logger>
 	
-	<!-- Hibernate -->
+	<!-- Hiberna91te -->
 	<logger name="org.hibernate">
-		<level value="INFO" />
+		<level value="WARN" />
 		<appender-ref ref="HibernateAppender" />
 	</logger>
 <!-- 	<logger name="org.hibernate.hql"> -->
@@ -70,7 +70,7 @@
 
 	<!-- Default -->
 	<root>
-		<level value="INFO" />
+		<level value="DEBUG" />
 		<appender-ref ref="MyConsoleAppender"/>
 	</root>
 

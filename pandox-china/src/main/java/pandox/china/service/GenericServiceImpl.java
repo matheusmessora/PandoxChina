@@ -10,6 +10,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +21,11 @@ import pandox.china.util.ValidadorException;
 @SuppressWarnings({ "unchecked", "rawtypes" })
 //@Transactional(readOnly = true)
 public class GenericServiceImpl<T, PK extends Serializable> implements GenericService<T, PK> {
-	
-	protected CrudRepository<T, Serializable> dao;
+
+    private static Logger log = Logger.getLogger(GenericServiceImpl.class);
+
+
+    protected CrudRepository<T, Serializable> dao;
 	
 	public GenericServiceImpl(CrudRepository dao){
 		this.dao = dao;
@@ -40,6 +44,7 @@ public class GenericServiceImpl<T, PK extends Serializable> implements GenericSe
 			for (ConstraintViolation<T> violation : constraintViolations) {
 				errors.add(violation.getMessage());
 			}
+            log.warn("ConstraintViolations. entity=" + entity + " ,errors=" + errors);
 			throw new ValidadorException(errors);
 		}
 		

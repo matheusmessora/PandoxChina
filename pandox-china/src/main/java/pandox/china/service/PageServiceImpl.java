@@ -1,12 +1,15 @@
 package pandox.china.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pandox.china.model.Page;
+import pandox.china.model.Phone;
 import pandox.china.repo.PageRepository;
 
 @Service
@@ -22,6 +25,12 @@ public class PageServiceImpl implements PageService {
 
 	@Override
 	public Page save(Page entity) {
+        Set<Phone> phones = new HashSet<Phone>();
+        for (Phone phone : entity.getPhonesForm()) {
+            phones.add(phone);
+        }
+        entity.setPhones(phones);
+
 		return getFather().save(entity);
 	}
 

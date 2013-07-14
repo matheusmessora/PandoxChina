@@ -95,8 +95,6 @@ public class User extends GenericEntity {
         sb.append("name='").append(name).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", password='").append(password).append('\'');
-        sb.append(", pages=").append(pages);
-        sb.append(", phones=").append(phones);
         sb.append(", roles=").append(roles);
         sb.append('}');
         return sb.toString();
