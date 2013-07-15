@@ -19,7 +19,24 @@
 			<span id="mainColorHelp" class="help-inline"></span>
 		</div>
 	</div>
-	
+
+	<div id="emailDiv" class="control-group">
+		<label for="email" class="control-label">E-mail</label>
+		<div class="controls">
+			<input type="text" id="email" name="email" placeholder="email@email.com" value="$!page.email" >
+			<span id="emailHelp" class="help-inline"></span>
+		</div>
+	</div>
+
+	<div id="imgDiv" class="control-group">
+		<label for="img" class="control-label">Imagem de fundo</label>
+		<div class="controls">
+			<input type="text" id="img" name="img" placeholder=".png" value="$!page.img" >
+			<span id="imgHelp" class="help-inline"></span>
+		</div>
+	</div>
+
+
 	<div id="phoneDiv" class="control-group">
 		<label for="ddd" class="control-label">Telefone</label>
 		<div class="controls">
@@ -28,7 +45,7 @@
 			<span id="phoneHelp" class="help-inline"></span>
 		</div>
 	</div>
-	
+
 	<div class="control-group">
 		<div class="controls">
 			<button id="btnPage" class="btn btn-large btn-primary" type="button">Cadastrar</button>

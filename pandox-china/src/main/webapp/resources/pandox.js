@@ -73,6 +73,13 @@ function validatePageForm() {
 		isValid = false;
 	}
 
+	value = $("#email").val();
+	if (!value) {
+		$("#emailDiv").addClass("error");
+		$("#emailHelp").html("Informe e-mail de contato.");
+		isValid = false;
+	}
+
 	value = $("#mainColor").val();
 	if (!value) {
 		$("#mainColorDiv").addClass("error");

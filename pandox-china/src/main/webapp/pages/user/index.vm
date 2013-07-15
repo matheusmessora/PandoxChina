@@ -26,19 +26,18 @@
 			<th>#</th>
 			<th>Nome</th>
 			<th>Cor</th>
+			<th>E-mail</th>
 		</thead>
 		#foreach($page in $pages)
 		<tr>
 			<td>$page.id</td>
 			<td>$page.url</td>
 			<td>$page.mainColor</td>
+			<td>$page.email</td>
 		</tr>
 		#end
 	</table>
     #end
 
 </div>
-
-
-
 #parse("footer.vm")

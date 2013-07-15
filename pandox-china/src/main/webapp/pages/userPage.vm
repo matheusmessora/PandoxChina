@@ -15,7 +15,7 @@
 
 <style type="text/css">
 body {
-	padding: 41px 0px;
+	padding: 41px 0px 0 0;
 	color: #5a5a5a;
 }
 
@@ -53,9 +53,8 @@ body {
 </style>
 </head>
 <body>
-
 	#parse("navbar.vm")
-	<div class="pageBackground"></div>
+	<div class="pageBackground" style='background-image: url($page.img);'></div>
 	<div class="jumbotron">
 		<h1>$page.url</h1>
 		<h3>Facebook | Twitter</h3>
@@ -83,13 +82,14 @@ body {
 		<div class="span3"></div>
 		<div class="span6 well">
 			#foreach($phone in $page.phones) 
-				<h3>Telefone $phone.ddd $phone.phone</h3>
+				<h3>Telefone ($phone.ddd) $phone.phone</h3>
 			#end
-				<h3>Skype matheus.messora@hotmail.com</h3>
+				<h3>E-mail $page.email</h3>
 		</div>
 		
-		<div class="span3"></div>
+		<div class="span3"> </div>
 	</div>
+
 	<script src="/resources/pandox.js"></script>
 </body>
 </html>
