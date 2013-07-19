@@ -14,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import pandox.china.model.SocialUser;
 import pandox.china.model.User;
 import pandox.china.service.UserService;
 
@@ -59,6 +60,13 @@ public class AuthenticationProvider implements AuthenticationManager {
         GrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(permission);
         user.addRole(simpleGrantedAuthority);
         logger.info("Autenticacao realizada. usuario=" + user);
+        return new UsernamePasswordAuthenticationToken(user, null, user.getRoles());
+    }
+
+	public Authentication generateSocialUserTokenAuthentication(SocialUser user) {
+        GrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(permission);
+        user.addRole(simpleGrantedAuthority);
+        logger.info("Autenticacao realizada. SocialUser=" + user);
         return new UsernamePasswordAuthenticationToken(user, null, user.getRoles());
     }
 }

@@ -5,12 +5,10 @@
 	<hr />
 	<div class="span5 center">HOME | REDE SOCIAL | MONEY | SETTINGS</div>
 
-	#if($message.hasMessage())
-	<div class="alert $message.cssClass">
+	<div id="msgBox" class="alert" style="display: none;">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		<strong>Oooops!</strong> <br /> #foreach ($msg in $message.messages) $msg <br /> #end
+		<strong>Oooops!</strong> <span id="msgBox"></span>
 	</div>
-	#end
 
     #if($pages.size() == 0)
         <div class="alert alert-success">

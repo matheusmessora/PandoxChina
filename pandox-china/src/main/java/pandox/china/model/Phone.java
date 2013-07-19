@@ -1,5 +1,7 @@
 package pandox.china.model;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -31,10 +33,16 @@ public class Phone extends GenericEntity {
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	private Set<User> users;
-	
+
+
 	@ManyToMany(fetch=FetchType.LAZY)
 	private Set<Page> pages;
-	
+
+    @JsonBackReference("phone-page")
+    public Set<Page> getPages() {
+        return pages;
+    }
+
 	public Integer getDdi() {
 		return ddi;
 	}
@@ -49,10 +57,6 @@ public class Phone extends GenericEntity {
 
 	public void setUsers(Set<User> users) {
 		this.users = users;
-	}
-
-	public Set<Page> getPages() {
-		return pages;
 	}
 
 	public void setPages(Set<Page> pages) {

@@ -47,8 +47,10 @@ public class GenericServiceImpl<T, PK extends Serializable> implements GenericSe
             log.warn("ConstraintViolations. entity=" + entity + " ,errors=" + errors);
 			throw new ValidadorException(errors);
 		}
-		
-		return (T) dao.save(entity);
+
+        T object = dao.save(entity);
+        log.debug("Entity saved. object=" + object);
+		return object;
 	}
 
 	@Override

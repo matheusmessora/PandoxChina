@@ -30,7 +30,7 @@
 	</logger>
 
 	<logger name="org.springframework.web.client" additivity="false">
-		<level value="INFO" />
+		<level value="WARN" />
 		<appender-ref ref="FileAppender" />
 	</logger>
 	
@@ -55,10 +55,10 @@
 
 	<!-- Dependencies loggers -->
 	<logger name="org.mortbay">
-		<level value="TRACE" />
+		<level value="INFO" />
 	</logger>
 	<logger name="org.springframework" additivity="false">
-		<level value="WARN" />
+		<level value="INFO" />
 		<appender-ref ref="MyConsoleAppender" />
 	</logger>
 	<logger name="com">

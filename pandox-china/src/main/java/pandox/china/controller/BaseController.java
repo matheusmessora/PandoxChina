@@ -11,6 +11,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import org.springframework.web.servlet.mvc.Controller;
+import pandox.china.model.SocialUser;
 import pandox.china.model.User;
 
 public abstract class BaseController {
@@ -21,14 +22,14 @@ public abstract class BaseController {
     @Autowired
     private ReloadableResourceBundleMessageSource config;
 
-    protected User getLoggedUser(){
+    protected SocialUser getLoggedUser(){
    	 SecurityContext context = SecurityContextHolder.getContext();
  		if (context != null) {
  			Authentication authentication = context.getAuthentication();
  			if (authentication != null) {
  				Object securityUser = authentication.getPrincipal();
- 				if (securityUser != null && securityUser instanceof User) {
- 					return (User) securityUser;
+ 				if (securityUser != null && securityUser instanceof SocialUser) {
+ 					return (SocialUser) securityUser;
  				}
  			}
  		}

@@ -6,10 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 @Entity
 @Table
@@ -30,8 +28,8 @@ public class User extends GenericEntity {
     @NotNull(message = "Senha obrigatória.")
     private String password;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private Set<Page> pages;
+//    @OneToMany(mappedBy = "socialUser", fetch = FetchType.EAGER)
+//    private Set<Page> pages;
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private Set<Phone> phones;
@@ -73,13 +71,13 @@ public class User extends GenericEntity {
         this.password = password;
     }
 
-    public Set<Page> getPages() {
-        return pages;
-    }
-
-    public void setPages(Set<Page> pages) {
-        this.pages = pages;
-    }
+//    public Set<Page> getPages() {
+//        return pages;
+//    }
+//
+//    public void setPages(Set<Page> pages) {
+//        this.pages = pages;
+//    }
 
     public Set<Phone> getPhones() {
         return phones;

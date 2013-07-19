@@ -2,12 +2,7 @@ package pandox.china.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 public abstract class GenericEntity implements Serializable {
@@ -21,18 +16,30 @@ public abstract class GenericEntity implements Serializable {
 //	@Column(nullable=false)
 //	@Enumerated(EnumType.ORDINAL) 
 //	private StatusEnum status;
-	
-	private transient boolean checado;
 
-	public boolean isChecado() {
-		return checado;
+    @Transient
+	private boolean checked;
+
+    @Transient
+    private String message;
+
+	public boolean isChecked() {
+		return checked;
 	}
 
-	public void setChecado(boolean checado) {
-		this.checado = checado;
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 
-	public Long getId() {
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Long getId() {
 		return id;
 	}
 
@@ -83,9 +90,12 @@ public abstract class GenericEntity implements Serializable {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder("GenericEntity{");
         sb.append("id=").append(id);
-        sb.append(", ");
+        sb.append(", checked=").append(checked);
+        sb.append(", message='").append(message).append('\'');
+        sb.append('}');
         return sb.toString();
     }
+
 }

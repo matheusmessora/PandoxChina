@@ -18,8 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pandox.china.model.Page;
 import pandox.china.model.Phone;
+import pandox.china.model.SocialUser;
 import pandox.china.model.User;
 import pandox.china.service.PageService;
+import pandox.china.service.SocialUserService;
 import pandox.china.service.UserService;
 import pandox.china.util.ErrorMessage;
 import pandox.china.util.SuccessMessage;
@@ -35,17 +37,17 @@ public class PageController extends BaseController {
 	private PageService service;
 	
 	@Autowired
-	private UserService userService;
+	private SocialUserService socialUserService;
 	
-	private User user;
+	private SocialUser user;
 
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ModelAndView edit(Page page, RedirectAttributes redirectAttributes) {
         log.debug("POST. page=" + page);
 
-		user = userService.findOne(super.getLoggedUser().getId());
-		page.setUser(user);
+		user = socialUserService.findOne(super.getLoggedUser().getId());
+		page.setSocialUser(user);
 
 
         try {

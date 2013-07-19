@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.util.AutoPopulatingList;
 
@@ -36,7 +38,7 @@ public class Page extends GenericEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	private SocialUser socialUser;
 
     @Column
     @Email
@@ -52,18 +54,23 @@ public class Page extends GenericEntity {
 	@Transient
 	private List<Phone> phonesForm;
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Page{");
-        sb.append(super.toString());
-        sb.append("img='").append(img).append('\'');
-        sb.append(", url='").append(url).append('\'');
-        sb.append(", description='").append(description).append('\'');
-        sb.append(", mainColor='").append(mainColor).append('\'');
-        sb.append(", user=").append(user);
-        sb.append(", email='").append(email).append('\'');
-        sb.append('}');
-        return sb.toString();
+    public Page() {
+        phonesForm = new AutoPopulatingList<Phone>(Phone.class);
+    }
+
+    public Page(Long id) {
+        super.setId(id);
+        phonesForm = new AutoPopulatingList<Phone>(Phone.class);
+    }
+
+    @JsonBackReference("socialUser-page")
+    public SocialUser getSocialUser() {
+        return socialUser;
+    }
+
+    @JsonBackReference("phone-page")
+    public Set<Phone> getPhones() {
+        return phones;
     }
 
     public String getImg() {
@@ -73,15 +80,6 @@ public class Page extends GenericEntity {
     public void setImg(String img) {
         this.img = img;
     }
-
-    public Page() {
-		phonesForm = new AutoPopulatingList<Phone>(Phone.class);
-	}
-
-	public Page(Long id) {
-		super.setId(id);
-		phonesForm = new AutoPopulatingList<Phone>(Phone.class);
-	}
 
 	public String getDescription() {
 		return description;
@@ -107,12 +105,8 @@ public class Page extends GenericEntity {
 		this.url = url;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setSocialUser(SocialUser user) {
+		this.socialUser = user;
 	}
 
 	public String getMainColor() {
@@ -121,10 +115,6 @@ public class Page extends GenericEntity {
 
 	public void setMainColor(String mainColor) {
 		this.mainColor = mainColor;
-	}
-
-	public Set<Phone> getPhones() {
-		return phones;
 	}
 
 	public void setPhones(Set<Phone> phones) {
@@ -138,4 +128,18 @@ public class Page extends GenericEntity {
 	public void setPhonesForm(List<Phone> phonesForm) {
 		this.phonesForm = phonesForm;
 	}
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Page{");
+        sb.append(super.toString());
+        sb.append("img='").append(img).append('\'');
+        sb.append(", url='").append(url).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append(", mainColor='").append(mainColor).append('\'');
+        sb.append(", user=").append(socialUser);
+        sb.append(", email='").append(email).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

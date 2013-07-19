@@ -112,13 +112,30 @@
 		</dependency>
 
 		<!-- JSON -->
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-jaxrs</artifactId>
-			<version>1.9.2</version>
-		</dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-jaxrs</artifactId>
+            <version>1.9.12</version>
+        </dependency>
 
-		<!-- CGLIB, only required and used for @Configuration usage -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3-beta2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>fluent-hc</artifactId>
+            <version>4.3-beta2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
+        </dependency>
+
+
+        <!-- CGLIB, only required and used for @Configuration usage -->
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib-nodep</artifactId>
@@ -168,13 +185,6 @@
 		</dependency>
 
 
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.1</version>
-		</dependency>
-
-
 		<!-- FOR TEST PURPOSES -->
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -195,7 +205,8 @@
 			<scope>test</scope>
 		</dependency>
 
-	</dependencies>
+
+    </dependencies>
 
 
 	<build>
@@ -248,7 +259,7 @@
 					<connectors>
 						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
 							<port>15081</port>
-							<host>pandox.base.intranet</host>
+							<host>pandox.com.br</host>
 							<maxIdleTime>60000</maxIdleTime>
 							<responseBufferSize>65536</responseBufferSize>
 							<headerBufferSize>32768</headerBufferSize>
