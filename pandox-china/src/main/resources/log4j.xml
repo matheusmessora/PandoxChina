@@ -62,10 +62,10 @@
 		<appender-ref ref="MyConsoleAppender" />
 	</logger>
 	<logger name="com">
-		<level value="INFO" />
+		<level value="WARN" />
 	</logger>
 	<logger name="org">
-		<level value="INFO" />
+		<level value="WARN" />
 	</logger>
 
 	<!-- Default -->

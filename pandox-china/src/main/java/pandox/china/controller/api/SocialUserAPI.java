@@ -75,6 +75,9 @@ public class SocialUserAPI extends BaseController {
 
             String json = Request.Get(fbUrl.toString()).execute().returnContent().asString();
             String[] split = json.split("&");
+            String accessToken = split[0].split("=")[1];
+            user.setAccessToken(accessToken);
+            user = service.save(user);
             log.debug(split);
 
 
@@ -82,7 +85,7 @@ public class SocialUserAPI extends BaseController {
             fbUrl.append(user.getUid());
             fbUrl.append("/feed?limit=20");
             fbUrl.append("&access_token=");
-            fbUrl.append(split[0].split("=")[1]);
+            fbUrl.append(accessToken);
             log.debug("FacebookCALL. GET=" + fbUrl);
 
             json = Request.Get(fbUrl.toString()).execute().returnContent().asString();
