@@ -237,6 +237,7 @@ var PANDOX = {
                 output += '<div class="postdate">';
                 output += PANDOX.UI.formatDate(val.created_time);
                 output += '</div>';
+                output += '<div class="clearfix"> </div>';
 
                 output += '<div class="message">';
                 if(val.message != null){

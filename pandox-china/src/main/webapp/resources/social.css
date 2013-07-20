@@ -14,14 +14,13 @@
     float: left;
     text-align: left;
     display: block;
-    width: 50%;
     font-weight: bold;
     font-size: 16px;
 }
 
 #social .postdate {
     font-size: 12px;
-    margin-bottom: 10px; float:right; text-align: right; display: block; width: 50%;
+    margin-bottom: 10px; float:right; text-align: right; display: block;
 }
 
 #social .message {
@@ -88,9 +87,38 @@
 
 /*Smartphone portrait*/
 @media ( max-width : 767px) {
+    #social {
+        margin: 1%;
+    }
+
+    #social .span4 {
+        width: 98%;
+    }
+
+
     #social .span4 {
         border-bottom: 1px solid gray;
         margin-bottom: 15px;
+    }
+
+    #social .commentBox {
+        padding: 3px;
+        margin: 12px;
+        width: auto;
+
+    }
+
+    #social .commentBox .photo {
+        margin-right: 5px; width:auto;
+    }
+
+    #social .commentBox .comment {
+        width: auto; float:left; text-align: left;
+    }
+
+    #social .commentBox .date {
+        text-align: left;
+        width: auto;
     }
 
 }
