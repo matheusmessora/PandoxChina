@@ -9,6 +9,7 @@
 <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic"
 	rel="stylesheet" type="text/css">
 <link type="text/css" rel="stylesheet" href="/resources/css.css" media="all">
+<link type="text/css" rel="stylesheet" href="/resources/social.css" media="all">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +22,7 @@ body {
 
 /* Main marketing message and sign up button */
 .jumbotron {
-	margin: 80px 0;
+	margin: 20px 0;
 	text-align: center;
 }
 
@@ -62,11 +63,123 @@ body {
 
 	<div class="row-fluid pageBox bar" id="userPageBox" title="$page.socialUser.id">
 		<div class="span2"></div>
-		<div class="span8" id="userPageBoxFeed">
+##		<div class="span8" id="userPageBoxFeed">
+		<div class="span8" id="teste" >
             <div id="fb-root"></div>
 
-		</div>
+            <div class="row-fluid" id="social">
+##                <!-- POST -->
+##                <div class="span4">
+##                    <div class="owner">
+##                        Matheus Messora
+##                    </div>
+##                    <div class="postdate">
+##                        2013-12-31
+##                    </div>
+##                    <div class="message">
+##                        Hi i have used neosmart but i am getting this errror anyone can help me?<br />
+##                        Error validating access token: Session has expired at unix time 1371988800. The current unix time is 1371995857
+##
+##                        Hi i have used neosmart but i am getting this errror anyone can help me?<br />
+##                        Error validating access token: Session has expired at unix time 1371988800. The current unix time is 1371995857
+##
+##                    </div>
+##                    <div class="commentBox">
+##                        <div class="photo">
+##                            <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/623646_100000194398266_210892354_q.jpg" width="32px" height="32px" />
+##                        </div>
+##                        <div class="comment">
+##                            <span class="user">Icaro Paiva</span> Fiz muito isso no tcc Hahaha kakak Sorry Jamat, but we don't have a live chat option. Yes, there is a Facebook login feature, facebook profile sync and the posts from your site will auto post on your Facebook profile
+##                            <span class="date">2013-12-31</span>
+##                        </div>
+##
+##                        <div class="clearfix"> </div>
+##                    </div>
+##                    <div class="commentBox">
+##                        <div class="photo">
+##                            <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/623646_100000194398266_210892354_q.jpg" width="32px" height="32px" />
+##                        </div>
+##                        <div class="comment">
+##                            <span class="user">Icaro Paiva</span> Fiz muito isso no tcc Hahaha kakak Sorry Jamat, but we don't have a live chat option. Yes, there is a Facebook login feature, facebook profile sync and the posts from your site will auto post on your Facebook profile
+##                            <span class="date">2013-12-31</span>
+##                        </div>
+##
+##                        <div class="clearfix"> </div>
+##                    </div>
+##                </div>
+##                <!-- POST -->
+##
+##
+                <!-- POST MEDIA -->
+##                <div class="span4">
+##                    <div class="owner">
+##                        Matheus Messora
+##                    </div>
+##                        <div class="postdate">
+##                        2013-12-31
+##                    </div>
+##                    <div class="message">
+##                        Favorite Website Award: Vote for our website michaelheinsen.de - Yes, shortlist!<br />
+##                    </div>
+##                    <div class="mediaPost">
+##                        <img src="https://fbexternal-a.akamaihd.net/safe_image.php?d=AQB13x8dA3CJbMRE&w=154&h=154&url=http%3A%2F%2Fwww.thefwa.com%2Flibrary%2Fthumb-S16Q.jpg" />
+##                        <div class="mediaBox">
+##                            <span class="title">TheFWA - MICHAEL HEINSEN PHOTOGRAPHER</span><br />
+##                            <span class="subtitle">www.thefwa.com</span><br />
+##                            <span class="message">Favourite website awards. Web Awards recognising the very best in cutting edge website design.</span>
+##                        </div>
+##                    </div>
+##
+##                        <div class="clearfix"> </div>
+##
+##                </div>
+                <!-- POST MEDIA -->
+##
+##
+##                <!-- POST -->
+##                <div class="span4">
+##                    <div style="float:left; text-align: left; display: block; width: 50%; font-weight: bold; font-size:16px;">
+##
+##                        Matheus Messora
+##                    </div>
+##                    <div style="float:right; text-align: right; display: block; width: 50%;">
+##                        2013-12-31
+##                    </div>
+##                    <div>
+##                        Hi i have used neosmart but i am getting this errror anyone can help me?<br />
+##                        Error validating access token: Session has expired at unix time 1371988800. The current unix time is 1371995857
+##
+##                        Hi i have used neosmart but i am getting this errror anyone can help me?<br />
+##                        Error validating access token: Session has expired at unix time 1371988800. The current unix time is 1371995857
+##
+##                    </div>
+##                    <div style="margin-top: 10px; display: block; width: 98%; background: #0088cc; padding: 1%; font-size: 13px; line-height: 15px;">
+##                        <div style="float:left; width: 10%; display: block; ">
+##                            <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/623646_100000194398266_210892354_q.jpg" width="32px" height="32px" />
+##                        </div>
+##                        <div style="float:right; display: block; width:90%;">
+##                            <span style="font-weight: bold;">Icaro Paiva</span> Fiz muito isso no tcc Hahaha kakak Sorry Jamat, but we don't have a live chat option. Yes, there is a Facebook login feature, facebook profile sync and the posts from your site will auto post on your Facebook profile
+##                            <span style="font-size: 11px;"><br />2013-12-31</span>
+##                        </div>
+##
+##                        <div class="clearfix"> </div>
+##                    </div>
+##                    <div style="margin-top: 10px; display: block; width: 98%; background: #0088cc; padding: 1%; font-size: 13px; line-height: 15px;">
+##                        <div style="float:left; width: 10%; display: block; ">
+##                            <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/623646_100000194398266_210892354_q.jpg" width="32px" height="32px" />
+##                        </div>
+##                        <div style="float:right; display: block; width:90%;">
+##                            <span style="font-weight: bold;">Icaro Paiva</span> Fiz muito isso no tcc Hahaha kakak Sorry Jamat, but we don't have a live chat option. Yes, there is a Facebook login feature, facebook profile sync and the posts from your site will auto post on your Facebook profile
+##                            <span style="font-size: 11px;"><br />2013-12-31</span>
+##                        </div>
+##
+##                        <div class="clearfix"> </div>
+##                    </div>
+##                </div>
+##                <!-- POST -->
+            </div>
 
+		</div>
 		<div class="span2"></div>
 	</div>
 

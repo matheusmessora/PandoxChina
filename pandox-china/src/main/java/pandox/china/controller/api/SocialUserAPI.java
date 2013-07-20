@@ -83,13 +83,12 @@ public class SocialUserAPI extends BaseController {
 
             fbUrl = new StringBuilder("https://graph.facebook.com/");
             fbUrl.append(user.getUid());
-            fbUrl.append("/feed?limit=20");
+            fbUrl.append("/posts?limit=3");
             fbUrl.append("&access_token=");
             fbUrl.append(accessToken);
             log.debug("FacebookCALL. GET=" + fbUrl);
 
             json = Request.Get(fbUrl.toString()).execute().returnContent().asString();
-            log.debug(json);
             return json;
         }
 

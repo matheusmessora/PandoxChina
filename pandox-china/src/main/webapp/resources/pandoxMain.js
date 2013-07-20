@@ -132,7 +132,54 @@ var PANDOX = {
             box.append(text);
             box.addClass(css);
             box.show();
+        },
+
+        /******************************************************************************************************
+         * Parse dateStr as formatted date
+         * @return: if dateStr can't be parsed as Date, return dateStr
+         * @credits: neosmart.de/social-media/facebook-wall/
+         ******************************************************************************************************/
+        formatDate: function formatDate(dateStr){
+            var year, month, day, hour, minute, dateUTC, date, ampm, d, time;
+            var iso = (dateStr.indexOf(' ')==-1&&dateStr.substr(4,1)=='-'&&dateStr.substr(7,1)=='-'&&dateStr.substr(10,1)=='T') ? true : false;
+
+            if(iso){
+                year = dateStr.substr(0,4);
+                month = parseInt((dateStr.substr(5,1)=='0') ? dateStr.substr(6,1) : dateStr.substr(5,2))-1;
+                day = dateStr.substr(8,2);
+                hour = dateStr.substr(11,2);
+                minute = dateStr.substr(14,2);
+                dateUTC = Date.UTC(year, month, day, hour, minute);
+                date = new Date(dateUTC);
+            }else{
+                d = dateStr.split(' ');
+                if(d.length!=6||d[4]!='at')
+                    return dateStr;
+                time = d[5].split(':');
+                ampm = time[1].substr(2);
+                minute = time[1].substr(0,2);
+                hour = parseInt(time[0]);
+                if(ampm=='pm')hour+=12;
+                date = new Date(d[1]+' '+d[2]+' '+d[3] +' '+ hour+':'+minute);
+                date.setTime(date.getTime()-(1000*60*60*7));
+            }
+            day = (date.getDate()<10)?'0'+date.getDate():date.getDate();
+            month = date.getMonth()+1;
+            month = (month<10)?'0'+month:month;
+            hour = date.getHours();
+            minute = (date.getMinutes()<10)?'0'+date.getMinutes():date.getMinutes();
+//            if(o.timeConversion==12){
+//                ampm = (hour<12) ? 'am' : 'pm';
+//                if(hour==0)hour==12;
+//                else if(hour>12)hour=hour-12;
+//                if(hour<10)hour='0'+hour;
+//                return day+'.'+month+'.'+date.getFullYear()+' at '+hour+':'+minute+' '+ampm;
+//            }
+//            return day+'.'+month+'.'+date.getFullYear()+' '+o.translateAt+' '+hour+':'+minute;
+            return day+'/'+month+'/'+date.getFullYear()+' às '+hour+':'+minute;
         }
+
+
     },
 
 
@@ -146,12 +193,7 @@ var PANDOX = {
                 .done(function(response) {
                     if(response != null){
                         console.log("User Feed founded...");
-                        $.each(response.data, function(key, val) {
-                            var $userPageBoxFeed = $("#userPageBoxFeed");
-                            console.log(val);
-                            $userPageBoxFeed.append(val.message);
-                            $userPageBoxFeed.append("<br />");
-                        });
+                        PANDOX.FACEBOOK.renderWall(response.data);
                     }else {
                         console.log("FALHA no FEED..." + id);
                     }
@@ -159,13 +201,127 @@ var PANDOX = {
                 .fail(function() {
                     console.log("Fails...");
                 });
-        }
-    },
+        },
 
-    API: {
+        /**
+         * Render Facebook WALL
+         * @param data
+         */
+        renderWall: function(data){
+            $.each(data, function(key, val) {
+                var wall = $("#social");
 
-        getUser: function(id) {
+                var output = '';
 
+//                <!-- POST -->
+//                <div class="span4">
+//                    <div class="owner">
+//                    Matheus Messora
+//                    </div>
+//                    <div class="postdate">
+//                    2013-12-31
+//                    </div>
+//                    <div class="message">
+//                    Hi i have used neosmart but i am getting this errror anyone can help me?<br />
+//                    Error validating access token: Session has expired at unix time 1371988800. The current unix time is 1371995857
+//
+//                    Hi i have used neosmart but i am getting this errror anyone can help me?<br />
+//                    Error validating access token: Session has expired at unix time 1371988800. The current unix time is 1371995857
+//
+//                    </div>
+//                    <div class="commentBox">
+//                        <div class="photo">
+//                            <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/623646_100000194398266_210892354_q.jpg" width="32px" height="32px" />
+//                        </div>
+//                        <div class="comment">
+//                            <span class="user">Icaro Paiva</span> Fiz muito isso no tcc Hahaha kakak Sorry Jamat, but we don't have a live chat option. Yes, there is a Facebook login feature, facebook profile sync and the posts from your site will auto post on your Facebook profile
+//                            <span class="date">2013-12-31</span>
+//                        </div>
+//
+//                        <div class="clearfix"> </div>
+//                    </div>
+//                    <div class="commentBox">
+//                        <div class="photo">
+//                            <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/623646_100000194398266_210892354_q.jpg" width="32px" height="32px" />
+//                        </div>
+//                        <div class="comment">
+//                            <span class="user">Icaro Paiva</span> Fiz muito isso no tcc Hahaha kakak Sorry Jamat, but we don't have a live chat option. Yes, there is a Facebook login feature, facebook profile sync and the posts from your site will auto post on your Facebook profile
+//                            <span class="date">2013-12-31</span>
+//                        </div>
+//
+//                        <div class="clearfix"> </div>
+//                    </div>
+//                </div>
+//                    <!-- POST -->
+
+                output += '<div class="span4">';
+
+                output += '<div class="owner">';
+                output += val.from.name;
+                output += '</div>';
+                output += '<div class="postdate">';
+                output += PANDOX.UI.formatDate(val.created_time);
+                output += '</div>';
+
+                output += '<div class="message">';
+                output += val.message;
+                output += '</div>';
+
+                if(PANDOX.FACEBOOK.isMediaPost(val)){
+                    output += PANDOX.FACEBOOK.generateMediaPost(val);
+                }
+
+
+
+
+
+                output += '</div>';
+
+                wall.append(output);
+            });
+        },
+
+        /**
+         * Validade if post is MEDIA format
+         * @param data
+         */
+        isMediaPost: function(data){
+            return PANDOX.FACEBOOK.exists(data.description);
+        },
+
+        /**
+         * Generate a Media Post for Wall
+         * @param data
+         */
+        generateMediaPost: function(data){
+//##                    <div class="mediaBox">
+//            ##                        <span class="title">TheFWA - MICHAEL HEINSEN PHOTOGRAPHER</span><br />
+//            ##                        <span class="subtitle">www.thefwa.com</span><br />
+//            ##                        <span class="message">Favourite website awards. Web Awards recognising the very best in cutting edge website design.</span>
+//            ##                    </div>
+//##
+//            ##                        <div class="clearfix"> </div>
+            var output = '';
+
+            output += '<div class="mediaPost">';
+            output += '<img src=' + data.picture + ' />';
+            output += '<div class="mediaBox">';
+            output += '<span class="title">' + data.name + '</span><br />';
+            output += '<span class="subtitle">' + data.caption + '</span><br />';
+            output += '<span class="message">' + data.description + '</span>';
+            output += '</div>';
+            output += '</div>';
+
+            return output;
+        },
+
+        /******************************************************************************************************
+         * Helper Function
+         ******************************************************************************************************/
+
+        exists: function(data){
+            if(!data || data==null || data=='undefined' || typeof(data)=='undefined') return false;
+            else return true;
         }
     }
 }

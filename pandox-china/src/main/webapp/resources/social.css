@@ -1,0 +1,68 @@
+#social {
+}
+
+#social .owner {
+    margin-bottom: 10px;
+    float: left;
+    text-align: left;
+    display: block;
+    width: 50%;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#social .postdate {
+    margin-bottom: 10px; float:right; text-align: right; display: block; width: 50%;
+}
+
+#social .message {
+    margin-bottom: 20px;
+}
+
+#social .mediaPost {}
+
+#social .mediaPost img {
+    display: inline-block; float: left; padding-right: 10px;
+}
+
+#social .mediaBox {
+    line-height: 14px;
+}
+
+#social .mediaBox .title {
+    font-weight: bold; font-size: 14px
+}
+
+#social .mediaBox .subtitle {
+    font-weight: bold; font-size: 14px
+}
+
+#social .mediaBox .message {
+    margin-bottom: 0;
+    font-size: 11px;
+}
+
+
+#social .commentBox {
+    margin-top: 10px; display: block; width: 98%; color:#FFF; background: #0088cc; padding: 1%; font-size: 13px; line-height: 15px;
+}
+
+#social .commentBox .photo {
+    float:left; width: 10%; display: block;
+}
+
+#social .commentBox .comment {
+    float:right; display: block; width:90%;
+}
+
+#social .commentBox .user {
+    font-weight: bold;
+}
+
+#social .commentBox .date {
+    font-size: 11px;
+    text-align: right;
+    width:100%;
+    display:block;
+}
+
