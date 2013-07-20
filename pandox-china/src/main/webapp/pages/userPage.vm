@@ -188,5 +188,6 @@
 
 	<script src="/resources/pandox.js"></script>
     <script src="/resources/pandoxMain.js"></script>
+    <script src="/resources/collapse.js"></script>
 </body>
 </html>
