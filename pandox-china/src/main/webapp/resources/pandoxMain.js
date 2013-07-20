@@ -79,6 +79,7 @@ function loginUser(user){
                 createUser(user);
             }else {
                 console.log("Logado..." + data.id);
+//                window.location = "/usuario/" + data.id + "/admin";
             }
         })
         .fail(function() {
@@ -203,6 +204,21 @@ var PANDOX = {
                 });
         },
 
+        getUserPicture: function(id, divId){
+            var jqxhr = $.getJSON('http://graph.facebook.com/' + id + '?fields=picture', function() {})
+                .done(function(response) {
+                    if(response != null){
+                        console.log("getUserPicture. ", response);
+                        $("#" + divId).attr("src",response.picture.data.url);
+                    }else {
+                        console.log("FALHA no UserPicture..." + id);
+                    }
+                })
+                .fail(function() {
+                    console.log("Fails...");
+                });
+        },
+
         /**
          * Render Facebook WALL
          * @param data
@@ -212,47 +228,6 @@ var PANDOX = {
                 var wall = $("#social");
 
                 var output = '';
-
-//                <!-- POST -->
-//                <div class="span4">
-//                    <div class="owner">
-//                    Matheus Messora
-//                    </div>
-//                    <div class="postdate">
-//                    2013-12-31
-//                    </div>
-//                    <div class="message">
-//                    Hi i have used neosmart but i am getting this errror anyone can help me?<br />
-//                    Error validating access token: Session has expired at unix time 1371988800. The current unix time is 1371995857
-//
-//                    Hi i have used neosmart but i am getting this errror anyone can help me?<br />
-//                    Error validating access token: Session has expired at unix time 1371988800. The current unix time is 1371995857
-//
-//                    </div>
-//                    <div class="commentBox">
-//                        <div class="photo">
-//                            <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/623646_100000194398266_210892354_q.jpg" width="32px" height="32px" />
-//                        </div>
-//                        <div class="comment">
-//                            <span class="user">Icaro Paiva</span> Fiz muito isso no tcc Hahaha kakak Sorry Jamat, but we don't have a live chat option. Yes, there is a Facebook login feature, facebook profile sync and the posts from your site will auto post on your Facebook profile
-//                            <span class="date">2013-12-31</span>
-//                        </div>
-//
-//                        <div class="clearfix"> </div>
-//                    </div>
-//                    <div class="commentBox">
-//                        <div class="photo">
-//                            <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/623646_100000194398266_210892354_q.jpg" width="32px" height="32px" />
-//                        </div>
-//                        <div class="comment">
-//                            <span class="user">Icaro Paiva</span> Fiz muito isso no tcc Hahaha kakak Sorry Jamat, but we don't have a live chat option. Yes, there is a Facebook login feature, facebook profile sync and the posts from your site will auto post on your Facebook profile
-//                            <span class="date">2013-12-31</span>
-//                        </div>
-//
-//                        <div class="clearfix"> </div>
-//                    </div>
-//                </div>
-//                    <!-- POST -->
 
                 output += '<div class="span4">';
 
@@ -264,11 +239,16 @@ var PANDOX = {
                 output += '</div>';
 
                 output += '<div class="message">';
-                output += val.message;
+                if(val.message != null){
+                    output += val.message;
+                }
                 output += '</div>';
 
                 if(PANDOX.FACEBOOK.isMediaPost(val)){
                     output += PANDOX.FACEBOOK.generateMediaPost(val);
+                }
+                if(PANDOX.FACEBOOK.hasComment(val)){
+                    output += PANDOX.FACEBOOK.generateComment(val);
                 }
 
 
@@ -276,7 +256,6 @@ var PANDOX = {
 
 
                 output += '</div>';
-
                 wall.append(output);
             });
         },
@@ -286,7 +265,15 @@ var PANDOX = {
          * @param data
          */
         isMediaPost: function(data){
-            return PANDOX.FACEBOOK.exists(data.description);
+            return (PANDOX.FACEBOOK.exists(data.description) || PANDOX.FACEBOOK.exists(data.link));
+        },
+
+        /**
+         * Validade if post has Comments
+         * @param data
+         */
+        hasComment: function(data){
+            return (PANDOX.FACEBOOK.exists(data.comments));
         },
 
         /**
@@ -294,23 +281,64 @@ var PANDOX = {
          * @param data
          */
         generateMediaPost: function(data){
-//##                    <div class="mediaBox">
-//            ##                        <span class="title">TheFWA - MICHAEL HEINSEN PHOTOGRAPHER</span><br />
-//            ##                        <span class="subtitle">www.thefwa.com</span><br />
-//            ##                        <span class="message">Favourite website awards. Web Awards recognising the very best in cutting edge website design.</span>
-//            ##                    </div>
-//##
-//            ##                        <div class="clearfix"> </div>
             var output = '';
 
             output += '<div class="mediaPost">';
-            output += '<img src=' + data.picture + ' />';
+            if(this.exists(data.picture)){
+                output += '<img src=' + this.print(data.picture) + '  />';
+            }
             output += '<div class="mediaBox">';
-            output += '<span class="title">' + data.name + '</span><br />';
-            output += '<span class="subtitle">' + data.caption + '</span><br />';
-            output += '<span class="message">' + data.description + '</span>';
+            output += '<span class="title">' + this.print(data.name) + '</span><br />';
+            if(PANDOX.FACEBOOK.exists(data.caption)) {
+                output += '<span class="subtitle">' + this.print(data.caption) + '</span><br /><br />';
+            }
+            output += '<span class="message">' + this.print(data.description) + '</span>';
             output += '</div>';
+            output += '<div class="clearfix"> </div>';
             output += '</div>';
+
+            return output;
+        },
+
+        /**
+         * Generate a Comments session
+         * @param data
+         */
+        generateComment: function(data){
+//            ##                    <div class="commentBox">
+//            ##                        <div class="photo">
+//                ##                            <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/623646_100000194398266_210892354_q.jpg" width="32px" height="32px" />
+//                ##                        </div>
+//            ##                        <div class="comment">
+//                ##                            <span class="user">Icaro Paiva</span> Fiz muito isso no tcc Hahaha kakak Sorry Jamat, but we don't have a live chat option. Yes, there is a Facebook login feature, facebook profile sync and the posts from your site will auto post on your Facebook profile
+//                ##                            <span class="date">2013-12-31</span>
+//                ##                        </div>
+//            ##
+//            ##                        <div class="clearfix"> </div>
+//            ##                    </div>
+            var output = '';
+
+            $.each(data.comments.data, function(key, comment) {
+
+                output += '<div class="commentBox">';
+                output += '<div class="photo">';
+                output += '<a class="user" href="http://www.facebook.com/profile.php?id=' + comment.from.id + '" target="_blank">';
+                output += '<img src="" width="32px" height="32px" id="commentator' + key + '" />';
+                PANDOX.FACEBOOK.getUserPicture(comment.from.id, ("commentator" + key));
+                output += '</a>';
+                output += '</div>';
+                output += '<div class="comment">';
+                output += '<span class="user">';
+                output += '<a class="user" href="http://www.facebook.com/profile.php?id=' + comment.from.id + '" target="_blank">';
+                output += '<span class="user">' + PANDOX.FACEBOOK.print(comment.from.name) + '</a></span> ';
+                output += PANDOX.FACEBOOK.print(comment.message);
+                output += '<span class="date">' + PANDOX.UI.formatDate(comment.created_time);+ '</span>'
+
+                output += '</div>';
+                output += '<div class="clearfix"> </div>';
+                output += '</div>';
+            });
+
 
             return output;
         },
@@ -322,6 +350,18 @@ var PANDOX = {
         exists: function(data){
             if(!data || data==null || data=='undefined' || typeof(data)=='undefined') return false;
             else return true;
+        },
+
+        /**
+         * Normalize a text to print.
+         * It just removes any undefined text
+         * @param text
+         */
+        print: function(text){
+            if(this.exists(text)){
+                return text;
+            }
+            return '';
         }
     }
 }

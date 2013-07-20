@@ -1,7 +1,15 @@
 #social {
+    font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+    /*background-color: rgba(45, 45, 45, 0.3);*/
+}
+
+#social .loading {
+    background:url("img/loader-small.gif") no-repeat center center;
+    height: 300px;
 }
 
 #social .owner {
+    color:#c2d2ff;
     margin-bottom: 10px;
     float: left;
     text-align: left;
@@ -12,6 +20,7 @@
 }
 
 #social .postdate {
+    font-size: 12px;
     margin-bottom: 10px; float:right; text-align: right; display: block; width: 50%;
 }
 
@@ -30,16 +39,16 @@
 }
 
 #social .mediaBox .title {
-    font-weight: bold; font-size: 14px
+    font-weight: bold; font-size: 11px; color: #FFFFFF;
 }
 
 #social .mediaBox .subtitle {
-    font-weight: bold; font-size: 14px
+    font-weight: normal; font-size: 11px;
 }
 
 #social .mediaBox .message {
-    margin-bottom: 0;
     font-size: 11px;
+    margin-bottom: 0;
 }
 
 
@@ -51,12 +60,20 @@
     float:left; width: 10%; display: block;
 }
 
+#social .commentBox .photo a {
+    border: 0;
+}
+
 #social .commentBox .comment {
     float:right; display: block; width:90%;
 }
 
 #social .commentBox .user {
     font-weight: bold;
+}
+
+#social .commentBox .user a {
+    color: #FFF;
 }
 
 #social .commentBox .date {
@@ -66,3 +83,17 @@
     display:block;
 }
 
+
+/* ----------------- RESPONSIVE CSS -----------------  */
+
+/*Smartphone portrait*/
+@media ( max-width : 767px) {
+    #social .span4 {
+        border-bottom: 1px solid gray;
+        margin-bottom: 15px;
+    }
+
+}
+
+@media ( max-width : 767px) {
+}
