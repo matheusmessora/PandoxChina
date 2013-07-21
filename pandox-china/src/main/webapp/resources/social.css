@@ -1,6 +1,6 @@
 #social {
     font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
-    /*background-color: rgba(45, 45, 45, 0.3);*/
+    color: #FFF;
 }
 
 #social .loading {
@@ -8,8 +8,14 @@
     height: 300px;
 }
 
+.metro {
+    border-top: 5px solid #005D8C;
+    background-color: rgba(50, 50, 50, 0.7);
+    /*background: #005D8C;*/
+    padding: 5px;
+}
+
 #social .owner {
-    color:#c2d2ff;
     margin-bottom: 10px;
     float: left;
     text-align: left;
@@ -38,7 +44,7 @@
 }
 
 #social .mediaBox .title {
-    font-weight: bold; font-size: 11px; color: #FFFFFF;
+    font-weight: bold; font-size: 11px;
 }
 
 #social .mediaBox .subtitle {
@@ -52,7 +58,7 @@
 
 
 #social .commentBox {
-    margin-top: 10px; display: block; width: 98%; color:#FFF; background: #0088cc; padding: 1%; font-size: 13px; line-height: 15px;
+    margin-top: 10px; display: block; width: 98%; color:#000; background: #EDEFF4; padding: 1%; font-size: 13px; line-height: 15px;
 }
 
 #social .commentBox .photo {
@@ -72,7 +78,7 @@
 }
 
 #social .commentBox .user a {
-    color: #FFF;
+    color: #000;
 }
 
 #social .commentBox .date {
@@ -97,7 +103,6 @@
 
 
     #social .span4 {
-        border-bottom: 1px solid gray;
         margin-bottom: 15px;
     }
 

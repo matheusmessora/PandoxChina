@@ -69,7 +69,7 @@
             this.transition('addClass', $.Event('show'), 'shown')
             $.support.transition && this.$element[dimension](this.$element[0][scroll])
 
-            $(".pageBackground").css("margin-top", "-220px");
+//            $(".pageBackground").css("margin-top", "-220px");
         }
 
         , hide: function () {
@@ -79,7 +79,7 @@
             this.reset(this.$element[dimension]())
             this.transition('removeClass', $.Event('hide'), 'hidden')
             this.$element[dimension](0)
-            $(".pageBackground").css("margin-top", "-71px");
+//            $(".pageBackground").css("margin-top", "-71px");
         }
 
         , reset: function (size) {

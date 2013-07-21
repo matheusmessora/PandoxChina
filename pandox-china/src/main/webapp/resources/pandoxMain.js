@@ -177,7 +177,8 @@ var PANDOX = {
 //                return day+'.'+month+'.'+date.getFullYear()+' at '+hour+':'+minute+' '+ampm;
 //            }
 //            return day+'.'+month+'.'+date.getFullYear()+' '+o.translateAt+' '+hour+':'+minute;
-            return day+'/'+month+'/'+date.getFullYear()+' às '+hour+':'+minute;
+//            return day+'/'+month+'/'+date.getFullYear()+' às '+hour+':'+minute;
+            return day+'/'+month+'/'+date.getFullYear();
         }
 
 
@@ -229,7 +230,7 @@ var PANDOX = {
 
                 var output = '';
 
-                output += '<div class="span4">';
+                output += '<div class="span4 metro">';
 
                 output += '<div class="owner">';
                 output += val.from.name;
