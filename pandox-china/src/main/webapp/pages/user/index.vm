@@ -5,7 +5,8 @@
 <div class="well">
 	<h1>MyAdmin</h1>
 	<hr />
-	<div class="span5 center">HOME | REDE SOCIAL | MONEY | SETTINGS</div>
+
+    #parse("/page/menu.vm")
 
 	<div id="msgBox" class="alert" style="display: none;">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -21,23 +22,48 @@
 	#parse("/page/_form.vm")
 
     #if(!($pages.size() == 0))
-	<table class="table table-hover">
-		<thead>
-			<th>#</th>
-			<th>Nome</th>
-			<th>Cor</th>
-			<th>E-mail</th>
-		</thead>
-		#foreach($page in $pages)
-		<tr>
-			<td>$page.id</td>
-			<td>$page.url</td>
-			<td>$page.mainColor</td>
-			<td>$page.email</td>
-		</tr>
-		#end
-	</table>
+        <div class="row-fluid">
+            <table class="table table-hover">
+                <thead>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Cor</th>
+                    <th>E-mail</th>
+                    <th></th>
+                </thead>
+                #foreach($page in $pages)
+                <tr>
+                    <td>$page.id</td>
+                    <td>$page.url</td>
+                    <td>$page.mainColor</td>
+                    <td>$page.email</td>
+                    <td style="text-align: right">
+                        <a class="btn btn-primary btn-warning" href="#"><i class="icon-edit icon-white"></i></a>
+                        <a class="btn btn-primary btn-danger" href="#excluirModal" role="button" data-toggle="modal"><i class="icon-trash icon-white"></i></a>
+                    </td>
+                </tr>
+                #end
+            </table>
+        </div>
     #end
+
+
+    <div id="excluirModal" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Você tem certeza que deseja deletar?</h3>
+        </div>
+        <div class="modal-body">
+            <p>Esta ação não pode ser <strong>desfeita</strong>. Isso irá fazer com que sua página não seja mais acessível.</p>
+            <p>Tem certeza que deseja continuar?</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal">Fechar</button>
+            <button class="btn btn-primary btn-warning">SIM, deletar</button>
+        </div>
+    </div>
+
+
 
 </div>
 
