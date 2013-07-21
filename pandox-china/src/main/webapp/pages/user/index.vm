@@ -1,5 +1,7 @@
 #parse("header.vm")
 
+<div class="container">
+
 <div class="well">
 	<h1>MyAdmin</h1>
 	<hr />
@@ -36,6 +38,9 @@
 		#end
 	</table>
     #end
+
+</div>
+
 
 </div>
 #parse("footer.vm")
