@@ -22,6 +22,7 @@
     <link type="text/css" rel="stylesheet" href="/resources/css/css.css" media="all">
     <link type="text/css" rel="stylesheet" href="/resources/css/social.css" media="all">
     <link type="text/css" rel="stylesheet" href="/resources/css/home.css" media="all">
+    <link type="text/css" rel="stylesheet" href="/resources/css/form.css" media="all">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 

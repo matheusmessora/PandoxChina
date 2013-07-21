@@ -2,10 +2,6 @@ body {
 	font-family: 'Lato', sans-serif !important;
 }
 
-input[type="text"],input[type="password"],input[type="submit"],input[type="button"],.btn,textarea
-	{
-	font-family: 'Lato', Helvetica;
-}
 
 .well {
 	background-color: #ffffff;

@@ -5,6 +5,8 @@ $(document).ready(function() {
 	$("#btnPage").click(validatePageForm);
 
 	clearStatusField("name");
+	clearStatusField("url");
+	clearStatusField("mainColor");
 	clearStatusField("email");
 	clearStatusField("password");
 	clearStatusField("phone");
@@ -65,6 +67,8 @@ function validateUserForm() {
 
 // Validador de Form Page
 function validatePageForm() {
+    $(".help-inline").hide();
+
 	var isValid = true;
 	var value = $("#url").val();
 	if (!value) {
@@ -95,9 +99,13 @@ function validatePageForm() {
 		isValid = false;
 	}
 
+
+
 	if (isValid) {
 		$("#pageForm").submit();
-	}
+	}else {
+        $(".help-inline").show("fast");
+    }
 }
 
 

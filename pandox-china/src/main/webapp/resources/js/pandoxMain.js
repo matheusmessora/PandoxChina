@@ -118,6 +118,10 @@ function createUser(user){
 
 var PANDOX = {
 
+    FORM: {
+
+    },
+
     /**
      * Manipulate Graphics Components
      */
