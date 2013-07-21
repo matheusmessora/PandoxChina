@@ -143,6 +143,8 @@ var PANDOX = {
             $("#fb-login").hide();
 
             var box = $("#welcome");
+            box.append('<img src="" width="32px" height="32px" id="welcomeProfile" />');
+            PANDOX.FACEBOOK.getUserPicture(socialUser.uid, "welcomeProfile");
             box.append("Bem vindo, " + socialUser.name);
             box.show();
         },

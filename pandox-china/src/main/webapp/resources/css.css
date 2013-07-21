@@ -112,6 +112,10 @@ h2 {
     z-index: -2;
 }
 
+#welcomeProfile {
+    margin-right: 5px;
+}
+
 .bar {
 	/*border-top: #3b5998 4px solid;*/
 	border-top: #51a3bb 4px solid;
