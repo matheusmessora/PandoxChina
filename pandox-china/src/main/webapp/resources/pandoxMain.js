@@ -78,8 +78,8 @@ function loginUser(user){
                 console.log("Creating user...");
                 createUser(user);
             }else {
-                console.log("Logado..." + data.id);
-//                window.location = "/usuario/" + data.id + "/admin";
+                console.log("Logado...", data);
+                PANDOX.UI.renderWelcome(data);
             }
         })
         .fail(function() {
@@ -122,11 +122,11 @@ var PANDOX = {
      * Manipulate Graphics Components
      */
     UI: {
-        /**
+        /******************************************************************************************************
          * Generate a message Box in the page.
          * @param text Text to be show
          * @param css CSS class to provide to the box. Valid class are: alert-success, alert-error, alert-warning
-         */
+         ******************************************************************************************************/
         showMessage: function(text, css){
             var box = $("#msgBox");
 
@@ -134,6 +134,20 @@ var PANDOX = {
             box.addClass(css);
             box.show();
         },
+
+        /******************************************************************************************************
+         * Renders the navBar welcome message
+         * @param socialUser - JSON returned with the User logged in
+         ******************************************************************************************************/
+        renderWelcome: function(socialUser){
+            $("#fb-login").hide();
+
+            var box = $("#welcome");
+            box.append("Bem vindo, " + socialUser.name);
+            box.show();
+        },
+
+
 
         /******************************************************************************************************
          * Parse dateStr as formatted date
@@ -185,9 +199,9 @@ var PANDOX = {
     },
 
 
-    /**
+    /******************************************************************************************************
      * Call FacebookAPI for resources
-     */
+     ******************************************************************************************************/
     FACEBOOK: {
 
         getFeed: function(id){
@@ -220,10 +234,12 @@ var PANDOX = {
                 });
         },
 
-        /**
+
+
+        /******************************************************************************************************
          * Render Facebook WALL
          * @param data
-         */
+         ******************************************************************************************************/
         renderWall: function(data){
             $.each(data, function(key, val) {
                 var wall = $("#social");
