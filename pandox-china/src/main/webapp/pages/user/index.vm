@@ -38,7 +38,7 @@
                     <td>$page.mainColor</td>
                     <td>$page.email</td>
                     <td style="text-align: right">
-                        <a class="btn btn-primary btn-warning" href="#"><i class="icon-edit icon-white"></i></a>
+                        <a class="btn btn-primary btn-warning" href="#" memory="$page.id"><i class="icon-edit icon-white"></i></a>
                         <a class="btn btn-primary btn-danger" href="#excluirModal" role="button" data-toggle="modal"><i class="icon-trash icon-white"></i></a>
                     </td>
                 </tr>
@@ -54,12 +54,12 @@
             <h3 id="myModalLabel">Você tem certeza que deseja deletar?</h3>
         </div>
         <div class="modal-body">
-            <p>Esta ação não pode ser <strong>desfeita</strong>. Isso irá fazer com que sua página não seja mais acessível.</p>
+            <p>Esta ação <strong>não</strong> pode ser desfeita. Isso irá fazer com que sua página não seja mais acessível.</p>
             <p>Tem certeza que deseja continuar?</p>
         </div>
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal">Fechar</button>
-            <button class="btn btn-primary btn-warning">SIM, deletar</button>
+            <button class="btn btn-primary btn-danger">SIM, deletar</button>
         </div>
     </div>
 
