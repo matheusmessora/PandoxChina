@@ -1,7 +1,7 @@
 
-</div> <!-- /container -->
 
-<script src="/resources/pandox.js"></script>
-<script src="/resources/pandoxMain.js"></script>
+<script src="/resources/js/pandox.js"></script>
+<script src="/resources/js/pandoxMain.js"></script>
+<script src="/resources/js/collapse.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
 }
 
 #social .loading {
-    background:url("img/loader-small.gif") no-repeat center center;
+    background:url("../img/loader-small.gif") no-repeat center center;
     height: 300px;
 }
 

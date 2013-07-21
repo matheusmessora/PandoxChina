@@ -1,48 +1,5 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Insert title here</title>
 
-<link type="text/css" rel="stylesheet" href="/resources/bootstrap.min.css">
-    <style type="text/css">
-        body {
-            color: #5a5a5a;
-            padding: 0 0 40px 0;
-            margin: 0;
-
-            background: #f5f5f5 url($page.img);
-        }
-
-            /* Main marketing message and sign up button */
-        .jumbotron {
-            /*top: 71px;*/
-            margin: 71px 0 30px 0;
-            text-align: center;
-        }
-
-        .jumbotron h1 {
-            text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.35);
-            color: #FFFFFF;
-            font-size: 100px;
-            line-height: 1;
-        }
-
-    </style>
-<link type="text/css" rel="stylesheet" href="/resources/bootstrap-responsive.min.css">
-<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic"
-	rel="stylesheet" type="text/css">
-<link type="text/css" rel="stylesheet" href="/resources/css.css" media="all">
-<link type="text/css" rel="stylesheet" href="/resources/social.css" media="all">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-
-
-
-</head>
-<body>
-	#parse("navbar.vm")
+	#parse("header.vm")
 	<div class="pageBackground" style=''>
 	<div class="jumbotron">
 		<h1>$page.url</h1>
@@ -188,8 +145,5 @@
 	</div>
 
     </div>
-	<script src="/resources/pandox.js"></script>
-    <script src="/resources/pandoxMain.js"></script>
-    <script src="/resources/collapse.js"></script>
-</body>
-</html>
+
+    #parse("footer.vm")
