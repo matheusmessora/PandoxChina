@@ -34,7 +34,12 @@ public class PageServiceImpl implements PageService {
 		return getFather().save(entity);
 	}
 
-	@Override
+    @Override
+    public void delete(Long id) throws IllegalArgumentException {
+        getFather().delete(id);
+    }
+
+    @Override
 	public ArrayList<Page> findAll() {
 		return getFather().findAll();
 	}

@@ -36,7 +36,12 @@ public class UserServiceImpl implements UserService {
 		return getFather().save(entity);
 	}
 
-	@Override
+    @Override
+    public void delete(Long id) throws IllegalArgumentException {
+        throw new RuntimeException("Method not implemented");
+    }
+
+    @Override
 	public ArrayList<User> findAll() {
 		return getFather().findAll();
 	}

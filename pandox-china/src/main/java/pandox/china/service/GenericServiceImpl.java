@@ -53,7 +53,16 @@ public class GenericServiceImpl<T, PK extends Serializable> implements GenericSe
 		return object;
 	}
 
-	@Override
+    @Override
+    public void delete(Long id) throws IllegalArgumentException {
+        if(id == null){
+            throw new IllegalArgumentException();
+        }else {
+            dao.delete(id);
+        }
+    }
+
+    @Override
 	public ArrayList<T> findAll() {
 		return (ArrayList<T>) dao.findAll();
 	}

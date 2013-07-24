@@ -10,7 +10,7 @@
 
 	<div id="msgBox" class="alert" style="display: none;">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		<strong>Oooops!</strong> <span id="msgBox"></span>
+		<span id="msgBox"></span>
 	</div>
 
     #if($pages.size() == 0)
@@ -38,8 +38,8 @@
                     <td>$page.mainColor</td>
                     <td>$page.email</td>
                     <td style="text-align: right">
-                        <a class="btn btn-primary btn-warning" href="#" memory="$page.id"><i class="icon-edit icon-white"></i></a>
-                        <a class="btn btn-primary btn-danger" href="#excluirModal" role="button" data-toggle="modal"><i class="icon-trash icon-white"></i></a>
+                        <a class="btn btn-primary btn-warning btn-edit" href="#" data-pageId="$page.id"><i class="icon-edit icon-white"></i></a>
+                        <a class="btn btn-primary btn-danger btn-trash" href="#excluirModal" data-pageId="$page.id" data-pageName="$page.url" role="button" data-toggle="modal"><i class="icon-trash icon-white"></i></a>
                     </td>
                 </tr>
                 #end
@@ -51,15 +51,16 @@
     <div id="excluirModal" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel">Você tem certeza que deseja deletar?</h3>
+            <h3 id="myModalLabel">Tem certeza que deseja apagar?</h3>
         </div>
         <div class="modal-body">
-            <p>Esta ação <strong>não</strong> pode ser desfeita. Isso irá fazer com que sua página não seja mais acessível.</p>
-            <p>Tem certeza que deseja continuar?</p>
+            <p>Esta ação <strong>não</strong> pode ser desfeita. <br />
+                Isso irá fazer com que sua página <strong id="pageNameTrash">abc</strong> não seja mais acessível.</p>
+            <br /><p>Tem certeza que deseja continuar?</p>
         </div>
         <div class="modal-footer">
-            <button class="btn" data-dismiss="modal">Fechar</button>
-            <button class="btn btn-primary btn-danger">SIM, deletar</button>
+            <button id="closeModal" class="btn" data-dismiss="modal">Fechar</button>
+            <button class="btn btn-primary btn-danger btn-exclude">Sim, deletar</button>
         </div>
     </div>
 

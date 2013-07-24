@@ -6,5 +6,5 @@ import pandox.china.model.Page;
 
 public interface PageService extends GenericService<Page, Long> {
 	
-	public Page findByUrl(String url);
+	Page findByUrl(String url);
 }

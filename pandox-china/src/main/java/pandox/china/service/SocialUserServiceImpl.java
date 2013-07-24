@@ -1,5 +1,6 @@
 package pandox.china.service;
 
+import org.apache.http.MethodNotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,11 @@ public class SocialUserServiceImpl implements SocialUserService {
 	public SocialUser save(SocialUser entity) {
 		return getFather().save(entity);
 	}
+
+    @Override
+    public void delete(Long id) throws IllegalArgumentException {
+        throw new RuntimeException("Method not implemented");
+    }
 
     @Override
 	public ArrayList<SocialUser> findAll() {

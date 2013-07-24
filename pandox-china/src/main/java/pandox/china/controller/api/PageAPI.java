@@ -45,6 +45,12 @@ public class PageAPI extends BaseController {
         }
     }
 
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void delete(@PathVariable("id")Long id) {
+        service.delete(id);
+    }
+
 	@ExceptionHandler(ValidadorException.class)
 	public ModelAndView exceptionWebHandler(ValidadorException ex, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("user/index");

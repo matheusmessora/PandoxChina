@@ -264,7 +264,6 @@ PANDOX.FACEBOOK = function () {
             output += '</div>';
         });
 
-
         return output;
     };
 
@@ -299,6 +298,39 @@ PANDOX.FACEBOOK = function () {
 }();
 
 
+/*=====================================================================================================
+ * Pandox SYSTEM Module
+ *======================================================================================================*/
+PANDOX.SYSTEM = function() {
+
+    var init = function(){
+
+    };
+
+
+    var deletePage = function(pageId){
+        $.ajax({
+            url: '/page/' + pageId,
+            type: 'DELETE'})
+            .done(function(result) {
+                PANDOX.UI.closeModal();
+                PANDOX.UI.showMessage("Página removida com sucesso.", "alert-success");
+            })
+            .fail(function(result) {
+                PANDOX.UI.closeModal();
+                PANDOX.UI.showMessage("<strong>Oooops!</strong> Ocorreu uma falha nos nossos servidores. Já estamos trabalhando para resolver isso.", "alert-error");
+            })
+    };
+
+    return {
+        init: init,
+        deletePage: deletePage
+    };
+
+}();
+
+
+
 
 /******************************************************************************************************
  * Pandox UI Module
@@ -316,7 +348,7 @@ PANDOX.UI = function() {
 
         box.append(text);
         box.addClass(css);
-        box.show();
+        box.show("slow");
     };
 
     /******************************************************************************************************
@@ -370,7 +402,7 @@ PANDOX.UI = function() {
         minute = (date.getMinutes()<10)?'0'+date.getMinutes():date.getMinutes();
     //            if(o.timeConversion==12){
     //                ampm = (hour<12) ? 'am' : 'pm';
-    //                if(hour==0)hour==12;
+    //                if(hour==0)hour==x12;
     //                else if(hour>12)hour=hour-12;
     //                if(hour<10)hour='0'+hour;
     //                return day+'.'+month+'.'+date.getFullYear()+' at '+hour+':'+minute+' '+ampm;
@@ -385,8 +417,6 @@ PANDOX.UI = function() {
      * @param id - Page id
      ******************************************************************************************************/
     var renderPageToEdit = function(id){
-        console.log("ULAAAA " + id);
-
         $.getJSON('/page/' + id, function() {})
             .done(function(page) {
                 if(page != null){
@@ -405,19 +435,31 @@ PANDOX.UI = function() {
             });
     };
 
+    var closeModal = function() {
+        $("#closeModal").click();
+    };
+
     var init = function(){
         console.log("UI.init()");
-        $(".btn").click(function (){
-            $(this).addClass("disabled");
-            console.log($(this));
-            renderPageToEdit($(this).attr('memory'));
+
+        // --- PAGE FORM ---
+        $(".btn-edit").click(function (){
+            renderPageToEdit($(this).attr('data-pageid'));
             $(".btn").removeClass("disabled");
+        });
+        $(".btn-trash").click(function (){
+            $("#pageNameTrash").html($(this).attr('data-pagename'));
+            $("#excluirModal").attr('data-pageId', $(this).attr('data-pageid'))
+        });
+        $(".btn-exclude").click(function (){
+            PANDOX.SYSTEM.deletePage($("#excluirModal").attr('data-pageid'));
         });
     };
 
 
     return {
         init: init,
+        closeModal: closeModal,
         showMessage: showMessage,
         renderWelcome: renderWelcome,
         renderPageToEdit: renderPageToEdit,
@@ -428,6 +470,7 @@ PANDOX.UI = function() {
 
 
 PANDOX.UI.init();
+PANDOX.SYSTEM.init();
 
 
 $("#userPageBox").ready(function() {
