@@ -70,34 +70,34 @@ function validatePageForm() {
     $(".help-inline").hide();
 
 	var isValid = true;
-	var value = $("#url").val();
-	if (!value) {
-		$("#urlDiv").addClass("error");
-		$("#urlHelp").html("Informe o nome da sua página.");
-		isValid = false;
-	}
-
-	value = $("#email").val();
-	if (!value) {
-		$("#emailDiv").addClass("error");
-		$("#emailHelp").html("Informe e-mail de contato.");
-		isValid = false;
-	}
-
-	value = $("#mainColor").val();
-	if (!value) {
-		$("#mainColorDiv").addClass("error");
-		$("#mainColorHelp").html("Informe a cor.");
-		isValid = false;
-	}
-
-	var ddd = $("#ddd").val();
-	var phone = $("#phone").val();
-	if (!ddd || !phone) {
-		$("#phoneDiv").addClass("error");
-		$("#phoneHelp").html("Telefone inválido.");
-		isValid = false;
-	}
+//	var value = $("#url").val();
+//	if (!value) {
+//		$("#urlDiv").addClass("error");
+//		$("#urlHelp").html("Informe o nome da sua página.");
+//		isValid = false;
+//	}
+//
+//	value = $("#email").val();
+//	if (!value) {
+//		$("#emailDiv").addClass("error");
+//		$("#emailHelp").html("Informe e-mail de contato.");
+//		isValid = false;
+//	}
+//
+//	value = $("#mainColor").val();
+//	if (!value) {
+//		$("#mainColorDiv").addClass("error");
+//		$("#mainColorHelp").html("Informe a cor.");
+//		isValid = false;
+//	}
+//
+//	var ddd = $("#ddd").val();
+//	var phone = $("#phone").val();
+//	if (!ddd || !phone) {
+//		$("#phoneDiv").addClass("error");
+//		$("#phoneHelp").html("Telefone inválido.");
+//		isValid = false;
+//	}
 
 
 

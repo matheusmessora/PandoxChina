@@ -20,6 +20,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -58,9 +60,13 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public DriverManagerDataSource dataSource() {
 		log.info("Configurando [dataSource]...");
 		DriverManagerDataSource ds = new DriverManagerDataSource();
-		// jdbc:mysql://kmweb.ckx7dqi7gxfq.us-east-1.rds.amazonaws.com/kmweb />
+        ds.setDriverClassName("com.mysql.jdbc.Driver");
+
+//        ds.setUrl("jdbc:mysql://mydbinstance.cpaisbs3w0fy.sa-east-1.rds.amazonaws.com:3306/china");
+//        ds.setUsername("pandox");
+//        ds.setPassword("pandox123");
+
 		ds.setUrl("jdbc:mysql://localhost/egito");
-		ds.setDriverClassName("com.mysql.jdbc.Driver");
 		ds.setUsername("root");
 		ds.setPassword("");
 		log.info("Datasource configurado: " + ds.toString());
@@ -164,8 +170,15 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		return config;
 	}
 
+    @Bean
+    public static MultipartResolver multipartResolver() {
+        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+        commonsMultipartResolver.setMaxUploadSize(250000);
+        return commonsMultipartResolver;
+    }
+
 	@Bean
-	public static final VelocityViewResolver viewResolver() {
+	public static VelocityViewResolver viewResolver() {
 		VelocityViewResolver viewResolver = new VelocityViewResolver();
 		viewResolver.setToolboxConfigLocation("/WEB-INF/toolbox.xml");
 		HashMap<String, Object> velocityProperties = new HashMap<String, Object>();

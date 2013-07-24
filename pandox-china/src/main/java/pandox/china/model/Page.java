@@ -15,9 +15,12 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.util.AutoPopulatingList;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Entity
 @Table
@@ -54,6 +57,9 @@ public class Page extends GenericEntity {
 	@Transient
 	private List<Phone> phonesForm;
 
+    @Transient
+    private CommonsMultipartFile file;
+
     public Page() {
         phonesForm = new AutoPopulatingList<Phone>(Phone.class);
     }
@@ -81,7 +87,16 @@ public class Page extends GenericEntity {
         this.img = img;
     }
 
-	public String getDescription() {
+    @JsonIgnore
+    public CommonsMultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(CommonsMultipartFile file) {
+        this.file = file;
+    }
+
+    public String getDescription() {
 		return description;
 	}
 

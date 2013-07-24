@@ -1,8 +1,12 @@
 package pandox.china.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,9 +14,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -41,7 +44,7 @@ public class PageController extends BaseController {
 	
 	private SocialUser user;
 
-	@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ModelAndView edit(Page page, RedirectAttributes redirectAttributes) {
         log.debug("POST. page=" + page);
@@ -51,7 +54,20 @@ public class PageController extends BaseController {
 
 
         try {
+            String img = user.getId() + "." + page.getFile().getContentType().split("/")[1];
+            page.setImg(img);
             service.save(page);
+
+            // TODO: Create a service for this
+            try {
+                if (!page.getFile().isEmpty()) {
+                    BufferedImage src = ImageIO.read(new ByteArrayInputStream(page.getFile().getBytes()));
+                    File destination = new File("/opt/resources/img/user-bg/" + img);
+                    page.getFile().transferTo(destination);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (ValidadorException ex) {
             return generateFriendlyBadRequest(ex, user.getId(), redirectAttributes);
         }

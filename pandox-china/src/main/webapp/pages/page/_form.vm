@@ -1,8 +1,8 @@
-<form id="pageForm" action="/page" autocomplete="on" method="post">
+<form id="pageForm" action="/page" autocomplete="on" method="post" enctype="multipart/form-data">
 	<h2>Crie sua página</h2>
 	#foreach($error in $status.errorMessages) <b>$error</b> <br> #end
 
-	<input type="hidden" id="id" name="id" value="$!page.id">
+	<input type="hidden" id="id" name="page.id" value="$!page.id">
 
 
     <div class="row-fluid" id="urlDiv">
@@ -44,7 +44,7 @@
             <label for="img" class="control-label">Imagem de fundo</label>
         </div>
         <div class="span9">
-            <input type="text" id="img" name="img" placeholder=".png" value="$!page.img" >
+            <input type="file" id="file" name="file" value="$page.file"  />
             <span id="imgHelp" class="help-inline"></span>
         </div>
     </div>
