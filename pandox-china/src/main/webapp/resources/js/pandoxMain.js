@@ -372,6 +372,10 @@ PANDOX.UI = function() {
         PANDOX.FACEBOOK.getUserPicture(socialUser.uid, "welcomeProfile");
         box.append("Bem vindo, " + socialUser.name);
         box.show();
+
+        var navBarControlPanel = $("#navBarControlPanel");
+        navBarControlPanel.attr('href', '/usuario/' + socialUser.id + '/admin');
+        navBarControlPanel.show();
     };
 
 
