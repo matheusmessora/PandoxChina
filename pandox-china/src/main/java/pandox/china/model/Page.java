@@ -35,8 +35,7 @@ public class Page extends GenericEntity {
 	@Column
 	private String description;
 
-	@Column(nullable = false)
-	@Size(min = 3, max = 10, message = "Cor é obrigatório.")
+	@Column
 	private String mainColor;
 
 	@ManyToOne

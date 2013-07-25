@@ -171,7 +171,9 @@ PANDOX.FACEBOOK = function () {
             output += '<div class="span4 metro">';
 
             output += '<div class="owner">';
+            output += '<a href="http://www.facebook.com/profile.php?id=' + val.from.id + '" target="_blank">';
             output += val.from.name;
+            output += '</a>';
             output += '</div>';
             output += '<div class="postdate">';
             output += PANDOX.UI.formatDate(val.created_time);
@@ -221,12 +223,19 @@ PANDOX.FACEBOOK = function () {
 
         output += '<div class="mediaPost">';
         if(exists(data.picture)){
+            output += '<a href="' + data.link + '" target="_blank">';
             output += '<img src=' + print(data.picture) + '  />';
+            output += '</a>'
         }
         output += '<div class="mediaBox">';
+
+        output += '<a href="' + data.link + '" target="_blank">';
         output += '<span class="title">' + print(data.name) + '</span><br />';
+        output += '</a>'
         if(exists(data.caption)) {
+            output += '<a href="' + data.link + '" target="_blank">';
             output += '<span class="subtitle">' + print(data.caption) + '</span><br /><br />';
+            output += '</a>'
         }
         output += '<span class="message">' + print(data.description) + '</span>';
         output += '</div>';
@@ -474,6 +483,6 @@ PANDOX.SYSTEM.init();
 
 
 $("#userPageBox").ready(function() {
-    var id = $("#userPageBox").attr('title');
+    var id = $("#userPageBox").attr('data-id');
     PANDOX.FACEBOOK.getFeed(id);
 });

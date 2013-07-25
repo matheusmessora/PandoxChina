@@ -1,6 +1,12 @@
 #social {
     font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
-    color: #FFF;
+    color: #000;
+    padding: 5px;
+    background: #FFF;
+}
+
+#social a {
+    color: #005D8C;
 }
 
 #social .loading {
@@ -10,9 +16,10 @@
 
 .metro {
     border-top: 5px solid #005D8C;
-    background-color: rgba(50, 50, 50, 0.7);
+    /*background-color: rgba(50, 50, 50, 0.7);*/
     /*background: #005D8C;*/
     padding: 5px;
+    font-size: 12px;
 }
 
 #social .owner {
@@ -25,6 +32,7 @@
 }
 
 #social .postdate {
+    color: #898989;
     font-size: 12px;
     margin-bottom: 10px; float:right; text-align: right; display: block;
 }
@@ -58,7 +66,7 @@
 
 
 #social .commentBox {
-    margin-top: 10px; display: block; width: 98%; color:#000; background: #EDEFF4; padding: 1%; font-size: 13px; line-height: 15px;
+    margin-top: 10px; display: block; width: 98%; background: #EDEFF4; padding: 1%; font-size: 12px; line-height: 15px;
 }
 
 #social .commentBox .photo {
@@ -78,7 +86,7 @@
 }
 
 #social .commentBox .user a {
-    color: #000;
+    /*color: #000;*/
 }
 
 #social .commentBox .date {

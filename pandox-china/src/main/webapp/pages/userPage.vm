@@ -6,12 +6,12 @@
 		<h3>Facebook | Twitter</h3>
 	</div>
 
-	<div class="row-fluid" id="userPageBox" title="$page.socialUser.id">
+	<div class="row-fluid" id="userPageBox" data-id="$page.socialUser.id">
 		<div class="span8 offset2" id="userPageBoxFeed" >
 
             <div id="fb-root"></div>
 
-            <div class="row-fluid" id="social">
+            <div class="row-fluid well" id="social">
 ##                <!-- POST -->
 ##                <div class="span4">
 ##                    <div class="owner">

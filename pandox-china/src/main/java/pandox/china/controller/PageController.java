@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -95,4 +96,9 @@ public class PageController extends BaseController {
 //		mv.addObject("users", service.findAll());
 		return mv;
 	}
+
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+	public ModelAndView exceptionWebHandler(MaxUploadSizeExceededException ex, HttpServletRequest request, HttpServletResponse response) {
+        return redirectToUserAdmin(1L);
+    }
 }

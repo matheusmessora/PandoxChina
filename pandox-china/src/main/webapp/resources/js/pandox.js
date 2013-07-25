@@ -7,6 +7,7 @@ $(document).ready(function() {
 	clearStatusField("name");
 	clearStatusField("url");
 	clearStatusField("mainColor");
+	clearStatusField("img");
 	clearStatusField("email");
 	clearStatusField("password");
 	clearStatusField("phone");
@@ -70,34 +71,43 @@ function validatePageForm() {
     $(".help-inline").hide();
 
 	var isValid = true;
-//	var value = $("#url").val();
-//	if (!value) {
-//		$("#urlDiv").addClass("error");
-//		$("#urlHelp").html("Informe o nome da sua página.");
-//		isValid = false;
-//	}
-//
-//	value = $("#email").val();
-//	if (!value) {
-//		$("#emailDiv").addClass("error");
-//		$("#emailHelp").html("Informe e-mail de contato.");
-//		isValid = false;
-//	}
-//
+	var value = $("#url").val();
+	if (!value) {
+		$("#urlDiv").addClass("error");
+		$("#urlHelp").html("Informe o nome da sua página.");
+		isValid = false;
+	}
+
+	value = $("#email").val();
+	if (!value) {
+		$("#emailDiv").addClass("error");
+		$("#emailHelp").html("Informe e-mail de contato.");
+		isValid = false;
+	}
+
 //	value = $("#mainColor").val();
 //	if (!value) {
 //		$("#mainColorDiv").addClass("error");
 //		$("#mainColorHelp").html("Informe a cor.");
 //		isValid = false;
 //	}
-//
-//	var ddd = $("#ddd").val();
-//	var phone = $("#phone").val();
-//	if (!ddd || !phone) {
-//		$("#phoneDiv").addClass("error");
-//		$("#phoneHelp").html("Telefone inválido.");
-//		isValid = false;
-//	}
+
+    $("#imgDiv").removeClass("error");
+    $("#imgHelp").html("");
+	value = $("#img").val();
+	if (!value) {
+		$("#imgDiv").addClass("error");
+		$("#imgHelp").html("Faça o upload de uma foto.");
+		isValid = false;
+	}
+
+	var ddd = $("#ddd").val();
+	var phone = $("#phone").val();
+	if (!ddd || !phone) {
+		$("#phoneDiv").addClass("error");
+		$("#phoneHelp").html("Telefone inválido.");
+		isValid = false;
+	}
 
 
 
