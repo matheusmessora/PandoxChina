@@ -1,0 +1,54 @@
+server {
+        listen 80;
+        server_name pandox.com.br;
+
+
+        location / {
+                root /home/pegasus/Development/git/fe-pandox-china;
+                access_log  /var/log/nginx/d-a.direct.log ;
+        }
+
+        location /api {
+                proxy_set_header X-Forwarded-Host $host;
+                proxy_set_header X-Forwarded-Server $host;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+                proxy_pass http://127.0.0.1:15081/;
+
+                #Redirects cookie path used for JSESSIONID
+                proxy_cookie_path /root /;
+
+        }
+}
+
+server {
+        listen 80;
+        server_name cdn.pandox.com.br;
+
+        location / {
+                root /opt/resources/divulga/;
+                access_log /var/log/nginx/d-a.direct.log;
+        }
+}
+
+server {
+        listen 80;
+        server_name abc.com.br;
+
+    location / {
+        rewrite ^(.*) http://pandox.com.br/#/abc$1 permanent;
+    }     
+}
+
+
+server {
+        listen 80;
+        server_name teste.com.br;
+
+    location / {
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://pandox.com.br/#/abc/;
+    }     
+}

@@ -1,0 +1,10 @@
+server {
+        listen 80;
+        server_name pandoxfe.com.br;
+
+        location / {
+                root /home/pegasus/Development/git/fe-pandox-china/;
+                access_log  /var/log/nginx/d-a.direct.log ;
+        }
+}
+
