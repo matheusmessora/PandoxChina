@@ -3,15 +3,7 @@ package pandox.china.model;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
@@ -32,15 +24,21 @@ public class Page extends GenericEntity {
 	@Size(min = 3, max = 50, message = "Nome é obrigatório.")
 	private String url;
 
+    @Column(nullable = false)
+    @Size(min = 3, max = 60, message = "Título é obrigatório.")
+    private String name;
+
 	@Column
 	private String description;
 
-	@Column
+    @Column
 	private String mainColor;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id")
 	private SocialUser socialUser;
+
+	@ManyToOne
+	private User user;
 
     @Column
     @Email
@@ -49,7 +47,7 @@ public class Page extends GenericEntity {
     @Column
     private String img;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Phone> phones;
 	
 	// ---- FORMs Attributes -----
@@ -68,14 +66,27 @@ public class Page extends GenericEntity {
         phonesForm = new AutoPopulatingList<Phone>(Phone.class);
     }
 
-    @JsonBackReference("socialUser-page")
+    @JsonBackReference
     public SocialUser getSocialUser() {
         return socialUser;
     }
 
-    @JsonBackReference("phone-page")
+    @JsonBackReference("user-pages")
+    public User getUser() {
+        return user;
+    }
+
+    @JsonManagedReference
     public Set<Phone> getPhones() {
         return phones;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getImg() {
@@ -123,6 +134,10 @@ public class Page extends GenericEntity {
 		this.socialUser = user;
 	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public String getMainColor() {
 		return mainColor;
 	}
@@ -131,7 +146,7 @@ public class Page extends GenericEntity {
 		this.mainColor = mainColor;
 	}
 
-	public void setPhones(Set<Phone> phones) {
+	public void setPhone(Set<Phone> phones) {
 		this.phones = phones;
 	}
 
@@ -147,12 +162,13 @@ public class Page extends GenericEntity {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Page{");
         sb.append(super.toString());
-        sb.append("img='").append(img).append('\'');
+        sb.append("socialUser=").append(socialUser);
         sb.append(", url='").append(url).append('\'');
         sb.append(", description='").append(description).append('\'');
+        sb.append(", name='").append(name).append('\'');
         sb.append(", mainColor='").append(mainColor).append('\'');
-        sb.append(", user=").append(socialUser);
         sb.append(", email='").append(email).append('\'');
+        sb.append(", img='").append(img).append('\'');
         sb.append('}');
         return sb.toString();
     }

@@ -1,5 +1,7 @@
 package pandox.china.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -20,23 +22,24 @@ public class User extends GenericEntity {
     private String name;
 
     @Column(nullable = false, unique = true)
-    @Size(min = 3, max = 50, message = "E-mail é obrigatório.")
+    @NotNull(message = "E-mail é obrigatório.")
     @Email(message = "E-mail em formato inválido.")
     private String email;
 
-    @Column(nullable = false)
-    @NotNull(message = "Senha obrigatória.")
+    @Column
     private String password;
 
-//    @OneToMany(mappedBy = "socialUser", fetch = FetchType.EAGER)
-//    private Set<Page> pages;
-
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
-    private Set<Phone> phones;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Page> pages;
 
     @Transient
     private Set<GrantedAuthority> roles;
 
+
+    @JsonManagedReference("user-pages")
+    public Set<Page> getPages() {
+        return pages;
+    }
 
     public User() {
         roles = new HashSet<GrantedAuthority>();
@@ -71,20 +74,8 @@ public class User extends GenericEntity {
         this.password = password;
     }
 
-//    public Set<Page> getPages() {
-//        return pages;
-//    }
-//
-//    public void setPages(Set<Page> pages) {
-//        this.pages = pages;
-//    }
-
-    public Set<Phone> getPhones() {
-        return phones;
-    }
-
-    public void setPhones(Set<Phone> phones) {
-        this.phones = phones;
+    public void setPages(Set<Page> pages) {
+        this.pages = pages;
     }
 
     @Override

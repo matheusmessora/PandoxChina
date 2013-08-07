@@ -55,8 +55,6 @@ window.fbAsyncInit = function() {
     ref.parentNode.insertBefore(js, ref);
 }(document));
 
-// Here we run a very simple test of the Graph API after login is successful.
-// This testAPI() function is only called in those cases.
 function loginPandox(fbResponse) {
     FB.api('/me', function(response) {
         var user = new Object();
@@ -97,8 +95,8 @@ function createUser(user){
     $.ajax({
         type : 'POST',
         url : 'user',
+        contentType : 'application/json',
         dataType : 'json',
-        contentType : "application/json",
         data: json,
         success: function(response){
             window.location = "usuario/" + response.id + "/admin";
@@ -324,6 +322,7 @@ PANDOX.SYSTEM = function() {
             .done(function(result) {
                 PANDOX.UI.closeModal();
                 PANDOX.UI.showMessage("Página removida com sucesso.", "alert-success");
+                PANDOX.UI.showPageForm(false);
             })
             .fail(function(result) {
                 PANDOX.UI.closeModal();
@@ -439,6 +438,11 @@ PANDOX.UI = function() {
                     $("#mainColor").attr('value', page.mainColor);
                     $("#email").attr('value', page.email);
                     $("#img").attr('value', page.img);
+
+                    $("#ddd").attr('value', page.phones[0].ddd);
+                    $("#phone").attr('value', page.phones[0].phone);
+
+                    showPageForm(true);
                 }else {
                     console.log("FALHA no PAGE..." + id);
                 }
@@ -446,6 +450,19 @@ PANDOX.UI = function() {
             .fail(function() {
                 console.log("Fails...");
             });
+    };
+
+    /******************************************************************************************************
+     * Show the PageForm.
+     * @param isEdit - TRUE or FALSE.
+     ******************************************************************************************************/
+    var showPageForm = function(isEdit){
+        $("#pageForm").show('slow');
+        if(isEdit){
+            $("#pageFormH1").html("Edite sua página")
+        }else {
+            $("#pageFormH1").html("Cadastre sua página")
+        }
     };
 
     var closeModal = function() {
@@ -476,6 +493,7 @@ PANDOX.UI = function() {
         showMessage: showMessage,
         renderWelcome: renderWelcome,
         renderPageToEdit: renderPageToEdit,
+        showPageForm: showPageForm,
         formatDate: formatDate
     };
 

@@ -5,6 +5,7 @@ $(document).ready(function() {
 	$("#btnPage").click(validatePageForm);
 
 	clearStatusField("name");
+	clearStatusField("description");
 	clearStatusField("url");
 	clearStatusField("mainColor");
 	clearStatusField("img");
@@ -74,9 +75,16 @@ function validatePageForm() {
 	var value = $("#url").val();
 	if (!value) {
 		$("#urlDiv").addClass("error");
-		$("#urlHelp").html("Informe o nome da sua página.");
+		$("#urlHelp").html("Digite o endereço que você gostaria da sua página.");
 		isValid = false;
 	}
+
+    value = $("#name").val();
+    if (!value) {
+        $("#nameDiv").addClass("error");
+        $("#nameHelp").html("Informe um nome para sua página.");
+        isValid = false;
+    }
 
 	value = $("#email").val();
 	if (!value) {
@@ -91,15 +99,15 @@ function validatePageForm() {
 //		$("#mainColorHelp").html("Informe a cor.");
 //		isValid = false;
 //	}
-
-    $("#imgDiv").removeClass("error");
-    $("#imgHelp").html("");
-	value = $("#img").val();
-	if (!value) {
-		$("#imgDiv").addClass("error");
-		$("#imgHelp").html("Faça o upload de uma foto.");
-		isValid = false;
-	}
+//
+//    $("#imgDiv").removeClass("error");
+//    $("#imgHelp").html("");
+//	value = $("#img").val();
+//	if (!value) {
+//		$("#imgDiv").addClass("error");
+//		$("#imgHelp").html("Faça o upload de uma foto.");
+//		isValid = false;
+//	}
 
 	var ddd = $("#ddd").val();
 	var phone = $("#phone").val();

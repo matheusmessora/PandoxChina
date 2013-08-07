@@ -1,6 +1,7 @@
 package pandox.china.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findByEmailAndPassword(String email, String password) {
 		if(StringUtils.isBlank(email) || StringUtils.isBlank(password)){
-			throw new IllegalArgumentException("E-mail ou senha obrigatórios.");
+			throw new IllegalArgumentException("E-mail e senha são obrigatórios.");
 		}
-		
-		return repo.getByEmailAndPassword(email.trim().toLowerCase(), password.trim().toLowerCase());
+
+        return repo.getByEmailAndPassword(email.trim().toLowerCase(), password.trim().toLowerCase());
 	}
 
 	@Override

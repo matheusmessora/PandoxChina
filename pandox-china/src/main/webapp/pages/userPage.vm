@@ -2,7 +2,7 @@
 	#parse("header.vm")
 	<div class="pageBackground" style=''>
 	<div class="jumbotron">
-		<h1>$page.url</h1>
+		<h1>$page.name</h1>
 		<h3>Facebook | Twitter</h3>
 	</div>
 

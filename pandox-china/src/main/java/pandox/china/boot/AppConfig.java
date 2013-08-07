@@ -1,6 +1,9 @@
 package pandox.china.boot;
 
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -16,6 +19,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.AbstractHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -25,6 +31,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
 import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
 
@@ -90,7 +97,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistence.class);
 
 		Properties hibernateProperties = new Properties();
-//		hibernateProperties.put("hibernate.hbm2ddl.auto", "create");
+//		hibernateProperties.put("hibernate.hbm2ddl.auto", "create-drop");
 		hibernateProperties.put("hibernate.hbm2ddl.auto", "update");
 		hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		hibernateProperties.put("hibernate.format_sql", "false");
@@ -134,12 +141,13 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
 		return new PersistenceExceptionTranslationPostProcessor();
 	}
+    
 
 	@Bean(name = "resourceBundleMessageSource")
 	public static final ReloadableResourceBundleMessageSource resourceBundleMessageSource() {
 		ReloadableResourceBundleMessageSource resourceBundleMessageSource = new ReloadableResourceBundleMessageSource();
 		resourceBundleMessageSource.setBasename("classpath:Messages");
-		resourceBundleMessageSource.setDefaultEncoding("UTF-8");
+		resourceBundleMessageSource.setDefaultEncoding("utf-8");
 		return resourceBundleMessageSource;
 	}
 
@@ -147,7 +155,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public static final ReloadableResourceBundleMessageSource config() {
 		ReloadableResourceBundleMessageSource resourceBundleMessageSource = new ReloadableResourceBundleMessageSource();
 		resourceBundleMessageSource.setBasename("classpath:config");
-		resourceBundleMessageSource.setDefaultEncoding("UTF-8");
+		resourceBundleMessageSource.setDefaultEncoding("utf-8");
 		return resourceBundleMessageSource;
 	}
 
@@ -186,6 +194,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setSuffix(".vm");
 		viewResolver.setAttributesMap(velocityProperties);
 		viewResolver.setExposeSpringMacroHelpers(true);
+        viewResolver.setContentType("application/json;charset=utf-8");
 		return viewResolver;
 	}
 

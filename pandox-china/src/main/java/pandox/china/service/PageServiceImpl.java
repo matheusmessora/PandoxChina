@@ -2,6 +2,7 @@ package pandox.china.service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class PageServiceImpl implements PageService {
         for (Phone phone : entity.getPhonesForm()) {
             phones.add(phone);
         }
-        entity.setPhones(phones);
+        entity.setPhone(phones);
 
 		return getFather().save(entity);
 	}
@@ -53,4 +54,9 @@ public class PageServiceImpl implements PageService {
 	public Page findByUrl(String url) {
 		return repo.getByUrl(url);
 	}
+
+    @Override
+    public List<Page> findByUser_Id(Long id) {
+        return repo.findByUser_Id(id);
+    }
 }

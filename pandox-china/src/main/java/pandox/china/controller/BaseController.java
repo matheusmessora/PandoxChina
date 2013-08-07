@@ -22,14 +22,14 @@ public abstract class BaseController {
     @Autowired
     private ReloadableResourceBundleMessageSource config;
 
-    protected SocialUser getLoggedUser(){
+    protected User getLoggedUser(){
    	 SecurityContext context = SecurityContextHolder.getContext();
  		if (context != null) {
  			Authentication authentication = context.getAuthentication();
  			if (authentication != null) {
  				Object securityUser = authentication.getPrincipal();
- 				if (securityUser != null && securityUser instanceof SocialUser) {
- 					return (SocialUser) securityUser;
+ 				if (securityUser != null && securityUser instanceof User) {
+ 					return (User) securityUser;
  				}
  			}
  		}

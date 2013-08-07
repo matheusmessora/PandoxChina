@@ -1,11 +1,10 @@
 package pandox.china.controller.api;
 
-import com.google.gson.Gson;
 import org.apache.http.client.fluent.Request;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,18 +16,16 @@ import pandox.china.model.SocialUser;
 import pandox.china.service.SocialUserService;
 import pandox.china.service.auth.AuthenticationProvider;
 import pandox.china.util.ErrorMessage;
-import pandox.china.util.SuccessMessage;
 import pandox.china.util.ValidadorException;
 import pandox.china.util.constants.SocialConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/socialUser")
 public class SocialUserAPI extends BaseController {
 
 	private static Logger log = Logger.getLogger(SocialUserAPI.class);
@@ -36,17 +33,17 @@ public class SocialUserAPI extends BaseController {
 	@Autowired
 	private SocialUserService service;
 
-    @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "", method = RequestMethod.POST,  consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public SocialUser create(@RequestBody SocialUser socialUser) {
-        socialUser = service.save(socialUser);
+    public SocialUser create(@RequestBody SocialUser data) {
+        SocialUser socialUser = service.save(data);
 
         doAutoLogin(socialUser);
         socialUser.setMessage("Usuário cadastrado com sucesso!");
         return socialUser;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public SocialUser find(@RequestParam("uid")Long uid) {
         SocialUser socialUser = service.findByUid(uid);
@@ -101,13 +98,12 @@ public class SocialUserAPI extends BaseController {
 		SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 	}
 
-	@ExceptionHandler(ValidadorException.class)
-	public ModelAndView exceptionWebHandler(ValidadorException ex, HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView("user/index");
-		mv.addObject("message", new ErrorMessage(ex.getErros()));
-		mv.addObject("users", service.findAll());
-		return mv;
-	}
+    @ExceptionHandler(ValidadorException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public List<String> exceptionWebHandler(ValidadorException ex, HttpServletRequest request, HttpServletResponse response) {
+        return ex.getErros();
+    }
 
 	@ExceptionHandler(ResourceNotFound.class)
     @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "Recurso não encontrado.")

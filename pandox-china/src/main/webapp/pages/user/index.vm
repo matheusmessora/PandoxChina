@@ -3,7 +3,7 @@
 <div class="container">
 
 <div class="well">
-	<h1>MyAdmin</h1>
+	<h1 id="myAdmin">MyAdmin</h1>
 	<hr />
 
     #parse("/page/menu.vm")
@@ -19,23 +19,23 @@
         </div>
     #end
 
-	#parse("/page/_form.vm")
+
 
     #if(!($pages.size() == 0))
-        <div class="row-fluid">
+        <div class="row-fluid" id="tablePage">
             <table class="table table-hover">
                 <thead>
                     <th>#</th>
                     <th>Nome</th>
-                    <th>Cor</th>
+                    <th>Título</th>
                     <th>E-mail</th>
                     <th></th>
                 </thead>
                 #foreach($page in $pages)
                 <tr>
                     <td>$page.id</td>
-                    <td>$page.url</td>
-                    <td>$page.mainColor</td>
+                    <td><a href="/$page.url">$page.url</a> </td>
+                    <td>$page.name</td>
                     <td>$page.email</td>
                     <td style="text-align: right">
                         <a class="btn btn-primary btn-warning btn-edit" href="#" data-pageId="$page.id"><i class="icon-edit icon-white"></i></a>
@@ -45,6 +45,8 @@
                 #end
             </table>
         </div>
+    #else
+        #parse("/page/_form.vm")
     #end
 
 
@@ -70,4 +72,5 @@
 
 
 </div>
+<script src="/resources/js/pandoxUser.js"></script>
 #parse("footer.vm")

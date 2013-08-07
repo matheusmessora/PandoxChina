@@ -2,10 +2,14 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insert title here</title>
 
+    <!-- Latest compiled and minified CSS -->
     <link type="text/css" rel="stylesheet" href="/resources/css/bootstrap.min.css">
+
+
     <style type="text/css">
         body {
             color: #5a5a5a;
@@ -17,15 +21,13 @@
 
     </style>
     <link type="text/css" rel="stylesheet" href="/resources/css/bootstrap-responsive.min.css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic"
-          rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic" rel="stylesheet" type="text/css">
     <link type="text/css" rel="stylesheet" href="/resources/css/css.css" media="all">
     <link type="text/css" rel="stylesheet" href="/resources/css/social.css" media="all">
     <link type="text/css" rel="stylesheet" href="/resources/css/home.css" media="all">
     <link type="text/css" rel="stylesheet" href="/resources/css/form.css" media="all">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-
 
 
 </head>

@@ -42,41 +42,9 @@ public class PageController extends BaseController {
 	
 	@Autowired
 	private SocialUserService socialUserService;
-	
-	private SocialUser user;
 
-    @Secured("ROLE_ADMIN")
-	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ModelAndView edit(Page page, RedirectAttributes redirectAttributes) {
-        log.debug("POST. page=" + page);
-
-		user = socialUserService.findOne(super.getLoggedUser().getId());
-		page.setSocialUser(user);
-
-
-        try {
-            String img = user.getId() + "." + page.getFile().getContentType().split("/")[1];
-            page.setImg(img);
-            service.save(page);
-
-            // TODO: Create a service for this
-            try {
-                if (!page.getFile().isEmpty()) {
-                    BufferedImage src = ImageIO.read(new ByteArrayInputStream(page.getFile().getBytes()));
-                    File destination = new File("/opt/resources/img/user-bg/" + img);
-                    page.getFile().transferTo(destination);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } catch (ValidadorException ex) {
-            return generateFriendlyBadRequest(ex, user.getId(), redirectAttributes);
-        }
-
-        log.debug("POST SUCCESS. page=" + page);
-        redirectAttributes.addFlashAttribute("message", new SuccessMessage("Página cadastrada com sucesso!"));
-        return redirectToUserAdmin(user.getId());
-    }
+	@Autowired
+	private UserService userService;
 
     private ModelAndView redirectToUserAdmin(Long id){
         return new ModelAndView("redirect:/usuario/" + id + "/admin");
@@ -99,6 +67,7 @@ public class PageController extends BaseController {
 
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
 	public ModelAndView exceptionWebHandler(MaxUploadSizeExceededException ex, HttpServletRequest request, HttpServletResponse response) {
+        // TODO: Hardcoded
         return redirectToUserAdmin(1L);
     }
 }

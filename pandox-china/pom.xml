@@ -270,7 +270,7 @@
 					<connectors>
 						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
 							<port>15081</port>
-							<host>pandox.com.br</host>
+							<host>127.0.0.1</host>
 							<maxIdleTime>60000</maxIdleTime>
 							<responseBufferSize>65536</responseBufferSize>
 							<headerBufferSize>32768</headerBufferSize>

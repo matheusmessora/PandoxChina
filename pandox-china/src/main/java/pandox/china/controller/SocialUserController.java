@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,7 +37,7 @@ public class SocialUserController extends BaseController {
 	private SocialUser user;
 
 	@Secured("ROLE_ADMIN")
-    @RequestMapping(value = "{id}/admin", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}/admin", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
 	public ModelAndView index(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView("user/index");
 		SocialUser user = service.findOne(id);

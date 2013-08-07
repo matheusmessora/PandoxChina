@@ -1,5 +1,7 @@
 package pandox.china.model;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -42,7 +44,7 @@ public class SocialUser extends GenericEntity {
         roles = new HashSet<GrantedAuthority>();
     }
 
-    @JsonManagedReference("socialUser-page")
+    @JsonManagedReference
     public Set<Page> getPages() {
         return pages;
     }
@@ -75,6 +77,7 @@ public class SocialUser extends GenericEntity {
         this.pages = pages;
     }
 
+    @JsonIgnore
     public Set<GrantedAuthority> getRoles() {
         return roles;
     }
