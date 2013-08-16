@@ -1,24 +1,18 @@
 package pandox.china.resource;
 
-import org.apache.velocity.runtime.directive.Include;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.hibernate.Hibernate;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
-import pandox.china.model.Page;
 import pandox.china.model.User;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 
 public class UserRE extends GenericRE {
 
     private String name;
-
     private String email;
-
     private String password;
+    private String passwordConfirm;
+    private String oldPassword;
 
     public UserRE(){}
 
@@ -29,6 +23,32 @@ public class UserRE extends GenericRE {
         } catch (BeansException e) {
             e.printStackTrace();
         }
+    }
+
+    public void validateForChangePwd(){
+        if(StringUtils.isEmpty(getPassword()) || StringUtils.isEmpty(getPasswordConfirm()) || StringUtils.isEmpty(getOldPassword())) {
+            throw new IllegalArgumentException("Senhas não conferem.");
+        }
+
+        if(!getPassword().equals(getPasswordConfirm())){
+            throw new IllegalArgumentException("Senhas não conferem.");
+        }
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
     }
 
     public String getName() {

@@ -109,34 +109,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		return entityManagerFactoryBean;
 	}
 
-	// ======================================================================
-	// [ SessionFactory config ]
-	// ======================================================================
-	// @Bean
-	// public LocalSessionFactoryBean sessionFactory() {
-	// log.info("Configurando [sessionFactory]...");
-	// Properties hibernateProperties = new Properties();
-	// hibernateProperties.put("hibernate.hbm2ddl.auto", "create");
-	// hibernateProperties.put("hibernate.dialect",
-	// "org.hibernate.dialect.MySQLDialect");
-	// hibernateProperties.put("format_sql", "true");
-	// hibernateProperties.put("showSql", "true");
-	//
-	// LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-	// sessionFactory.setDataSource(dataSource());
-	// sessionFactory.setPackagesToScan(new String[] { "pandox.egito" });
-	// sessionFactory.setHibernateProperties(hibernateProperties);
-	//
-	// log.info(sessionFactory);
-	// return sessionFactory;
-	// }
-	// @Bean
-	// public HibernateTransactionManager transactionManager() {
-	// log.info("Configurando [transactionManager]...");
-	// log.info(sessionFactory());
-	// return new HibernateTransactionManager(sessionFactory().getObject());
-	// }
-
 	@Bean
 	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
 		return new PersistenceExceptionTranslationPostProcessor();
@@ -194,7 +166,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setSuffix(".vm");
 		viewResolver.setAttributesMap(velocityProperties);
 		viewResolver.setExposeSpringMacroHelpers(true);
-        viewResolver.setContentType("application/json;charset=utf-8");
+//        viewResolver.setContentType("application/json;charset=UTF-8");
 		return viewResolver;
 	}
 

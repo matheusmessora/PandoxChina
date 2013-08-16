@@ -1,37 +1,25 @@
 package pandox.china.controller.api;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.client.fluent.Request;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pandox.china.controller.BaseController;
 import pandox.china.exception.ResourceNotFound;
+import pandox.china.model.Category;
 import pandox.china.model.Page;
 import pandox.china.model.Phone;
-import pandox.china.model.SocialUser;
 import pandox.china.model.User;
-import pandox.china.resource.UserRE;
 import pandox.china.service.PageService;
-import pandox.china.service.SocialUserService;
 import pandox.china.service.UserService;
-import pandox.china.service.auth.AuthenticationProvider;
-import pandox.china.util.ErrorMessage;
-import pandox.china.util.SuccessMessage;
 import pandox.china.util.ValidadorException;
-import pandox.china.util.constants.SocialConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,15 +52,15 @@ public class PageAPI extends BaseController {
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<Page> findAll(
-            @RequestParam(value = "user", required = false) Long id,
+            @RequestParam(value = "user", required = false) Long userId,
             @RequestParam(value = "url", required = false) String url) {
-        if(id != null){
-            List<Page> page = service.findByUser_Id(id);
+        if(userId != null){
+            List<Page> pagesList = service.findByUser_Id(userId);
 
-            if (page == null) {
+            if (pagesList == null) {
                 throw new ResourceNotFound();
             } else {
-                return page;
+                return pagesList;
             }
         }
         if(!StringUtils.isBlank(url)) {
@@ -84,24 +72,41 @@ public class PageAPI extends BaseController {
                 return Arrays.asList(page);
             }
         }
-        return service.findAll();
+        ArrayList<Page> all = service.findAll();
+        all.addAll(service.findAll());
+        all.addAll(service.findAll());
+        all.addAll(service.findAll());
+        all.addAll(service.findAll());
+        all.addAll(service.findAll());
+        all.addAll(service.findAll());
+        all.addAll(service.findAll());
+        all.addAll(service.findAll());
+        all.addAll(service.findAll());
+        all.addAll(service.findAll());
+        all.addAll(service.findAll());
+        all.addAll(service.findAll());
+        all.addAll(service.findAll());
+        all.addAll(service.findAll());
+        return all;
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Page> edit(@RequestBody Page page) {
+    public ResponseEntity<Page> persist(@RequestBody Page page) {
         log.debug("POST. page=" + page);
 
         User user = userService.findOne(super.getLoggedUser().getId());
         page.setUser(user);
-        Phone phone = new Phone();
-        phone.setDdi(55);
-        phone.setDdd(11L);
-        phone.setPhone(999L);
-        phone.setPage(page);
-        page.getPhones().add(phone);
+        for (Phone phone : page.getPhonesForm()) {
+            phone.setDdi(55);
+            page.addPhone(phone);
+        }
 
 //            String img = user.getId() + "." + page.getFile().getContentType().split("/")[1];
             page.setImg("1.jpeg");
+        Category c = new Category();
+        c.setName("Bar");
+
+        page.addCategory(c);
             page = service.save(page);
 
             // TODO: Create a service for this

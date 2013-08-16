@@ -30,27 +30,27 @@
     </logger>
 
     <logger name="org.springframework.web.client" additivity="false">
-        <level value="WARN" />
+        <level value="DEBUG" />
         <appender-ref ref="FileAppender" />
     </logger>
 
     <!-- Hiberna91te -->
-    <logger name="org.hibernate">
-        <level value="WARN" />
-        <appender-ref ref="HibernateAppender" />
+    <!--<logger name="org.hibernate">-->
+        <!--<level value="WARN" />-->
+        <!--<appender-ref ref="HibernateAppender" />-->
+    <!--</logger>-->
+    <logger name="org.hibernate.hql">
+    <level value="DEBUG" />
+    <appender-ref ref="HibernateAppender" />
     </logger>
-    <!--<logger name="org.hibernate.hql">-->
-    <!--<level value="DEBUG" />-->
-    <!--<appender-ref ref="HibernateAppender" />-->
-    <!--</logger>-->
-    <!--<logger name="org.hibernate.sql">-->
-    <!--<level value="TRACE" />-->
-    <!--<appender-ref ref="HibernateAppender" />-->
-    <!--</logger>-->
-    <!--<logger name="org.hibernate.type" additivity="false">-->
-    <!--<level value="TRACE" />-->
-    <!--<appender-ref ref="HibernateAppender" />-->
-    <!--</logger>-->
+    <logger name="org.hibernate.sql">
+    <level value="TRACE" />
+    <appender-ref ref="HibernateAppender" />
+    </logger>
+    <logger name="org.hibernate.type" additivity="false">
+    <level value="TRACE" />
+    <appender-ref ref="HibernateAppender" />
+    </logger>
 
 
     <!-- Dependencies loggers -->
@@ -58,14 +58,14 @@
         <level value="INFO" />
     </logger>
     <logger name="org.springframework" additivity="false">
-        <level value="WARN" />
+        <level value="DEBUG" />
         <appender-ref ref="MyConsoleAppender" />
     </logger>
     <logger name="com">
-        <level value="WARN" />
+        <level value="DEBUG" />
     </logger>
     <logger name="org">
-        <level value="WARN" />
+        <level value="DEBUG" />
     </logger>
 
     <!-- Default -->

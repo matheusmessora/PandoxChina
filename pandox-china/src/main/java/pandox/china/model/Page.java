@@ -1,18 +1,17 @@
 package pandox.china.model;
 
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.*;
-import javax.validation.constraints.Size;
-
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.util.AutoPopulatingList;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -39,6 +38,9 @@ public class Page extends GenericEntity {
 
 	@ManyToOne
 	private User user;
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "pages")
+	private Set<Category> categories;
 
     @Column
     @Email
@@ -79,6 +81,29 @@ public class Page extends GenericEntity {
     @JsonManagedReference
     public Set<Phone> getPhones() {
         return phones;
+    }
+
+    @JsonManagedReference
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void addPhone(Phone phone){
+        if(this.phones == null) {
+            this.phones = new HashSet<Phone>();
+        }
+        this.phones.add(phone);
+    }
+
+    public void addCategory(Category category){
+        if(this.categories == null) {
+            this.categories = new HashSet<Category>();
+        }
+        this.categories.add(category);
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     public String getName() {
