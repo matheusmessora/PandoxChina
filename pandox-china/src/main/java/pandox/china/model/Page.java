@@ -39,8 +39,8 @@ public class Page extends GenericEntity {
 	@ManyToOne
 	private User user;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "pages")
-	private Set<Category> categories;
+	@ManyToOne
+	private Category category;
 
     @Column
     @Email
@@ -83,9 +83,8 @@ public class Page extends GenericEntity {
         return phones;
     }
 
-    @JsonManagedReference
-    public Set<Category> getCategories() {
-        return categories;
+    public Category getCategory() {
+        return category;
     }
 
     public void addPhone(Phone phone){
@@ -95,15 +94,8 @@ public class Page extends GenericEntity {
         this.phones.add(phone);
     }
 
-    public void addCategory(Category category){
-        if(this.categories == null) {
-            this.categories = new HashSet<Category>();
-        }
-        this.categories.add(category);
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getName() {
@@ -187,13 +179,15 @@ public class Page extends GenericEntity {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Page{");
         sb.append(super.toString());
-        sb.append("socialUser=").append(socialUser);
+        sb.append("img='").append(img).append('\'');
         sb.append(", url='").append(url).append('\'');
-        sb.append(", description='").append(description).append('\'');
         sb.append(", name='").append(name).append('\'');
+        sb.append(", description='").append(description).append('\'');
         sb.append(", mainColor='").append(mainColor).append('\'');
+        sb.append(", socialUser=").append(socialUser);
+        sb.append(", user=").append(user);
+        sb.append(", category=").append(category);
         sb.append(", email='").append(email).append('\'');
-        sb.append(", img='").append(img).append('\'');
         sb.append('}');
         return sb.toString();
     }

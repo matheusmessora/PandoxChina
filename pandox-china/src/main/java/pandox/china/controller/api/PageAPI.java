@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pandox.china.controller.BaseController;
 import pandox.china.exception.ResourceNotFound;
-import pandox.china.model.Category;
 import pandox.china.model.Page;
 import pandox.china.model.Phone;
 import pandox.china.model.User;
@@ -103,10 +102,6 @@ public class PageAPI extends BaseController {
 
 //            String img = user.getId() + "." + page.getFile().getContentType().split("/")[1];
             page.setImg("1.jpeg");
-        Category c = new Category();
-        c.setName("Bar");
-
-        page.addCategory(c);
             page = service.save(page);
 
             // TODO: Create a service for this

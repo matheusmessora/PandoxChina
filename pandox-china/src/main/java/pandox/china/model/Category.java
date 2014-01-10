@@ -22,7 +22,7 @@ public class Category extends GenericEntity {
     @Column(nullable = false)
     private String name;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
 	private Set<Page> pages;
 
 	// ---- FORMs Attributes -----
@@ -37,7 +37,7 @@ public class Category extends GenericEntity {
         this.name = name;
     }
 
-    @JsonManagedReference
+    @JsonIgnore
     public Set<Page> getPages() {
         return pages;
     }
