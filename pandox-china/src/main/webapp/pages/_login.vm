@@ -1,5 +1,0 @@
-<form id="loginForm" action="/j_spring_security_check" autocomplete="on" method="post" class="navbar-form pull-right">
-	<input id="j_username" name="j_username" class="span2" type="text" placeholder="E-mail">
-	<input id="j_password" name="j_password" class="span2" type="password" placeholder="Senha">
-	<button type="submit" class="btn">Entrar</button>
-</form>

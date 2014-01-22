@@ -11,6 +11,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import org.springframework.web.servlet.mvc.Controller;
+import pandox.china.model.SocialUser;
 import pandox.china.model.User;
 
 public abstract class BaseController {

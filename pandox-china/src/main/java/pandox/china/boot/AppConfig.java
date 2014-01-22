@@ -1,16 +1,9 @@
 package pandox.china.boot;
 
-import java.util.HashMap;
-import java.util.Properties;
-
 import org.apache.log4j.Logger;
 import org.hibernate.ejb.HibernatePersistence;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -20,14 +13,15 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
-import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
-
 import pandox.china.boot.util.BasePropertyConfigurer;
 import pandox.china.boot.util.NameGenerator;
+
+import java.util.HashMap;
+import java.util.Properties;
 
 /**
  * Classe de configuração Spring MVC 3
@@ -41,143 +35,135 @@ import pandox.china.boot.util.NameGenerator;
 @EnableWebMvc
 public class AppConfig extends WebMvcConfigurerAdapter {
 
-	private static Logger log = Logger.getLogger(AppConfig.class);
+    private static Logger log = Logger.getLogger(AppConfig.class);
 
-	private static HashMap<String, Object> velocityProperties = new HashMap<String, Object>();
+    private static HashMap<String, Object> velocityProperties = new HashMap<String, Object>();
 
-	@Bean
-	public static final BasePropertyConfigurer propertyConfigurer() {
-		BasePropertyConfigurer config = new BasePropertyConfigurer();
-		config.setIgnoreResourceNotFound(false);
-		Resource location = new ClassPathResource("config.properties");
-		config.setLocation(location);
-		return config;
-	}
+    @Bean
+    public static final BasePropertyConfigurer propertyConfigurer() {
+        BasePropertyConfigurer config = new BasePropertyConfigurer();
+        config.setIgnoreResourceNotFound(false);
+        Resource location = new ClassPathResource("config.properties");
+        config.setLocation(location);
+        return config;
+    }
 
-	@Bean
-	public DriverManagerDataSource dataSource() {
-		log.info("Configurando [dataSource]...");
-		DriverManagerDataSource ds = new DriverManagerDataSource();
-		// jdbc:mysql://kmweb.ckx7dqi7gxfq.us-east-1.rds.amazonaws.com/kmweb />
-		ds.setUrl("jdbc:mysql://localhost/egito");
-		ds.setDriverClassName("com.mysql.jdbc.Driver");
-		ds.setUsername("root");
-		ds.setPassword("");
-		log.info("Datasource configurado: " + ds.toString());
-		return ds;
-	}
+    @Bean
+    public DriverManagerDataSource dataSource() {
+        log.info("Configurando [dataSource]...");
+        DriverManagerDataSource ds = new DriverManagerDataSource();
+        ds.setDriverClassName("com.mysql.jdbc.Driver");
 
-	@Bean
-	public JpaTransactionManager transactionManager() {
-		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-		return transactionManager;
-	}
+//        ds.setUrl("jdbc:mysql://mydbinstance.cpaisbs3w0fy.sa-east-1.rds.amazonaws.com:3306/china");
+//        ds.setUsername("pandox");
+//        ds.setPassword("pandox123");
 
-	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		log.info("Configurando [entityManagerFactory]...");
-		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        ds.setUrl("jdbc:mysql://localhost/egito");
+        ds.setUsername("root");
+        ds.setPassword("");
+        log.info("Datasource configurado: " + ds.toString());
+        return ds;
+    }
 
-		entityManagerFactoryBean.setDataSource(dataSource());
-		entityManagerFactoryBean.setPackagesToScan("pandox.china");
-		entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistence.class);
+    @Bean
+    public JpaTransactionManager transactionManager() {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
+        return transactionManager;
+    }
 
-		Properties hibernateProperties = new Properties();
-		hibernateProperties.put("hibernate.hbm2ddl.auto", "create");
-		hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-		hibernateProperties.put("hibernate.format_sql", "false");
-		hibernateProperties.put("hibernate.show_sql", "false");
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        log.info("Configurando [entityManagerFactory]...");
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 
-		entityManagerFactoryBean.setJpaProperties(hibernateProperties);
+        entityManagerFactoryBean.setDataSource(dataSource());
+        entityManagerFactoryBean.setPackagesToScan("pandox.china");
+        entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistence.class);
 
-		log.info(entityManagerFactoryBean);
-		return entityManagerFactoryBean;
-	}
+        Properties hibernateProperties = new Properties();
+        boolean bootable = false;
+        if (bootable) {
+            hibernateProperties.put("hbm2ddl.auto", "create");
+            hibernateProperties.put("hibernate.hbm2ddl.auto", "create");
+        } else {
+            hibernateProperties.put("hibernate.hbm2ddl.auto", "update");
+        }
 
-	// ======================================================================
-	// [ SessionFactory config ]
-	// ======================================================================
-	// @Bean
-	// public LocalSessionFactoryBean sessionFactory() {
-	// log.info("Configurando [sessionFactory]...");
-	// Properties hibernateProperties = new Properties();
-	// hibernateProperties.put("hibernate.hbm2ddl.auto", "create");
-	// hibernateProperties.put("hibernate.dialect",
-	// "org.hibernate.dialect.MySQLDialect");
-	// hibernateProperties.put("format_sql", "true");
-	// hibernateProperties.put("showSql", "true");
-	//
-	// LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-	// sessionFactory.setDataSource(dataSource());
-	// sessionFactory.setPackagesToScan(new String[] { "pandox.egito" });
-	// sessionFactory.setHibernateProperties(hibernateProperties);
-	//
-	// log.info(sessionFactory);
-	// return sessionFactory;
-	// }
-	// @Bean
-	// public HibernateTransactionManager transactionManager() {
-	// log.info("Configurando [transactionManager]...");
-	// log.info(sessionFactory());
-	// return new HibernateTransactionManager(sessionFactory().getObject());
-	// }
+        hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        hibernateProperties.put("hibernate.format_sql", "false");
+        hibernateProperties.put("hibernate.show_sql", "false");
 
-	@Bean
-	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
-		return new PersistenceExceptionTranslationPostProcessor();
-	}
+        entityManagerFactoryBean.setJpaProperties(hibernateProperties);
 
-	@Bean(name = "resourceBundleMessageSource")
-	public static final ReloadableResourceBundleMessageSource resourceBundleMessageSource() {
-		ReloadableResourceBundleMessageSource resourceBundleMessageSource = new ReloadableResourceBundleMessageSource();
-		resourceBundleMessageSource.setBasename("classpath:Messages");
-		resourceBundleMessageSource.setDefaultEncoding("UTF-8");
-		return resourceBundleMessageSource;
-	}
+        log.info(entityManagerFactoryBean);
+        return entityManagerFactoryBean;
+    }
 
-	@Bean
-	public static final ReloadableResourceBundleMessageSource config() {
-		ReloadableResourceBundleMessageSource resourceBundleMessageSource = new ReloadableResourceBundleMessageSource();
-		resourceBundleMessageSource.setBasename("classpath:config");
-		resourceBundleMessageSource.setDefaultEncoding("UTF-8");
-		return resourceBundleMessageSource;
-	}
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+        return new PersistenceExceptionTranslationPostProcessor();
+    }
 
-	// ======================================================================
-	// [ Velocity BEANs Configurer and View Resover ]
-	// ======================================================================
-	@Bean
-	public static final VelocityConfigurer velocityConfig() {
-		String path = "/pages";
-		log.info("Configurando Velocity...");
-		log.info("Diretorio dos templates:" + path);
 
-		velocityProperties.put("input.encoding", "UTF-8");
-		velocityProperties.put("output.encoding", "UTF-8");
-		velocityProperties.put("directive.foreach.counter.name", "velocityCount");
-		velocityProperties.put("directive.foreach.counter.initial.value ", "1");
-		VelocityConfigurer config = new VelocityConfigurer();
-		config.setVelocityPropertiesMap(velocityProperties);
-		config.setResourceLoaderPath(path);
-		return config;
-	}
+    @Bean(name = "resourceBundleMessageSource")
+    public static final ReloadableResourceBundleMessageSource resourceBundleMessageSource() {
+        ReloadableResourceBundleMessageSource resourceBundleMessageSource = new ReloadableResourceBundleMessageSource();
+        resourceBundleMessageSource.setBasename("classpath:Messages");
+        resourceBundleMessageSource.setDefaultEncoding("utf-8");
+        return resourceBundleMessageSource;
+    }
 
-	@Bean
-	public static final VelocityViewResolver viewResolver() {
-		VelocityViewResolver viewResolver = new VelocityViewResolver();
-		viewResolver.setToolboxConfigLocation("/WEB-INF/toolbox.xml");
-		HashMap<String, Object> velocityProperties = new HashMap<String, Object>();
-		viewResolver.setCache(true);
-		viewResolver.setSuffix(".vm");
-		viewResolver.setAttributesMap(velocityProperties);
-		viewResolver.setExposeSpringMacroHelpers(true);
-		return viewResolver;
-	}
+    @Bean
+    public static final ReloadableResourceBundleMessageSource config() {
+        ReloadableResourceBundleMessageSource resourceBundleMessageSource = new ReloadableResourceBundleMessageSource();
+        resourceBundleMessageSource.setBasename("classpath:config");
+        resourceBundleMessageSource.setDefaultEncoding("utf-8");
+        return resourceBundleMessageSource;
+    }
 
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-	}
+    // ======================================================================
+    // [ Velocity BEANs Configurer and View Resover ]
+    // ======================================================================
+//	@Bean
+//	public static final VelocityConfigurer velocityConfig() {
+//		String path = "/pages";
+//		log.info("Configurando Velocity...");
+//		log.info("Diretorio dos templates:" + path);
+//
+//		velocityProperties.put("input.encoding", "UTF-8");
+//		velocityProperties.put("output.encoding", "UTF-8");
+//		velocityProperties.put("directive.foreach.counter.name", "velocityCount");
+//		velocityProperties.put("directive.foreach.counter.initial.value ", "1");
+//		VelocityConfigurer config = new VelocityConfigurer();
+//		config.setVelocityPropertiesMap(velocityProperties);
+//		config.setResourceLoaderPath(path);
+//		return config;
+//	}
+
+    @Bean
+    public static MultipartResolver multipartResolver() {
+        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+//        commonsMultipartResolver.setMaxUploadSize(250000);
+        return commonsMultipartResolver;
+    }
+
+//	@Bean
+//	public static VelocityViewResolver viewResolver() {
+//		VelocityViewResolver viewResolver = new VelocityViewResolver();
+//		viewResolver.setToolboxConfigLocation("/WEB-INF/toolbox.xml");
+//		HashMap<String, Object> velocityProperties = new HashMap<String, Object>();
+//		viewResolver.setCache(true);
+//		viewResolver.setSuffix(".vm");
+//		viewResolver.setAttributesMap(velocityProperties);
+//		viewResolver.setExposeSpringMacroHelpers(true);
+////        viewResolver.setContentType("application/json;charset=UTF-8");
+//		return viewResolver;
+//	}
+
+//	@Override
+//	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+//	}
 
 }

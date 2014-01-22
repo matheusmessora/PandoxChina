@@ -2,76 +2,76 @@
 <!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-	<!-- Appenders -->
-	<appender name="MyConsoleAppender" class="org.apache.log4j.ConsoleAppender">
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS/zzz} [%t|%C{1}:%L] %3p - %m%n" />
-		</layout>
-	</appender>
+    <!-- Appenders -->
+    <appender name="MyConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS/zzz} [%t|%C{1}:%L] %3p - %m%n" />
+        </layout>
+    </appender>
 
-	<appender name="FileAppender" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" value="/export/logs/pb-frontend/pb-frontend.log"/>
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS/zzz} [%t|%C{1}:%L] %3p - %m%n" />
-		</layout>
-	</appender>
+    <appender name="FileAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/export/logs/pb-frontend/pb-frontend.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS/zzz} [%t|%C{1}:%L] %3p - %m%n" />
+        </layout>
+    </appender>
 
-	<appender name="HibernateAppender" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" value="/export/logs/pb-frontend/hibernate.log"/>
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS/zzz} %m%n" />
-		</layout>
-	</appender>
+    <appender name="HibernateAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/export/logs/pb-frontend/hibernate.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS/zzz} %m%n" />
+        </layout>
+    </appender>
 
-	<!-- Project loggers -->
-	<logger name="pandox" additivity="true">
-		<level value="DEBUG" />
-		<appender-ref ref="FileAppender" />
-	</logger>
+    <!-- Project loggers -->
+    <logger name="pandox" additivity="true">
+        <level value="DEBUG" />
+        <appender-ref ref="FileAppender" />
+    </logger>
 
-	<logger name="org.springframework.web.client" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="FileAppender" />
-	</logger>
-	
-	<!-- Hiberna91te -->
-	<logger name="org.hibernate">
-		<level value="WARN" />
-		<appender-ref ref="HibernateAppender" />
-	</logger>
-<!-- 	<logger name="org.hibernate.hql"> -->
-<!-- 		<level value="DEBUG" /> -->
-<!-- 		<appender-ref ref="HibernateAppender" /> -->
-<!-- 	</logger> -->
-<!-- 	<logger name="org.hibernate.sql"> -->
-<!-- 		<level value="TRACE" /> -->
-<!-- 		<appender-ref ref="HibernateAppender" /> -->
-<!-- 	</logger> -->
-<!-- 	<logger name="org.hibernate.type" additivity="false"> -->
-<!-- 		<level value="TRACE" /> -->
-<!-- 		<appender-ref ref="HibernateAppender" /> -->
-<!-- 	</logger> -->
-	
+    <logger name="org.springframework.web.client" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="FileAppender" />
+    </logger>
 
-	<!-- Dependencies loggers -->
-	<logger name="org.mortbay">
-		<level value="TRACE" />
-	</logger>
-	<logger name="org.springframework" additivity="false">
-		<level value="WARN" />
-		<appender-ref ref="MyConsoleAppender" />
-	</logger>
-	<logger name="com">
-		<level value="INFO" />
-	</logger>
-	<logger name="org">
-		<level value="INFO" />
-	</logger>
+    <!-- Hiberna91te -->
+    <!--<logger name="org.hibernate">-->
+        <!--<level value="WARN" />-->
+        <!--<appender-ref ref="HibernateAppender" />-->
+    <!--</logger>-->
+    <logger name="org.hibernate.hql">
+    <level value="DEBUG" />
+    <appender-ref ref="HibernateAppender" />
+    </logger>
+    <logger name="org.hibernate.sql">
+    <level value="TRACE" />
+    <appender-ref ref="HibernateAppender" />
+    </logger>
+    <logger name="org.hibernate.type" additivity="false">
+    <level value="TRACE" />
+    <appender-ref ref="HibernateAppender" />
+    </logger>
 
-	<!-- Default -->
-	<root>
-		<level value="DEBUG" />
-		<appender-ref ref="MyConsoleAppender"/>
-	</root>
+
+    <!-- Dependencies loggers -->
+    <logger name="org.mortbay">
+        <level value="INFO" />
+    </logger>
+    <logger name="org.springframework" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="MyConsoleAppender" />
+    </logger>
+    <logger name="com">
+        <level value="DEBUG" />
+    </logger>
+    <logger name="org">
+        <level value="DEBUG" />
+    </logger>
+
+    <!-- Default -->
+    <root>
+        <level value="DEBUG" />
+        <appender-ref ref="MyConsoleAppender"/>
+    </root>
 
 </log4j:configuration>

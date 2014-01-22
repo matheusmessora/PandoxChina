@@ -1,12 +1,11 @@
 package pandox.china.model;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
@@ -28,13 +27,16 @@ public class Phone extends GenericEntity {
 //	@Min(value=8, message="Informe o telefone.")
 //	@Max(value=9, message="Informe o telefone.")
 	private Long phone;
-	
-	@ManyToMany(fetch=FetchType.LAZY)
-	private Set<User> users;
-	
-	@ManyToMany(fetch=FetchType.LAZY)
-	private Set<Page> pages;
-	
+
+
+	@ManyToOne
+	private Page page;
+
+    @JsonBackReference
+    public Page getPage() {
+        return page;
+    }
+
 	public Integer getDdi() {
 		return ddi;
 	}
@@ -43,20 +45,8 @@ public class Phone extends GenericEntity {
 		this.ddi = ddi;
 	}
 
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
-
-	public Set<Page> getPages() {
-		return pages;
-	}
-
-	public void setPages(Set<Page> pages) {
-		this.pages = pages;
+	public void setPage(Page page) {
+		this.page = page;
 	}
 
 	public Long getPhone() {
@@ -74,5 +64,4 @@ public class Phone extends GenericEntity {
 	public void setDdd(Long ddd) {
 		this.ddd = ddd;
 	}
-
 }

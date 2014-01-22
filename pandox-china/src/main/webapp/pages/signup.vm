@@ -1,6 +1,0 @@
-#parse("header.vm")
-
-#parse("user/_form.vm")
-
-
-#parse("footer.vm")
