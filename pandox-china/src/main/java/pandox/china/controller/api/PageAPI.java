@@ -88,6 +88,7 @@ public class PageAPI extends BaseController {
 //            page.addPhone(phone);
 //        }
 
+
 //            String img = user.getId() + "." + page.getFile().getContentType().split("/")[1];
         page.setMainColor(new Date().toString());
             page = service.save(page);
