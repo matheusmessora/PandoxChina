@@ -1,14 +1,12 @@
 package pandox.china.service;
 
-import org.apache.http.MethodNotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pandox.china.model.SocialUser;
 import pandox.china.repo.SocialUserRepository;
-import pandox.china.repo.UserRepository;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -42,8 +40,9 @@ public class SocialUserServiceImpl implements SocialUserService {
     }
 
     @Override
-	public ArrayList<SocialUser> findAll() {
-		return getFather().findAll();
+	public List<SocialUser> findAll() {
+		return null;
+//		return getFather().findAll();
 	}
 
 	@Override

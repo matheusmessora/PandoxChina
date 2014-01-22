@@ -1,11 +1,8 @@
 package pandox.china.service;
 
-import pandox.china.model.Category;
-import pandox.china.model.Page;
-
-import java.util.List;
+import pandox.china.dto.CategoryDTO;
 
 
-public interface CategoryService extends GenericService<Category, Long> {
+public interface CategoryService extends GenericService<CategoryDTO, Long> {
 
 }

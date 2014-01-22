@@ -1,5 +1,0 @@
-<fb:login-button show-faces="false" width="200" max-rows="1" id="fb-login" class="navbar-text pull-right"></fb:login-button>
-<p id="welcome" class="navbar-text pull-right">
-
-</p>
-

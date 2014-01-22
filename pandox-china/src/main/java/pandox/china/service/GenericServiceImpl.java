@@ -1,21 +1,19 @@
 package pandox.china.service;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import org.apache.log4j.Logger;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import pandox.china.util.ValidadorException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-
-import org.apache.log4j.Logger;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import pandox.china.util.ValidadorException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 //@Service
 @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -63,7 +61,7 @@ public class GenericServiceImpl<T, PK extends Serializable> implements GenericSe
     }
 
     @Override
-	public ArrayList<T> findAll() {
+	public List findAll() {
 		return (ArrayList<T>) dao.findAll();
 	}
 

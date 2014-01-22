@@ -1,15 +1,13 @@
 package pandox.china.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import pandox.china.model.User;
 import pandox.china.repo.UserRepository;
+
+import java.util.List;
 
 
 @Service
@@ -43,7 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-	public ArrayList<User> findAll() {
+	public List<User> findAll() {
 		return getFather().findAll();
 	}
 

@@ -11,9 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import pandox.china.controller.BaseController;
+import pandox.china.dto.UserDTO;
 import pandox.china.exception.ResourceNotFound;
 import pandox.china.model.User;
-import pandox.china.resource.UserRE;
 import pandox.china.service.UserService;
 import pandox.china.service.auth.AuthenticationProvider;
 import pandox.china.util.ValidadorException;
@@ -33,16 +33,19 @@ public class UserAPI extends BaseController {
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public User create(@RequestBody User data) {
-        User user = service.save(data);
+    public UserDTO create(@RequestBody UserDTO data) {
+        User user = service.save(new User(data));
         doAutoLogin(user);
 
-        return user;
+
+        data.setId(user.getId());
+
+        return data;
     }
 
     @RequestMapping(value = "passwd", method = RequestMethod.POST,  consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public UserRE changePassword(@RequestBody UserRE data) {
+    public UserDTO changePassword(@RequestBody UserDTO data) {
         data.validateForChangePwd();
 
         User user = getLoggedUser();
@@ -50,7 +53,7 @@ public class UserAPI extends BaseController {
         if (user.getPassword().equals(data.getOldPassword())) {
             user.setPassword(data.getPassword());
             user = service.save(user);
-            return new UserRE(user);
+            return new UserDTO(user);
         }else {
             throw new IllegalArgumentException("Senhas não conferem");
         }
@@ -65,13 +68,13 @@ public class UserAPI extends BaseController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST,  consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<UserRE> login(@RequestBody User data) {
+    public ResponseEntity<UserDTO> login(@RequestBody UserDTO data) {
         User user = service.findByEmailAndPassword(data.getEmail(), data.getPassword());
         if (user == null) {
-            return new ResponseEntity<UserRE>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<UserDTO>(HttpStatus.UNAUTHORIZED);
         }else {
             doAutoLogin(user);
-            return new ResponseEntity<UserRE>(new UserRE(user), HttpStatus.OK);
+            return new ResponseEntity<UserDTO>(new UserDTO(user), HttpStatus.OK);
         }
     }
 

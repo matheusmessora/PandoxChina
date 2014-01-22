@@ -1,18 +1,26 @@
 package pandox.china.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 import java.io.Serializable;
-
-import javax.persistence.*;
 
 @MappedSuperclass
 public abstract class GenericEntity implements Serializable {
 
 	private static final long serialVersionUID = 8087143779419910194L;
 
+    public GenericEntity(){}
+
+    public GenericEntity(Long id){
+        this.id = id;
+    }
+
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 //	@Column(nullable=false)
 //	@Enumerated(EnumType.ORDINAL) 
 //	private StatusEnum status;

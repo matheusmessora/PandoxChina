@@ -1,15 +1,9 @@
 package pandox.china.model;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonManagedReference;
-import org.hibernate.validator.constraints.Email;
-import org.springframework.util.AutoPopulatingList;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import pandox.china.dto.CategoryDTO;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -28,6 +22,19 @@ public class Category extends GenericEntity {
 	// ---- FORMs Attributes -----
 	@Transient
 	private List<Page> pagesForm;
+
+
+    public Category(){}
+
+    public Category(Long id) {
+        setId(id);
+    }
+
+    public Category(CategoryDTO categoryDTO) {
+        setId(categoryDTO.getId());
+        setName(categoryDTO.getName());
+
+    }
 
     public String getName() {
         return name;

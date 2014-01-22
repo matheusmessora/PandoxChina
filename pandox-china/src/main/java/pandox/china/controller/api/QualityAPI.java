@@ -6,9 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pandox.china.controller.BaseController;
-import pandox.china.dto.CategoryDTO;
+import pandox.china.dto.QualityDTO;
 import pandox.china.exception.ResourceNotFound;
-import pandox.china.service.CategoryService;
+import pandox.china.service.QualityService;
 import pandox.china.util.ValidadorException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,30 +16,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
-@RequestMapping("/category")
-public class CategoryAPI extends BaseController {
+@RequestMapping("/quality")
+public class QualityAPI extends BaseController {
 
-	private static Logger log = Logger.getLogger(CategoryAPI.class);
+	private static Logger log = Logger.getLogger(QualityAPI.class);
 
 	@Autowired
-	private CategoryService service;
-
-//    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
-//    @ResponseBody
-//    public Page find(@PathVariable("id")Long id) {
-//        Page page = service.findOne(id);
-//
-//        if(page == null) {
-//            throw new ResourceNotFound();
-//        }else {
-//            return page;
-//        }
-//    }
-
+	private QualityService service;
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public List<CategoryDTO> findAll() {
+    public List<QualityDTO> findAll() {
         return service.findAll();
     }
 

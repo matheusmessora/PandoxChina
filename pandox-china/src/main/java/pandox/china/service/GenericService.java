@@ -1,7 +1,7 @@
 package pandox.china.service;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 public interface GenericService<T, PK extends Serializable> {
 
@@ -9,7 +9,7 @@ public interface GenericService<T, PK extends Serializable> {
 
     void delete(Long id) throws IllegalArgumentException;
 
-    ArrayList<T> findAll();
+    List<T> findAll();
 	
 	T findOne(PK id) throws IllegalArgumentException;
 }

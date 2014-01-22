@@ -1,17 +1,15 @@
 package pandox.china.service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import pandox.china.model.Page;
 import pandox.china.model.Phone;
 import pandox.china.repo.PageRepository;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
@@ -19,6 +17,9 @@ public class PageServiceImpl implements PageService {
 
 	@Autowired
 	private PageRepository repo;
+
+    @Autowired
+    private CategoryService categoryService;
 
 	private GenericService<Page, Long> getFather() {
 		return new GenericServiceImpl(repo);
@@ -32,8 +33,11 @@ public class PageServiceImpl implements PageService {
         }
         entity.setPhone(phones);
 
-		return getFather().save(entity);
-	}
+//        CategoryDTO categoryDTO = categoryService.findOne(entity.getCategory().getId());
+//        entity.setCategory(new Category(categoryDTO));
+
+        return repo.save(entity);
+    }
 
     @Override
     public void delete(Long id) throws IllegalArgumentException {
@@ -41,8 +45,10 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-	public ArrayList<Page> findAll() {
-		return getFather().findAll();
+	public List<Page> findAll() {
+        //TODO: to implements
+		return null;
+
 	}
 
 	@Override

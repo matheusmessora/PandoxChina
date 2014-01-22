@@ -5,13 +5,12 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pandox.china.controller.BaseController;
+import pandox.china.dto.PageDTO;
 import pandox.china.exception.ResourceNotFound;
 import pandox.china.model.Page;
-import pandox.china.model.Phone;
 import pandox.china.model.User;
 import pandox.china.service.PageService;
 import pandox.china.service.UserService;
@@ -21,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -37,29 +37,27 @@ public class PageAPI extends BaseController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Page find(@PathVariable("id")Long id) {
+    public PageDTO find(@PathVariable("id") Long id) {
         Page page = service.findOne(id);
 
         if(page == null) {
             throw new ResourceNotFound();
         }else {
-            return page;
+            return new PageDTO(page);
         }
     }
 
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public List<Page> findAll(
-            @RequestParam(value = "user", required = false) Long userId,
-            @RequestParam(value = "url", required = false) String url) {
+    public List<PageDTO> findAll(@RequestParam(value = "user", required = false) Long userId, @RequestParam(value = "url", required = false) String url) {
         if(userId != null){
             List<Page> pagesList = service.findByUser_Id(userId);
 
-            if (pagesList == null) {
+            if (pagesList.isEmpty()) {
                 throw new ResourceNotFound();
             } else {
-                return pagesList;
+                return Arrays.asList(new PageDTO(pagesList.get(0)));
             }
         }
         if(!StringUtils.isBlank(url)) {
@@ -68,40 +66,30 @@ public class PageAPI extends BaseController {
             if (page == null) {
                 throw new ResourceNotFound();
             } else {
-                return Arrays.asList(page);
+                return Arrays.asList(new PageDTO(page));
             }
         }
-        ArrayList<Page> all = service.findAll();
-        all.addAll(service.findAll());
-        all.addAll(service.findAll());
-        all.addAll(service.findAll());
-        all.addAll(service.findAll());
-        all.addAll(service.findAll());
-        all.addAll(service.findAll());
-        all.addAll(service.findAll());
-        all.addAll(service.findAll());
-        all.addAll(service.findAll());
-        all.addAll(service.findAll());
-        all.addAll(service.findAll());
-        all.addAll(service.findAll());
-        all.addAll(service.findAll());
-        all.addAll(service.findAll());
-        return all;
+        ArrayList<Page> all = (ArrayList<Page>) service.findAll();
+
+        return Arrays.asList(new PageDTO(all.get(0)));
     }
 
+
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Page> persist(@RequestBody Page page) {
-        log.debug("POST. page=" + page);
+    @ResponseBody
+    public Page persist(@RequestBody PageDTO pageDTO) {
+        log.debug("POST. page=" + pageDTO);
 
         User user = userService.findOne(super.getLoggedUser().getId());
+        Page page = new Page(pageDTO);
         page.setUser(user);
-        for (Phone phone : page.getPhonesForm()) {
-            phone.setDdi(55);
-            page.addPhone(phone);
-        }
+//        for (Phone phone : pageDTO.getPhonesForm()) {
+//            phone.setDdi(55);
+//            page.addPhone(phone);
+//        }
 
 //            String img = user.getId() + "." + page.getFile().getContentType().split("/")[1];
-            page.setImg("1.jpeg");
+        page.setMainColor(new Date().toString());
             page = service.save(page);
 
             // TODO: Create a service for this
@@ -116,7 +104,8 @@ public class PageAPI extends BaseController {
 //            }
 
             log.debug("POST SUCCESS. page=" + page);
-            return new ResponseEntity<Page>(page, HttpStatus.OK);
+        return page;
+//            return new ResponseEntity<Page>(page, HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)

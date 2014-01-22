@@ -1,11 +1,12 @@
 package pandox.china.model;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.util.AutoPopulatingList;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import pandox.china.dto.CategoryDTO;
+import pandox.china.dto.PageDTO;
+import pandox.china.dto.QualityDTO;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -46,27 +47,68 @@ public class Page extends GenericEntity {
     @Email
     private String email;
 
-    @Column
-    private String img;
-
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER)
 	private Set<Phone> phones;
-	
-	// ---- FORMs Attributes -----
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Quality> qualities;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "page", cascade = CascadeType.ALL)
+    private Set<Image> images;
+
+    // ---- FORMs Attributes -----
 	@Transient
 	private List<Phone> phonesForm;
 
-    @Transient
-    private CommonsMultipartFile file;
+    {
+        phonesForm = new AutoPopulatingList<Phone>(Phone.class);
+    }
 
     public Page() {
-        phonesForm = new AutoPopulatingList<Phone>(Phone.class);
+
     }
 
     public Page(Long id) {
-        super.setId(id);
-        phonesForm = new AutoPopulatingList<Phone>(Phone.class);
+        setId(id);
     }
+
+    public Page(PageDTO dto) {
+        setId(dto.getId());
+        setDescription(dto.getDescription());
+        setEmail(dto.getEmail());
+        setName(dto.getName());
+        setUrl(dto.getUrl());
+
+        CategoryDTO categoryDTO = dto.getCategory();
+        if (categoryDTO != null) {
+            Long categoryId = categoryDTO.getId();
+            if (!(categoryId == null || categoryId.equals(0))) {
+                Category categoryEntity = new Category(categoryId);
+                setCategory(categoryEntity);
+            }
+        }
+
+        for (QualityDTO qualityDTO : dto.getQualityList()) {
+            addQuality(new Quality(qualityDTO));
+        }
+
+    }
+
+
+    public void addPhone(Phone phone){
+        if(this.phones == null) {
+            this.phones = new HashSet<Phone>();
+        }
+        this.phones.add(phone);
+    }
+
+    public void addQuality(Quality quality){
+        if(this.qualities == null) {
+            this.qualities = new HashSet<Quality>();
+        }
+        this.qualities.add(quality);
+    }
+
 
     @JsonBackReference
     public SocialUser getSocialUser() {
@@ -87,13 +129,6 @@ public class Page extends GenericEntity {
         return category;
     }
 
-    public void addPhone(Phone phone){
-        if(this.phones == null) {
-            this.phones = new HashSet<Phone>();
-        }
-        this.phones.add(phone);
-    }
-
     public void setCategory(Category category) {
         this.category = category;
     }
@@ -104,23 +139,6 @@ public class Page extends GenericEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    @JsonIgnore
-    public CommonsMultipartFile getFile() {
-        return file;
-    }
-
-    public void setFile(CommonsMultipartFile file) {
-        this.file = file;
     }
 
     public String getDescription() {
@@ -175,12 +193,31 @@ public class Page extends GenericEntity {
 		this.phonesForm = phonesForm;
 	}
 
+    public Set<Quality> getQualities() {
+        return qualities;
+    }
+
+    public void setQualities(Set<Quality> qualities) {
+        this.qualities = qualities;
+    }
+
+    public void setPhones(Set<Phone> phones) {
+        this.phones = phones;
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Page{");
         sb.append(super.toString());
-        sb.append("img='").append(img).append('\'');
-        sb.append(", url='").append(url).append('\'');
+        sb.append("url='").append(url).append('\'');
         sb.append(", name='").append(name).append('\'');
         sb.append(", description='").append(description).append('\'');
         sb.append(", mainColor='").append(mainColor).append('\'');

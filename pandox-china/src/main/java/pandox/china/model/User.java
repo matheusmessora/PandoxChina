@@ -1,9 +1,10 @@
 package pandox.china.model;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
+import pandox.china.dto.UserDTO;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -41,13 +42,20 @@ public class User extends GenericEntity {
         return pages;
     }
 
-    public User() {
+    {
         roles = new HashSet<GrantedAuthority>();
     }
 
+    public User() {
+
+    }
+
     public User(Long id) {
-        super.setId(id);
-        roles = new HashSet<GrantedAuthority>();
+        setId(id);
+    }
+
+    public User(UserDTO dto){
+        BeanUtils.copyProperties(dto, this);
     }
 
     public String getName() {
